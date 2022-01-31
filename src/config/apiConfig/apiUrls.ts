@@ -1,0 +1,3 @@
+// Authentication
+export const APIURL_LOGIN = '/account/login';
+export const APIURL_LOGIN_CONFIRM_CODE = '/account/SendConfirmCode';

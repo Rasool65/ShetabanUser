@@ -1,14 +1,18 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin')
+var webpack = require("webpack");
 
 const cssLoaders = (extra) => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
     },
-    'css-loader',
+    { loader: 'css-loader', options: { importLoaders: 2 } },
   ];
+
+  loaders.push('postcss-loader');
 
   if (extra) {
     loaders.push(extra);
@@ -25,6 +29,25 @@ module.exports = {
     mainFiles: ['index'],
     alias: {
       src: path.resolve(__dirname, 'src/'),
+      '@src': path.resolve(__dirname, '../src'),
+      '@styles': path.resolve(__dirname, '../src/scss'),
+      '@hooks': path.resolve(__dirname, '../src/utility/hooks'),
+      '@configs': path.resolve(__dirname, '../src/configs'),
+      '@layouts': path.resolve(__dirname, '../src/layouts'),
+      '@store': path.resolve(__dirname, '../src/redux'),
+      '@components': path.resolve(__dirname, '../src/components'),
+      '@utils': path.resolve(__dirname, '../src/utility/Utils'),
+    },
+    fallback: {
+      fs: false,
+      tls: false,
+      net: false,
+      path: false,
+      zlib: false,
+      http: false,
+      https: false,
+      stream: false,
+      crypto: false,
     },
   },
   devServer: {
@@ -64,6 +87,19 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', './public/index.html'),
     }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+   }),
+    new CopyPlugin({
+      patterns :[
+          {from :'public/robots.txt' ,to : 'robots.txt'},
+          {from :'public/favicon.ico' ,to : 'favicon.ico'},
+          {from :'public/manifest.json' ,to : 'manifest.json'},
+          {from :'public/assets' ,to : 'assets'},
+      ],
+  })
   ],
   stats: 'errors-only',
 };

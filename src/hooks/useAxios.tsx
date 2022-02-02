@@ -1,14 +1,24 @@
+import { IJwtConfig } from '@src/configs/jwt/IJwtConfig';
+import jwtDefaultConfig from '@src/configs/jwt/jwtDefaultConfig';
+import themeConfig from '@src/configs/theme/themeConfig';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE_URL } from '../config/apiConfig/apiBaseUrl';
-import { TOKEN_NAME, _UUID } from '../config/apiConfig/apiConstantNames';
-import { URL_LOGIN } from '../config/urls';
+import { API_BASE_URL } from '../configs/apiConfig/apiBaseUrl';
+import { URL_LOGIN } from '../configs/urls';
+import { useTokenAuthentication } from './useTokenAuthentication';
 
 export const useAxios = () => {
   const navigate = useNavigate();
 
+  const jwtConfig: IJwtConfig = { ...jwtDefaultConfig };
+
+  const authToken = useTokenAuthentication();
+
   let instance: AxiosInstance;
-  const token = localStorage.getItem(TOKEN_NAME) || '';
+  const token = authToken.getToken();
+
+  let subscribers: any[] = [];
+  var isAlreadyFetchingAccessToken = false;
 
   const headers: AxiosRequestHeaders = {
     Accept: 'application/json',
@@ -16,7 +26,7 @@ export const useAxios = () => {
   };
 
   if (token && token != '') {
-    headers['Authorization'] = `Bearer ${token}`;
+    headers['Authorization'] = `${jwtConfig.tokenType} ${token}`.trim();
   }
 
   instance = axios.create({
@@ -24,25 +34,49 @@ export const useAxios = () => {
     headers,
   });
 
-  // API response interceptor
-  instance.interceptors.response.use(
-    (response) => {
-      return response;
-    },
+  axios.interceptors.response.use(
+    (response) => response,
     (error) => {
-      console.log('Error', error);
+      const { config, response } = error;
+      const originalRequest = config;
 
-      // Remove token and redirect
-      if ((error.response && error.response.status === 403) || error.response.status === 401) {
-        localStorage.removeItem(TOKEN_NAME);
-        localStorage.removeItem(_UUID);
-        navigate(URL_LOGIN);
-        return;
+      if (response && response.status === 401) {
+        if (!themeConfig.app.useRefreshToken) {
+          navigate(URL_LOGIN);
+        }
+        if (!isAlreadyFetchingAccessToken) {
+          isAlreadyFetchingAccessToken = true;
+          refreshToken().then((r) => {
+            isAlreadyFetchingAccessToken = false;
+
+            authToken.saveLoginToken(r.data.accessToken, r.data.refreshToken);
+
+            subscribers = subscribers.filter((callback) => callback(r.data.accessToken));
+          });
+        } else {
+          navigate(URL_LOGIN);
+        }
+        const retryOriginalRequest = new Promise((resolve) => {
+          addSubscriber((accessToken: string) => {
+            originalRequest.headers.Authorization = `${jwtConfig.tokenType} ${accessToken}`;
+            resolve(axios(originalRequest));
+          });
+        });
+        return retryOriginalRequest;
       }
-
       return Promise.reject(error);
     }
   );
+
+  const addSubscriber = (callback: any) => {
+    subscribers.push(callback);
+  };
+
+  const refreshToken = () => {
+    return axios.post(jwtConfig.refreshEndpoint, {
+      refreshToken: authToken.getRefreshToken(),
+    });
+  };
 
   const get = <T extends object>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
     return instance.get<T>(url, config);

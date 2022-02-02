@@ -1,4 +1,4 @@
-import routes from '../config/routerConfig/RouterList';
+import routes from '../configs/routerConfig/RouterList';
 
 export const useRouteProvider = () => {
   const getRoute = (url: string) => {

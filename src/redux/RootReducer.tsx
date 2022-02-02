@@ -1,8 +1,12 @@
-import { combineReducers } from 'redux';
-import layoutReducer from './reducers/LayoutReducer';
-
-export const RootReducer = combineReducers({
+import authenticationReducer from './reducers/authenticationReducer';
+import layoutReducer from './reducers/layoutReducer';
+import navbarReducer from './reducers/navbarReducer';
+import mapReducer from './reducers/mapReducer';
+export const RootReducer = {
   layout: layoutReducer,
-});
+  navbar: navbarReducer,
+  authentication: authenticationReducer,
+  map: mapReducer,
+};
 
 export default RootReducer;

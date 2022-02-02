@@ -1,10 +1,16 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 import RootReducer from './RootReducer';
 
-export const Store = createStore(RootReducer, composeWithDevTools(applyMiddleware(thunk)));
+//  export const Store = createStore(RootReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const Store = configureStore({
+  reducer: RootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware({
+      serializableCheck: false,
+    });
+  },
+});
 
-export type RootStateType = ReturnType<typeof RootReducer>;
+export type RootStateType = ReturnType<typeof Store.getState>;
 
 export default Store;

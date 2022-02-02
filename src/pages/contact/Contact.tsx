@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react';
-import IPageProps from '../../config/routerConfig/IPageProps';
+import IPageProps from '../../configs/routerConfig/IPageProps';
 
 const Contact: FunctionComponent<IPageProps> = (props) => {
   useEffect(() => {

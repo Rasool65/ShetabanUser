@@ -1,13 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { TOKEN_NAME, _UUID } from '../config/apiConfig/apiConstantNames';
-import { URL_LOGIN } from '../config/urls';
-import { validate as uuidValidate } from 'uuid';
+import { URL_LOGIN } from '../configs/urls';
+import { useSelector } from 'react-redux';
+import { RootStateType } from '@src/redux/Store';
 
 const PrivateRoute = () => {
-  const uuid = localStorage.getItem(_UUID);
-  const token = localStorage.getItem(TOKEN_NAME);
-  const auth = uuid && token && uuidValidate(uuid) && token != '';
-  return auth ? <Outlet /> : <Navigate to={URL_LOGIN} />;
+  const auth = useSelector((state: RootStateType) => state.authentication);
+  return auth.isAuthenticate ? <Outlet /> : <Navigate to={URL_LOGIN} />;
 };
 
 export default PrivateRoute;

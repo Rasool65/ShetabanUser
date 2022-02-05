@@ -1,4 +1,4 @@
-import { handleNavbarType } from '@src/redux/reducers/layoutReducer';
+import { handleNavbarType } from '@src/redux/reducers/LayoutReducer';
 import { RootStateType } from '@src/redux/Store';
 import { useDispatch, useSelector } from 'react-redux';
 

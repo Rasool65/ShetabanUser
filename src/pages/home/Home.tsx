@@ -6,7 +6,7 @@ import { RootStateType } from '../../redux/Store';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-
+import '../../scss/theme/main.scss';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 
 const Home: FunctionComponent<IPageProps> = (props) => {
@@ -39,7 +39,7 @@ const Home: FunctionComponent<IPageProps> = (props) => {
 
   return (
     <>
-      <header className="header white-bg">
+      <header className="header m-10 white-bg">
         <nav className={'navbar navbar-expand-lg fixed-top white-bg ' + navbarDrw}>
           <div className="container">
             <a className="navbar-brand" href="index.html">

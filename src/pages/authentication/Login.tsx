@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { URL_LOGIN, URL_MAIN } from '../../configs/urls';
 import IPageProps from '../../configs/routerConfig/IPageProps';
@@ -30,7 +30,7 @@ import { useSkin } from '@src/hooks/useSkin';
 import { useTokenAuthentication } from '@src/hooks/useTokenAuthentication';
 import { LoginModelSchema, ILoginModel } from '@src/models/input/authentication/ILoginModel';
 import useHttpRequest from '@src/hooks/useHttpRequest';
-import { APIURL_LOGIN } from '@src/configs/apiConfig/apiUrls';
+import { APIURL_GET_CAPTCHA, APIURL_LOGIN } from '@src/configs/apiConfig/apiUrls';
 import { useToast } from '@src/hooks/useToast';
 import { useDispatch } from 'react-redux';
 import { handleLogin } from '@src/redux/reducers/authenticationReducer';
@@ -38,154 +38,146 @@ import logo from '@src/assets/images/logo/bonnychow_80.png';
 import themeConfig from '@src/configs/theme/themeConfig';
 import { ILoginResultModel } from '@src/models/output/authentication/ILoginResultModel';
 import { IOutputResult } from '@src/models/output/IOutputResult';
+import { IAuthProps, ICaptcha } from './IAuthPages';
+import { AuthPages } from './Authentication';
+import { toast } from 'react-toastify';
 
-const Login: FunctionComponent<IPageProps> = (props) => {
-  const navigate = useNavigate();
-  const tokenAuthentication = useTokenAuthentication();
-  const dispatch = useDispatch();
-
-  const { skin } = useSkin();
-
-  const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg';
-  const source = require(`@src/assets/images/pages/${illustration}`);
-  const httpRequest = useHttpRequest();
-  const toast = useToast();
-
-  useEffect(() => {
-    document.title = props.title;
-  }, [props.title]);
+const Login: FunctionComponent<IAuthProps> = (props) => {
+  const { changePage } = props;
+  const [captcha, setCaptcha] = useState<ICaptcha>({
+    width: 0,
+    height: 0,
+    token: '',
+    captchaContent: '',
+  });
 
   const {
     control,
     setError,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<ILoginModel>({ mode: 'onChange', resolver: yupResolver(LoginModelSchema) });
 
-  const onSubmit = (data: ILoginModel) => {
+  const { postRequest, getRequest } = useHttpRequest();
+
+  const onSubmit = (data: any) => {
     if (data) {
-      httpRequest
-        .postRequest<IOutputResult<ILoginResultModel>>(APIURL_LOGIN, { username: data.userName, password: data.password })
+      const body = {
+        ...data,
+        captchaToken: captcha.token,
+      };
+      postRequest(APIURL_LOGIN, body)
         .then((result) => {
-          dispatch(handleLogin(result));
-          navigate(URL_MAIN);
+          toast('ورود با موفقیت', { type: 'success' });
+        })
+        .catch((err) => {
+          toast('');
+          setCaptchaData();
         });
     }
   };
 
+  useEffect(() => {
+    setCaptchaData();
+  }, []);
+
+  const setCaptchaData = () => {
+    setCaptcha({
+      ...captcha,
+      captchaContent: '',
+    });
+    getRequest(APIURL_GET_CAPTCHA).then((result: any) => {
+      console.log(result);
+      setCaptcha(result.data);
+    });
+  };
+
   return (
-    <div className="auth-wrapper auth-cover">
-      <Row className="auth-inner m-0">
-        <Col className="d-none d-lg-flex align-items-center p-5" lg="8" sm="12">
-          <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
-            <img className="img-fluid" src={source} alt="Login Cover" />
+    <div className="login-signup-wrap p-5 gray-light-bg rounded shadow">
+      <div className="login-signup-header text-center">
+        {/* <a href="index.html">
+                <img src="assets/img/logo-color.png" className="img-fluid mb-3" alt="لوگو" />
+              </a> */}
+        <h4 className="mb-5">ورود به حساب کاربری خود</h4>
+      </div>
+      <Form onSubmit={handleSubmit(onSubmit)} className="login-signup-form">
+        <div className="form-group">
+          <label className="pb-1">شماره تلفن همراه</label>
+          <div className="input-group input-group-merge">
+            <div className="input-icon">
+              <span className="ti-mobile"></span>
+            </div>
+            <input {...register('mobile')} className="form-control" placeholder="09123456789" />
           </div>
-        </Col>
-        <Col className="d-flex align-items-center auth-bg px-2 p-lg-5" lg="4" sm="12">
-          <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
-            <div className="w-100 justify-content-center text-center">
-              <img className="img-fluid" src={logo} alt="Solico" />
+        </div>
+
+        <div className="form-group">
+          <label className="pb-1">کلمه عبور</label>
+          <div className="input-group input-group-merge">
+            <div className="input-icon">
+              <span className="ti-lock"></span>
             </div>
-            <CardTitle tag="h4" className="fw-bold mb-1 mt-2 text-center text-primary">
-              {themeConfig.app.appName}
-            </CardTitle>
-            {/* <CardText className="mb-2">Please sign-in to your account and start the adventure</CardText> */}
-            {/* <Alert color="primary">
-              <div className="alert-body font-small-2">
-                <p>
-                  <small className="me-50">
-                    <span className="fw-bold">Admin:</span> admin@demo.com | admin
-                  </small>
-                </p>
-                <p>
-                  <small className="me-50">
-                    <span className="fw-bold">Client:</span> client@demo.com | client
-                  </small>
-                </p>
-              </div>
-              <HelpCircle id="login-tip" className="position-absolute" size={18} style={{ top: '10px', right: '10px' }} />
-              <UncontrolledTooltip target="login-tip" placement="left">
-                This is just for ACL demo purpose.
-              </UncontrolledTooltip>
-            </Alert> */}
-            <Form className="auth-login-form mt-2" onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-1">
-                <Label className="form-label" for="login-username">
-                  UserName
-                </Label>
-                <Controller
-                  name="userName"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      autoFocus
-                      type="text"
-                      placeholder="UserName"
-                      autoComplete="off"
-                      invalid={errors.userName && true}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
-              <div className="mb-1">
-                <div className="d-flex justify-content-between">
-                  <Label className="form-label" for="login-password">
-                    Password
-                  </Label>
-                  <Link to="/forgot-password">
-                    <small>Forgot Password?</small>
-                  </Link>
-                </div>
-                <Controller
-                  name="password"
-                  control={control}
-                  render={({ field }) => (
-                    <InputPasswordToggle
-                      inputClassName=""
-                      className="input-group-merge"
-                      invalid={errors.password && true}
-                      {...field}
-                    />
-                  )}
-                />
-              </div>
-              <div className="form-check mb-1">
-                <Input type="checkbox" id="remember-me" />
-                <Label className="form-check-label" for="remember-me">
-                  Remember Me
-                </Label>
-              </div>
-              <Button type="submit" color="primary" block>
-                Sign in
-              </Button>
-            </Form>
-            {/* <p className="text-center mt-2">
-              <span className="me-25">New on our platform?</span>
-              <Link to="/register">
-                <span>Create an account</span>
-              </Link>
-            </p>
-            <div className="divider my-2">
-              <div className="divider-text">or</div>
+            <input
+              {...register('password')}
+              type="password"
+              name="password"
+              className="form-control"
+              placeholder="رمز ورود خود را وارد کنید"
+            />
+          </div>
+        </div>
+
+        <div style={{ height: 80 }} className="d-flex flex-row align-items-center justify-content-center form-group">
+          {!!captcha.captchaContent ? (
+            <img src={captcha.captchaContent} />
+          ) : (
+            <div style={{ height: '40px', width: '40px' }} className="spinner-border text-primary" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
-            <div className="auth-footer-btn d-flex justify-content-center">
-              <Button color="facebook">
-                <Facebook size={14} />
-              </Button>
-              <Button color="twitter">
-                <Twitter size={14} />
-              </Button>
-              <Button color="google">
-                <Mail size={14} />
-              </Button>
-              <Button className="me-0" color="github">
-                <GitHub size={14} />
-              </Button>
-            </div> */}
-          </Col>
-        </Col>
-      </Row>
+          )}
+        </div>
+        <div className="form-group">
+          <input {...register('captchaText')} className="form-control" placeholder="عدد را وارد کنید" />
+        </div>
+
+        <button type="submit" className="btn btn-block btn-brand-02 border-radius mt-4 mb-3">
+          کد را وارد کنید
+        </button>
+      </Form>
+      {/* <div className="other-login-signup my-3">
+              <div className="or-login-signup text-center">
+                <strong>یا ورود با</strong>
+              </div>
+            </div>
+            <ul className="list-inline social-login-signup text-center">
+              <li className="list-inline-item my-1">
+                <a href="#" className="btn btn-facebook">
+                  <i className="fab fa-facebook-f pr-1"></i> فیس بوک
+                </a>
+              </li>
+              <li className="list-inline-item my-1">
+                <a href="#" className="btn btn-google">
+                  <i className="fab fa-google pr-1"></i> گوگل
+                </a>
+              </li>
+              <li className="list-inline-item my-1">
+                <a href="#" className="btn btn-twitter">
+                  <i className="fab fa-twitter pr-1"></i> توییتر
+                </a>
+              </li>
+            </ul> */}
+      <p className="text-center mb-0">
+        رمز خودرا فراموش کرده اید؟{' '}
+        <button
+          className="btn-link"
+          onClick={() => {
+            changePage(AuthPages[1]);
+          }}
+        >
+          بازیابی رمز عبور
+        </button>
+      </p>
     </div>
   );
 };

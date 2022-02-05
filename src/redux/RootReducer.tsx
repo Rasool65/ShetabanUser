@@ -1,5 +1,5 @@
 import authenticationReducer from './reducers/authenticationReducer';
-import layoutReducer from './reducers/layoutReducer';
+import layoutReducer from './reducers/LayoutReducer';
 import navbarReducer from './reducers/navbarReducer';
 import mapReducer from './reducers/mapReducer';
 export const RootReducer = {

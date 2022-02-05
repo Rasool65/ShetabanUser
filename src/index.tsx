@@ -9,7 +9,7 @@ import ability from './configs/acl/ability';
 import { ThemeContext } from './utility/context/ThemeColors';
 import { ToastContainer } from 'react-toastify';
 import './assets/fonts/feather/iconfont.css';
-// import './scss/core.scss';
+import './scss/core.scss';
 import './assets/scss/style-rtl.scss';
 import Spinner from './components/spinner/Fallback-spinner';
 import './configs/i18n';

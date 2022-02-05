@@ -15021,6 +15021,11 @@ fieldset:disabled a.btn {
   font-weight: 400;
   color: #007bff;
   text-decoration: none;
+  border: none;
+  background-color: inherit;
+}
+.btn-link:focus {
+  outline: none;
 }
 
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */

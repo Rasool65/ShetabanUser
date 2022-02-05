@@ -72,7 +72,7 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
           toast('ورود با موفقیت', { type: 'success' });
         })
         .catch((err) => {
-          toast('');
+          useToast().showSuccess('منتم متمن');
           setCaptchaData();
         });
     }

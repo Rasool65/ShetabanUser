@@ -3,6 +3,7 @@ import jwtDefaultConfig from '@src/configs/jwt/jwtDefaultConfig';
 import themeConfig from '@src/configs/theme/themeConfig';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { URL_LOGIN } from '../configs/urls';
 import { API_BASE_URL } from '../configs/apiConfig/apiBaseUrl';
 import { URL_AUTH } from '../configs/urls';
 import { useTokenAuthentication } from './useTokenAuthentication';
@@ -42,7 +43,7 @@ export const useAxios = () => {
 
       if (response && response.status === 401) {
         if (!themeConfig.app.useRefreshToken) {
-          navigate(URL_AUTH);
+          navigate(URL_LOGIN);
         }
         if (!isAlreadyFetchingAccessToken) {
           isAlreadyFetchingAccessToken = true;
@@ -54,7 +55,7 @@ export const useAxios = () => {
             subscribers = subscribers.filter((callback) => callback(r.data.accessToken));
           });
         } else {
-          navigate(URL_AUTH);
+          navigate(URL_LOGIN);
         }
         const retryOriginalRequest = new Promise((resolve) => {
           addSubscriber((accessToken: string) => {

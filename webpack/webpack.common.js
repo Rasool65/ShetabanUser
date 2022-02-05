@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin')
-var webpack = require("webpack");
+const CopyPlugin = require('copy-webpack-plugin');
+var webpack = require('webpack');
 
 const cssLoaders = (extra) => {
   const loaders = [
@@ -51,7 +51,7 @@ module.exports = {
     },
   },
   devServer: {
-    port: 1000,
+    port: 5000,
     historyApiFallback: true,
   },
   module: {
@@ -67,11 +67,30 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: cssLoaders(),
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /\.s[ac]ss$/,
-        use: cssLoaders('sass-loader'),
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              // modules: true,
+              // sourceMap: true,
+              // importLoader: 2,
+            },
+          },
+          'sass-loader',
+        ],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
@@ -90,16 +109,16 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      'window.jQuery': 'jquery'
-   }),
+      'window.jQuery': 'jquery',
+    }),
     new CopyPlugin({
-      patterns :[
-          {from :'public/robots.txt' ,to : 'robots.txt'},
-          {from :'public/favicon.ico' ,to : 'favicon.ico'},
-          {from :'public/manifest.json' ,to : 'manifest.json'},
-          {from :'public/assets' ,to : 'assets'},
+      patterns: [
+        { from: 'public/robots.txt', to: 'robots.txt' },
+        { from: 'public/favicon.ico', to: 'favicon.ico' },
+        { from: 'public/manifest.json', to: 'manifest.json' },
+        { from: 'public/assets', to: 'assets' },
       ],
-  })
+    }),
   ],
   stats: 'errors-only',
 };

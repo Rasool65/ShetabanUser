@@ -16,7 +16,7 @@ export const AuthPages = [
 ];
 
 const Auth = () => {
-  const [CurrentPage, setCurrentPage] = useState(AuthPages[1]);
+  const [CurrentPage, setCurrentPage] = useState(AuthPages[0]);
 
   return (
     <section className="page-header-section ptb-100 bg-image full-height" image-overlay="8">

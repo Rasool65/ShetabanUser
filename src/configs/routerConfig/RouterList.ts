@@ -2,7 +2,8 @@ import IRoute from './IRoute';
 import RouteType from './RouteType';
 // import Contact from '../../pages/contact/Contact';
 // import Home from '../../pages/home/Home';
-import { URL_CONTACT_US, URL_MAIN, URL_AUTH, PERSIAN_CALENDAR1, PERSIAN_CALENDAR_MODERN } from '../urls';
+import { URL_CONTACT_US, URL_MAIN, URL_LOGIN, PERSIAN_CALENDAR1, PERSIAN_CALENDAR_MODERN, URL_AUTH } from '../urls';
+import Login from '../../pages/authentication/Login';
 
 import Contact from '../../views/contact/Contact';
 import Home from '@src/pages/home/Home';

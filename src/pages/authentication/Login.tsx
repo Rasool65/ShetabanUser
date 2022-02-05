@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { URL_LOGIN, URL_MAIN } from '../../configs/urls';
+import { URL_MAIN } from '../../configs/urls';
 import IPageProps from '../../configs/routerConfig/IPageProps';
 import { useForm, Controller } from 'react-hook-form';
 import InputPasswordToggle from '@components/input-password-toggle';

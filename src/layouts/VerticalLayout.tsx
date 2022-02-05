@@ -32,7 +32,7 @@ import '../scss/base/core/menu/menu-types/vertical-overlay-menu.scss';
 import { RootStateType } from '@src/redux/Store';
 import Customizer from '../components/customizer';
 import ScrollTop from '../components/scrolltop';
-import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@src/redux/reducers/LayoutReducer';
+import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@src/redux/reducers/layoutReducer';
 
 const VerticalLayout = (props: any) => {
   // ** Props

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStateType } from '@src/redux/Store';
-import { handleLastLayout, handleLayout } from '@src/redux/reducers/layoutReducer';
+import { handleLastLayout, handleLayout } from '@src/redux/reducers/LayoutReducer';
 
 export const useLayout = () => {
   const dispatch = useDispatch();

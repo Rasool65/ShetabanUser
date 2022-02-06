@@ -7,7 +7,7 @@ import classnames from 'classnames';
 // ** Store & Actions
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStateType } from '@src/redux/Store';
-import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@src/redux/reducers/layoutReducer';
+import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@src/redux/reducers/LayoutReducer';
 
 // ** Styles
 // import 'animate.css/animate.css'

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStateType } from '@src/redux/Store';
-import { handleSkin } from '@src/redux/reducers/layoutReducer';
+import { handleSkin } from '@src/redux/reducers/LayoutReducer';
 
 export const useSkin = () => {
   const dispatch = useDispatch();

@@ -123,13 +123,13 @@ const Home: FunctionComponent<IPageProps> = (props) => {
                       </a>
                       <ul className="sub-menu">
                         <li>
-                          <a href="login.html">صفحه ورود</a>
+                          <a href="Auth">صفحه ورود</a>
                         </li>
                         <li>
                           <a href="sign-up.html">صفحه ثبت نام</a>
                         </li>
                         <li>
-                          <a href="password-reset.html">بازیابی رمز عبور</a>
+                          <a href="auth">بازیابی رمز عبور</a>
                         </li>
                       </ul>
                     </li>

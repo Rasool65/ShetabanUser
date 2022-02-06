@@ -72,7 +72,7 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
           toast('ورود با موفقیت', { type: 'success' });
         })
         .catch((err) => {
-          useToast().showSuccess('منتم متمن');
+          toast(err.data.Message, { type: 'error' });
           setCaptchaData();
         });
     }
@@ -99,11 +99,11 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
         {/* <a href="index.html">
                 <img src="assets/img/logo-color.png" className="img-fluid mb-3" alt="لوگو" />
               </a> */}
-        <h4 className="mb-5">ورود به حساب کاربری خود</h4>
+        <h4 className="mb-5">ورود به حساب کاربری </h4>
       </div>
       <Form onSubmit={handleSubmit(onSubmit)} className="login-signup-form">
         <div className="form-group">
-          <label className="pb-1">شماره تلفن همراه</label>
+          <label className="pb-1">شماره موبایل</label>
           <div className="input-group input-group-merge">
             <div className="input-icon">
               <span className="ti-mobile"></span>
@@ -138,35 +138,23 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
           )}
         </div>
         <div className="form-group">
-          <input {...register('captchaText')} className="form-control" placeholder="عدد را وارد کنید" />
+          <input
+            onKeyPress={(event) => {
+              if (!/[0-9]|[/r]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
+            autoComplete="off"
+            {...register('captchaText')}
+            className="form-control"
+            placeholder="کد را وارد کنید"
+          />
         </div>
 
         <button type="submit" className="btn btn-block btn-brand-02 border-radius mt-4 mb-3">
           کد را وارد کنید
         </button>
       </Form>
-      {/* <div className="other-login-signup my-3">
-              <div className="or-login-signup text-center">
-                <strong>یا ورود با</strong>
-              </div>
-            </div>
-            <ul className="list-inline social-login-signup text-center">
-              <li className="list-inline-item my-1">
-                <a href="#" className="btn btn-facebook">
-                  <i className="fab fa-facebook-f pr-1"></i> فیس بوک
-                </a>
-              </li>
-              <li className="list-inline-item my-1">
-                <a href="#" className="btn btn-google">
-                  <i className="fab fa-google pr-1"></i> گوگل
-                </a>
-              </li>
-              <li className="list-inline-item my-1">
-                <a href="#" className="btn btn-twitter">
-                  <i className="fab fa-twitter pr-1"></i> توییتر
-                </a>
-              </li>
-            </ul> */}
       <p className="text-center mb-0">
         رمز خودرا فراموش کرده اید؟{' '}
         <button
@@ -175,7 +163,7 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
             changePage(AuthPages[1]);
           }}
         >
-          بازیابی رمز عبور
+          ورود با رمز یکبارمصرف
         </button>
       </p>
     </div>

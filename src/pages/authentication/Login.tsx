@@ -19,9 +19,11 @@ import {
   CardTitle,
   Col,
   Form,
+  FormFeedback,
   Input,
   Label,
   Row,
+  Spinner,
   UncontrolledTooltip,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -50,7 +52,9 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
     token: '',
     captchaContent: '',
   });
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const {
     control,
     setError,
@@ -58,6 +62,8 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
     register,
     formState: { errors },
   } = useForm<ILoginModel>({ mode: 'onChange', resolver: yupResolver(LoginModelSchema) });
+
+  const [loading, setLoading] = useState(false);
 
   const { postRequest, getRequest } = useHttpRequest();
 
@@ -67,12 +73,17 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
         ...data,
         captchaToken: captcha.token,
       };
+      setLoading(true);
       postRequest(APIURL_LOGIN, body)
         .then((result) => {
-          toast('ورود با موفقیت', { type: 'success' });
+          setLoading(false);
+          dispatch(handleLogin(result));
+          navigate(URL_MAIN);
+          showSuccess('ورود موفق');
         })
         .catch((err) => {
-          toast(err.data.Message, { type: 'error' });
+          setLoading(false);
+          showError(err.data.Message);
           setCaptchaData();
         });
     }
@@ -88,11 +99,9 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
       captchaContent: '',
     });
     getRequest(APIURL_GET_CAPTCHA).then((result: any) => {
-      console.log(result);
       setCaptcha(result.data);
     });
   };
-
   return (
     <div className="login-signup-wrap p-5 gray-light-bg rounded shadow">
       <div className="login-signup-header text-center">
@@ -108,7 +117,16 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
             <div className="input-icon">
               <span className="ti-mobile"></span>
             </div>
-            <input {...register('mobile')} className="form-control" placeholder="09123456789" />
+            <Controller
+              control={control}
+              name="mobile"
+              render={({ field }) => (
+                <>
+                  <Input invalid={errors.mobile && true} placeholder="09123456789" className="form-control" {...field} />
+                  <FormFeedback>{errors.mobile?.message}</FormFeedback>
+                </>
+              )}
+            />
           </div>
         </div>
 
@@ -118,12 +136,20 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
             <div className="input-icon">
               <span className="ti-lock"></span>
             </div>
-            <input
-              {...register('password')}
-              type="password"
+            <Controller
+              control={control}
               name="password"
-              className="form-control"
-              placeholder="رمز ورود خود را وارد کنید"
+              render={({ field }) => (
+                <>
+                  <Input
+                    invalid={errors.password && true}
+                    placeholder="رمز عبور را وارد کنید"
+                    className="form-control"
+                    {...field}
+                  />
+                  <FormFeedback>{errors.password?.message}</FormFeedback>
+                </>
+              )}
             />
           </div>
         </div>
@@ -138,21 +164,26 @@ const Login: FunctionComponent<IAuthProps> = (props) => {
           )}
         </div>
         <div className="form-group">
-          <input
-            onKeyPress={(event) => {
-              if (!/[0-9]|[/r]/.test(event.key)) {
-                event.preventDefault();
-              }
-            }}
-            autoComplete="off"
-            {...register('captchaText')}
-            className="form-control"
-            placeholder="کد را وارد کنید"
+          <Controller
+            control={control}
+            name="captchaText"
+            render={({ field }) => (
+              <>
+                <Input invalid={errors.captchaText && true} placeholder="کد را وارد کنید" className="form-control" {...field} />
+                <FormFeedback>{errors.captchaText?.message}</FormFeedback>
+              </>
+            )}
           />
         </div>
 
         <button type="submit" className="btn btn-block btn-brand-02 border-radius mt-4 mb-3">
-          کد را وارد کنید
+          {loading ? (
+            <div style={{ width: 26, height: 26 }} className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          ) : (
+            'وارد شوید'
+          )}
         </button>
       </Form>
       <p className="text-center mb-0">

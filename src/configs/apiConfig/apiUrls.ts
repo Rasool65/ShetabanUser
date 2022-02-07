@@ -4,3 +4,4 @@ export const APIURL_GET_CUSTOMER_LIST = '/Customer/GetCustomerList';
 export const APIURL_REGISTER = '/account/signup';
 export const APIURL_GET_CAPTCHA = '/common/generateCaptcha';
 export const APIURL_SEND_CONFIRM_CODE = '/account/sendConfirmCode/sendConfirmCode';
+export const APIURL_CONFIRM_CODE = '/account/confirmcode/confirmcode';

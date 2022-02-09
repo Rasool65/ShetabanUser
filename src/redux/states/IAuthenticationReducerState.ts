@@ -1,4 +1,5 @@
+import { IUserModel } from './../../models/output/authentication/IUserModel';
 export interface IAuthenticationReducerState {
-  userData: any;
+  userData?: IUserModel;
   isAuthenticate: boolean;
 }

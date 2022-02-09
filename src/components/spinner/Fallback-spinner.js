@@ -1,15 +1,12 @@
 // ** Logo
-import logo from '@src/assets/images/logo/bonnychow_80.png'
+import logo from '@src/assets/images/shetaban/logo.png'
+import loading from '@src/assets/images/shetaban/loading.gif'
 
 const SpinnerComponent = () => {
   return (
     <div className='fallback-spinner app-loader'>
       <img className='fallback-logo' src={logo} alt='logo' />
-      <div className='loading'>
-        <div className='effect-1 effects'></div>
-        <div className='effect-2 effects'></div>
-        <div className='effect-3 effects'></div>
-      </div>
+      <img src={loading} alt='loading' style={{width:'120px'}} /> 
     </div>
   )
 }

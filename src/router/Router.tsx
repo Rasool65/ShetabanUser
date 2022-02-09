@@ -9,6 +9,7 @@ import LayoutWrapper from '@src/layouts/components/layout-wrapper';
 import { useLayout } from '@src/hooks/useLayout';
 import { useRTL } from '@src/hooks/useRTL';
 import { useRouterTransition } from '@src/hooks/useRouterTransition';
+import { URL_LOGIN } from '@src/configs/urls';
 
 const Routers: FunctionComponent = () => {
   const { layout, setLayout } = useLayout();
@@ -44,9 +45,15 @@ const Routers: FunctionComponent = () => {
               key={index}
               path={route.path}
               element={
-                <Fragment>
-                  <route.component name={route.name} {...route.props} />
-                </Fragment>
+                route.path == URL_LOGIN ? (
+                  <Fragment>
+                    <route.component name={route.name} {...route.props} />
+                  </Fragment>
+                ) : (
+                  <VerticalLayout>
+                    <route.component name={route.name} {...route.props} />
+                  </VerticalLayout>
+                )
               }
             />
           );

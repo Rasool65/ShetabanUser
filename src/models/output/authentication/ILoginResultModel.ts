@@ -1,3 +1,6 @@
+import { IAuthResultModel } from './IAuthResultModel';
+import { IUserModel } from './IUserModel';
 export interface ILoginResultModel {
-  token: string;
+  auth: IAuthResultModel;
+  user: IUserModel;
 }

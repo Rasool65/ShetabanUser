@@ -1,6 +1,6 @@
 {
-  "short_name": "Tour Monitor",
-  "name": "Solico Tour Monitor",
+  "short_name": "Shetaban",
+  "name": "Shetaban",
   "icons": [
     {
       "src": "assets/icons/logo_16.png",
@@ -35,6 +35,6 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#faa31a",
+  "theme_color": "#11a551",
   "background_color": "#ffffff"
 }

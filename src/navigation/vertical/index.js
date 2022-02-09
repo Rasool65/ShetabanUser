@@ -7,10 +7,9 @@ import others from './others';
 import charts from './charts';
 import dashboards from './dashboards';
 import uiElements from './ui-elements';
-import persianCalendar from './persian-calendar';
 
 // ** Merge & Export
 export default [
-  ...dashboards,...persianCalendar
+  ...dashboards
   // ...apps, ...pages, ...uiElements, ...forms, ...tables, ...charts, ...others
 ];

@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { URL_MAIN } from '../../configs/urls';
+import { URL_LOGIN, URL_MAIN } from '../../configs/urls';
 import IPageProps from '../../configs/routerConfig/IPageProps';
 import { useForm, Controller } from 'react-hook-form';
 import InputPasswordToggle from '@components/input-password-toggle';
@@ -23,7 +23,6 @@ import {
   Input,
   Label,
   Row,
-  Spinner,
   UncontrolledTooltip,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -32,7 +31,7 @@ import { useSkin } from '@src/hooks/useSkin';
 import { useTokenAuthentication } from '@src/hooks/useTokenAuthentication';
 import { LoginModelSchema, ILoginModel } from '@src/models/input/authentication/ILoginModel';
 import useHttpRequest from '@src/hooks/useHttpRequest';
-import { APIURL_GET_CAPTCHA, APIURL_LOGIN } from '@src/configs/apiConfig/apiUrls';
+import { APIURL_LOGIN } from '@src/configs/apiConfig/apiUrls';
 import { useToast } from '@src/hooks/useToast';
 import { useDispatch } from 'react-redux';
 import { handleLogin } from '@src/redux/reducers/authenticationReducer';
@@ -40,164 +39,119 @@ import logo from '@src/assets/images/logo/bonnychow_80.png';
 import themeConfig from '@src/configs/theme/themeConfig';
 import { ILoginResultModel } from '@src/models/output/authentication/ILoginResultModel';
 import { IOutputResult } from '@src/models/output/IOutputResult';
-import { IAuthProps, ICaptcha } from './IAuthPages';
-import { AuthPages } from './Authentication';
-import { toast } from 'react-toastify';
 
-const Login: FunctionComponent<IAuthProps> = (props) => {
-  const { changePage } = props;
-  const [captcha, setCaptcha] = useState<ICaptcha>({
-    width: 0,
-    height: 0,
-    token: '',
-    captchaContent: '',
-  });
-  const dispatch = useDispatch();
+const Login: FunctionComponent<IPageProps> = (props) => {
   const navigate = useNavigate();
-  const { showSuccess, showError } = useToast();
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { skin } = useSkin();
+
+  const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg';
+  const source = require(`@src/assets/images/pages/${illustration}`);
+  const httpRequest = useHttpRequest();
+  const toast = useToast();
+
+  useEffect(() => {
+    document.title = props.title;
+  }, [props.title]);
+
   const {
     control,
     setError,
     handleSubmit,
-    register,
     formState: { errors },
   } = useForm<ILoginModel>({ mode: 'onChange', resolver: yupResolver(LoginModelSchema) });
 
-  const [loading, setLoading] = useState(false);
-
-  const { postRequest, getRequest } = useHttpRequest();
-
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: ILoginModel) => {
     if (data) {
-      const body = {
-        ...data,
-        captchaToken: captcha.token,
-      };
-      setLoading(true);
-      postRequest(APIURL_LOGIN, body)
+      httpRequest
+        .postRequest<IOutputResult<ILoginResultModel>>(APIURL_LOGIN, { username: data.mobile, password: data.password })
         .then((result) => {
-          setLoading(false);
           dispatch(handleLogin(result));
           navigate(URL_MAIN);
-          showSuccess('ورود موفق');
-        })
-        .catch((err) => {
-          setLoading(false);
-          showError(err.data.Message);
-          setCaptchaData();
         });
     }
   };
 
-  useEffect(() => {
-    setCaptchaData();
-  }, []);
-
-  const setCaptchaData = () => {
-    setCaptcha({
-      ...captcha,
-      captchaContent: '',
-    });
-    getRequest(APIURL_GET_CAPTCHA).then((result: any) => {
-      setCaptcha(result.data);
-    });
-  };
   return (
-    <div className="login-signup-wrap p-5 gray-light-bg rounded shadow">
-      <div className="login-signup-header text-center">
-        {/* <a href="index.html">
-                <img src="assets/img/logo-color.png" className="img-fluid mb-3" alt="لوگو" />
-              </a> */}
-        <h4 className="mb-5">ورود به حساب کاربری </h4>
+    <section className="page-header-section ptb-100 bg-image full-height" image-overlay="8">
+      <div
+        className="background-image-wraper"
+        style={{ backgroundImage: 'url(' + require('@src/assets/images/shetaban/login-bg.jpg') + ')', opacity: '1' }}
+      ></div>
+      <div className="container">
+        <div className="row align-items-center justify-content-center">
+          <div className="col-12 col-md-8 col-lg-6">
+            <div className="login-signup-wrap p-5 rounded shadow">
+              <div className="login-signup-header text-center">
+                <a href="#">
+                  <img src={require('@src/assets/images/shetaban/logo.png')} className="img-fluid mb-3" alt="شتابان" />
+                </a>
+                <h4 className="mb-5">ورود به حساب کاربری </h4>
+              </div>
+              <Form onSubmit={handleSubmit(onSubmit)} className="login-signup-form">
+                <div className="form-group">
+                  <label className="pb-1">شماره موبایل</label>
+                  <div className="input-group input-group-merge">
+                    <div className="input-icon">
+                      <span className="ti-mobile"></span>
+                    </div>
+                    <Controller
+                      control={control}
+                      name="mobile"
+                      render={({ field }) => (
+                        <>
+                          <Input
+                            type="number"
+                            invalid={errors.mobile && true}
+                            placeholder="09123456789"
+                            className="form-control"
+                            autoComplete="off"
+                            {...field}
+                          />
+                          <FormFeedback>{errors.mobile?.message}</FormFeedback>
+                        </>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <button type="submit" className="btn btn-block btn-brand-02 border-radius mt-4 mb-3">
+                  {loading ? (
+                    <div style={{ width: 26, height: 26 }} className="spinner-border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    'وارد شوید'
+                  )}
+                </button>
+              </Form>
+              <p className="text-center mb-0">
+                اگر ثبت نام نکرده اید{' '}
+                <a
+                  href="#"
+                  className=""
+                  onClick={() => {
+                    // changePage(AuthPages[1]);
+                  }}
+                >
+                  راهنمای ثبت نام
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-8 col-lg-6">
+            <div className="copyright-wrap small-text text-center mt-5 text-white">
+              <p className="mb-0">© شرکت شتابان شمال، کلیه حقوق محفوظ است</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <Form onSubmit={handleSubmit(onSubmit)} className="login-signup-form">
-        <div className="form-group">
-          <label className="pb-1">شماره موبایل</label>
-          <div className="input-group input-group-merge">
-            <div className="input-icon">
-              <span className="ti-mobile"></span>
-            </div>
-            <Controller
-              control={control}
-              name="mobile"
-              render={({ field }) => (
-                <>
-                  <Input invalid={errors.mobile && true} placeholder="09123456789" className="form-control" {...field} />
-                  <FormFeedback>{errors.mobile?.message}</FormFeedback>
-                </>
-              )}
-            />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="pb-1">کلمه عبور</label>
-          <div className="input-group input-group-merge">
-            <div className="input-icon">
-              <span className="ti-lock"></span>
-            </div>
-            <Controller
-              control={control}
-              name="password"
-              render={({ field }) => (
-                <>
-                  <Input
-                    invalid={errors.password && true}
-                    placeholder="رمز عبور را وارد کنید"
-                    className="form-control"
-                    {...field}
-                  />
-                  <FormFeedback>{errors.password?.message}</FormFeedback>
-                </>
-              )}
-            />
-          </div>
-        </div>
-
-        <div style={{ height: 80 }} className="d-flex flex-row align-items-center justify-content-center form-group">
-          {!!captcha.captchaContent ? (
-            <img src={captcha.captchaContent} />
-          ) : (
-            <div style={{ height: '40px', width: '40px' }} className="spinner-border text-primary" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          )}
-        </div>
-        <div className="form-group">
-          <Controller
-            control={control}
-            name="captchaText"
-            render={({ field }) => (
-              <>
-                <Input invalid={errors.captchaText && true} placeholder="کد را وارد کنید" className="form-control" {...field} />
-                <FormFeedback>{errors.captchaText?.message}</FormFeedback>
-              </>
-            )}
-          />
-        </div>
-
-        <button type="submit" className="btn btn-block btn-brand-02 border-radius mt-4 mb-3">
-          {loading ? (
-            <div style={{ width: 26, height: 26 }} className="spinner-border" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          ) : (
-            'وارد شوید'
-          )}
-        </button>
-      </Form>
-      <p className="text-center mb-0">
-        رمز خودرا فراموش کرده اید؟{' '}
-        <button
-          className="btn-link"
-          onClick={() => {
-            changePage(AuthPages[1]);
-          }}
-        >
-          ورود با رمز یکبارمصرف
-        </button>
-      </p>
-    </div>
+    </section>
   );
 };
 

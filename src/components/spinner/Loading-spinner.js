@@ -1,11 +1,9 @@
+import loading from '@src/assets/images/shetaban/loading.gif'
+
 const ComponentSpinner = () => {
   return (
     <div className='fallback-spinner'>
-      <div className='loading'>
-        <div className='effect-1 effects'></div>
-        <div className='effect-2 effects'></div>
-        <div className='effect-3 effects'></div>
-      </div>
+       <img src={loading} alt='loading' style={{width:'120px'}} /> 
     </div>
   )
 }

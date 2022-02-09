@@ -25,13 +25,18 @@ export const authSlice = createSlice({
     handleLogin: (state, action) => {
       var result = action.payload;
       tokenAuthentication.saveLoginToken(result.data.data.auth.accessToken, result.data.data.auth.refreshToken);
-      // // localStorage.setItem('userData', JSON.stringify(result.data.user))
+      localStorage.setItem('userData', JSON.stringify(result.data.data.user));
       state.isAuthenticate = true;
     },
     handleLogout: (state) => {
       tokenAuthentication.deleteLogoutToken();
       state.isAuthenticate = false;
-      state.userData = {};
+      state.userData = undefined;
+    },
+    reloadUserData: (state, action) => {
+      var result = action.payload;
+      localStorage.setItem('userData', JSON.stringify(result.data.data));
+      state.userData = result.data.data;
     },
   },
 });

@@ -1,0 +1,71 @@
+body {
+  background-color: #efefef;
+}
+.user-avatar {
+  max-width: 110px;
+  border-radius: 50%;
+}
+.nav-pills .show > .nav-link,
+.nav-pills .nav-link.active {
+  background-color: #c1c1c1;
+}
+.nav-pills .dropdown-item:hover {
+  background-color: #e3e3e3;
+}
+.nav-pills .dropdown-item:active,
+.nav-pills .dropdown-item:focus {
+  background-color: #11a551;
+  color: white;
+  border: 0;
+}
+button:focus {
+  outline: none;
+}
+.page-panel {
+  margin-top: 100px;
+  border: solid 1px #e7e7e7;
+  border-radius: 15px;
+  min-height: 300px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+
+  .short-report {
+    background-color: #11a551;
+    border-radius: 20px;
+    min-height: 105px;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .short-report .icon {
+    color: #fbfbfb;
+    font-size: 35px;
+    position: absolute;
+    left: 18px;
+    top: 27%;
+  }
+  .short-report .text {
+    color: #fbfbfb;
+    position: absolute;
+    right: 18px;
+    top: 25%;
+    font-size: 25px;
+  }
+}
+
+.owl-carousel .owl-item img {
+  border-radius: 20px;
+  max-height: 380px;
+}
+.login-signup-wrap {
+  background-color: rgb(227 227 227 / 80%);
+}
+
+.login-signup-wrap input::-webkit-outer-spin-button,
+.login-signup-wrap input::-webkit-inner-spin-button {
+  display: none;
+}
+/* Firefox */
+.login-signup-wrap input[type='number'] {
+  -moz-appearance: textfield;
+}

@@ -1,15 +1,13 @@
+import { URL_DASHBOARD, URL_HISTORY } from './../urls';
 import IRoute from './IRoute';
 import RouteType from './RouteType';
-// import Contact from '../../pages/contact/Contact';
-// import Home from '../../pages/home/Home';
-import { URL_CONTACT_US, URL_MAIN, URL_LOGIN, PERSIAN_CALENDAR1, PERSIAN_CALENDAR_MODERN, URL_AUTH } from '../urls';
+import { URL_CONTACT_US, URL_MAIN, URL_LOGIN } from '../urls';
 import Login from '../../pages/authentication/Login';
 
 import Contact from '../../views/contact/Contact';
 import Home from '@src/pages/home/Home';
-import Calendar1 from './../../pages/persian-calendar/calndar1/index';
-import CalendarModern from './../../pages/persian-calendar/calendar-modern';
-import Auth from '@src/pages/authentication/Authentication';
+import Dashboard from '@src/pages/dashboard/Dashboard';
+import History from '@src/pages/aboutUs/History';
 
 const routes: IRoute[] = [
   {
@@ -17,12 +15,12 @@ const routes: IRoute[] = [
     component: Home,
     type: RouteType.public,
     props: {
-      title: 'صفحه اصلی',
+      title: 'شرکت شتابان شمال',
     },
   },
   {
-    path: URL_AUTH,
-    component: Auth,
+    path: URL_LOGIN,
+    component: Login,
     type: RouteType.public,
     props: {
       title: 'ورود به سیستم',
@@ -37,19 +35,19 @@ const routes: IRoute[] = [
     },
   },
   {
-    path: PERSIAN_CALENDAR1,
-    component: Calendar1,
+    path: URL_DASHBOARD,
+    component: Dashboard,
     type: RouteType.private,
     props: {
-      title: 'تقویم ۱',
+      title: 'داشبورد',
     },
   },
   {
-    path: PERSIAN_CALENDAR_MODERN,
-    component: CalendarModern,
-    type: RouteType.private,
+    path: URL_HISTORY,
+    component: History,
+    type: RouteType.public,
     props: {
-      title: 'تقویم ۲',
+      title: 'تاریخچه شرکت',
     },
   },
 ];

@@ -1,7 +1,7 @@
 import navigation from '@src/navigation/vertical';
 import VerticalLayout from '@src/layouts/VerticalLayout';
 import { Fragment, FunctionComponent } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import routes from '../configs/routerConfig/RouterList';
 import RouteType from '../configs/routerConfig/RouteType';
 import PrivateRoute from './PrivateRoute';
@@ -9,12 +9,16 @@ import LayoutWrapper from '@src/layouts/components/layout-wrapper';
 import { useLayout } from '@src/hooks/useLayout';
 import { useRTL } from '@src/hooks/useRTL';
 import { useRouterTransition } from '@src/hooks/useRouterTransition';
-import { URL_LOGIN } from '@src/configs/urls';
+import { URL_DASHBOARD, URL_LOGIN, URL_MAIN } from '@src/configs/urls';
+import { useSelector } from 'react-redux';
+import { RootStateType } from '@src/redux/Store';
 
 const Routers: FunctionComponent = () => {
   const { layout, setLayout } = useLayout();
   const [isRtl, setIsRtl] = useRTL();
   const { transition, setTransition } = useRouterTransition();
+  const authenticationStore = useSelector((state: RootStateType) => state.authentication);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -45,7 +49,9 @@ const Routers: FunctionComponent = () => {
               key={index}
               path={route.path}
               element={
-                route.path == URL_LOGIN ? (
+                authenticationStore.isAuthenticate && route.path == URL_MAIN ? (
+                  <Navigate to={URL_DASHBOARD} />
+                ) : route.path == URL_LOGIN ? (
                   <Fragment>
                     <route.component name={route.name} {...route.props} />
                   </Fragment>

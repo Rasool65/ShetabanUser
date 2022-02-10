@@ -15627,18 +15627,18 @@ input[type='button'].btn-block {
 }
 
 /* line 45, node_modules/bootstrap/scss/_input-group.scss */
-.input-group > .form-control:not(:last-child),
-.input-group > .custom-select:not(:last-child) {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
+// .input-group > .form-control:not(:last-child),
+// .input-group > .custom-select:not(:last-child) {
+//   border-top-left-radius: 0;
+//   border-bottom-left-radius: 0;
+// }
 
-/* line 46, node_modules/bootstrap/scss/_input-group.scss */
-.input-group > .form-control:not(:first-child),
-.input-group > .custom-select:not(:first-child) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
+// /* line 46, node_modules/bootstrap/scss/_input-group.scss */
+// .input-group > .form-control:not(:first-child),
+// .input-group > .custom-select:not(:first-child) {
+//   border-top-right-radius: 0;
+//   border-bottom-right-radius: 0;
+// }
 
 /* line 51, node_modules/bootstrap/scss/_input-group.scss */
 .input-group > .custom-file {
@@ -23286,7 +23286,7 @@ footer a {
   font-weight: 900;
   font-size: 1.25rem;
   line-height: 1.5rem;
-  color: #6730e3;
+  color: #056831;
 }
 
 /* line 25, src/assets/scss/components/about-section/_common.scss */
@@ -24731,9 +24731,9 @@ button,
 }
 
 /* line 39, src/assets/scss/components/contact-section/_common.scss */
-.login-signup-form .form-group .input-group .form-control:not(:first-child) {
-  border-radius: 4px;
-}
+// .login-signup-form .form-group .input-group .form-control:not(:first-child) {
+//   border-radius: 4px;
+// }
 
 /* line 48, src/assets/scss/components/contact-section/_common.scss */
 input::-webkit-input-placeholder {

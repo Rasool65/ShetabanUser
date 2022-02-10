@@ -53,10 +53,10 @@ button:focus {
   }
 }
 
-.owl-carousel .owl-item img {
-  border-radius: 20px;
-  max-height: 380px;
-}
+// .owl-carousel .owl-item img {
+//   border-radius: 20px;
+//   max-height: 380px;
+// }
 .login-signup-wrap {
   background-color: rgb(227 227 227 / 80%);
 }
@@ -69,16 +69,194 @@ button:focus {
 .login-signup-wrap input[type='number'] {
   -moz-appearance: textfield;
 }
-.html-body-container {
-  html {
-    body {
-      background-color: inherit;
-      h1 {
-        color: #1b2e4b;
-      }
-      p {
-        color: #ffffff;
+
+.transparent-bg {
+  background: transparent !important;
+}
+.transparent-bg:before {
+  background: transparent !important;
+}
+.input-group-text {
+  background: transparent;
+  border: 0px;
+  border-top-right-radius: 0;
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+.input-group > .custom-select:not(:last-child) {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.input-group .was-validated .form-control:invalid,
+.input-group .form-control.is-invalid {
+  background-position: left calc(0.375em + 0.1875rem + 25px) center;
+}
+.login-box {
+  position: relative;
+}
+.login-box .back-btn {
+  font-size: 35px;
+  position: absolute;
+  top: 15px;
+  border: 0;
+  right: 25px;
+  padding: 5px;
+  padding-right: 13px;
+  padding-left: 17px;
+  border-radius: 50%;
+  line-height: 30px;
+  background: transparent;
+}
+.login-box .back-btn:hover {
+  background: rgb(254 191 15);
+}
+.login-box .back-btn:active {
+  background: rgb(254, 170, 15);
+}
+.login-signup-wrap h5 {
+  color: #8f8f8f;
+}
+.login-box .btn {
+  font-weight: bold;
+}
+.login-box .loading-link {
+  filter: grayscale(1) contrast(1.5);
+  width: 50px;
+  height: 20px;
+  object-fit: cover;
+}
+.Toastify * {
+  font-family: IRANSans;
+}
+.input-group.input-group-btn .form-control {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.input-group.input-group-btn button {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  .html-body-container {
+    html {
+      body {
+        background-color: inherit;
+        h1 {
+          color: #1b2e4b;
+        }
+        p {
+          color: #ffffff;
+        }
       }
     }
   }
+}
+
+.dashboard-slide::before {
+  display: none;
+}
+.dashboard-slide {
+  margin-top: 93px;
+}
+
+@media (min-width: 768px) {
+  .dashboard-slide::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    z-index: 9;
+    background-color: rgb(255 255 255 / 70%);
+  }
+  .dashboard-slide {
+    margin-top: 0px;
+  }
+}
+.shortcut-btn {
+  margin-top: 5px;
+}
+.shortcut-btn a {
+  padding: 25px;
+  color: white;
+  border-radius: 12px;
+  width: 22%;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  float: right;
+  margin: 15px;
+}
+
+.shortcut-btn a span {
+  font-size: 25px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .shortcut-btn a {
+    width: 100% !important;
+    margin: 0px !important;
+    margin-bottom: 8px !important;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .shortcut-btn a {
+    width: 43% !important;
+    margin: 15px !important;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .shortcut-btn a {
+    width: 45% !important;
+    margin: 15px !important;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .shortcut-btn a {
+    width: 30% !important;
+    margin: 15px !important;
+  }
+}
+
+.shortcut-btn a.bg-1 {
+  background-color: #f1d030;
+}
+.shortcut-btn a.bg-1:hover {
+  background-color: #febf0f;
+}
+.shortcut-btn a.bg-2 {
+  background-color: #25e377;
+}
+.shortcut-btn a.bg-2:hover {
+  background-color: #11a551;
+}
+.shortcut-btn a.bg-3 {
+  background-color: #ec4348;
+}
+.shortcut-btn a.bg-3:hover {
+  background-color: #ec1f27;
+}
+.shortcut-btn a.bg-4 {
+  background-color: #3279c0;
+}
+.shortcut-btn a.bg-4:hover {
+  background-color: #0e5ba8;
+}
+
+.section-bg {
+  background-color: rgb(62 180 113);
+}
+.section-bg h2 {
+  color: #febf0f;
 }

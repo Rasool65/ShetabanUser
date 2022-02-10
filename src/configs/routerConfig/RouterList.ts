@@ -2,11 +2,11 @@ import { URL_DASHBOARD, URL_HISTORY } from './../urls';
 import IRoute from './IRoute';
 import RouteType from './RouteType';
 import { URL_CONTACT_US, URL_MAIN, URL_LOGIN } from '../urls';
-import Login from '../../pages/authentication/Login';
 
 import Contact from '../../views/contact/Contact';
 import Home from '@src/pages/home/Home';
 import Dashboard from '@src/pages/dashboard/Dashboard';
+import LoginLayout from '@src/pages/authentication/LoginLayout';
 import History from '@src/pages/aboutUs/History';
 
 const routes: IRoute[] = [
@@ -20,7 +20,7 @@ const routes: IRoute[] = [
   },
   {
     path: URL_LOGIN,
-    component: Login,
+    component: LoginLayout,
     type: RouteType.public,
     props: {
       title: 'ورود به سیستم',
@@ -39,7 +39,7 @@ const routes: IRoute[] = [
     component: Dashboard,
     type: RouteType.private,
     props: {
-      title: 'داشبورد',
+      title: 'پنل کاربری',
     },
   },
   {

@@ -27,7 +27,7 @@ import '../scss/base/core/menu/menu-types/vertical-overlay-menu.scss';
 import { RootStateType } from '@src/redux/Store';
 import Customizer from '../components/customizer';
 import ScrollTop from '../components/scrolltop';
-import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@src/redux/reducers/layoutReducer';
+import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@src/redux/reducers/LayoutReducer';
 import ThemeNavbar from './components/navbar';
 import { PublicMenu } from './components/menu/public-menu';
 import { PrivateMenu } from './components/menu/private-menu';

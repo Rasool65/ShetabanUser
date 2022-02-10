@@ -51,6 +51,8 @@ const History: FunctionComponent<IPageProps> = (props) => {
     document.title = props.title;
   }, []);
 
+  console.log(companies.length);
+
   return (
     <>
       <div className="main">
@@ -99,7 +101,7 @@ const History: FunctionComponent<IPageProps> = (props) => {
                 <div className="col-md-12 col-lg-6">
                   <div className="feature-contents section-heading section-bg">
                     <h2>{history.title}</h2>
-                    <p className="html-body-container">{parse(history.body)}</p>
+                    <div className="html-body-container">{parse(history.body)}</div>
 
                     <ul className="check-list-wrap list-two-col py-3">
                       <li>بررسی کیفیت داده ها</li>
@@ -188,7 +190,45 @@ const History: FunctionComponent<IPageProps> = (props) => {
             </div>
             <div className="row align-items-center">
               <div className="col-md-12">
-                <div className="owl-carousel owl-theme clients-carousel dot-indicator owl-loaded owl-drag">
+                {companies.length > 0 ? (
+                  <OwlCarousel
+                    items={4}
+                    loop
+                    nav={true}
+                    dots={false}
+                    autoPlay={true}
+                    autoplayHoverPause={true}
+                    className="owl-carousel owl-theme clients-carousel dot-indicator owl-loaded owl-drag"
+                  >
+                    {companies.map((brand: any) =>
+                      brand.brandLink ? (
+                        <div className="owl-stage-outer">
+                          <a href={brand.brandLink} target={brand.urlTarget}>
+                            <div className="item single-customer">
+                              <div>
+                                <img src="//logo.clearbit.com/spotify.com" />
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      ) : (
+                        <div className="owl-stage-outer">
+                          <a href={brand.brandLink} target={brand.urlTarget}>
+                            <div className="item single-customer">
+                              <div>
+                                <img src="//logo.clearbit.com/spotify.com" />
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      )
+                    )}
+                  </OwlCarousel>
+                ) : (
+                  'برندی ثبت نشده است'
+                )}
+
+                {/* <div className="owl-carousel owl-theme clients-carousel dot-indicator owl-loaded owl-drag">
                   <div className="owl-stage-outer">
                     <div
                       className="owl-stage"
@@ -223,8 +263,8 @@ const History: FunctionComponent<IPageProps> = (props) => {
                       <span aria-label="Next">›</span>
                     </button>
                   </div>
-                  <div className="owl-dots disabled"></div>
-                </div>
+                  <div className="owl-dots disabled"></div> 
+                </div>*/}
               </div>
             </div>
           </div>

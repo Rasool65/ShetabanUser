@@ -6,7 +6,11 @@ const useHttpRequest = () => {
   const { get, post, remove, put } = useAxios();
   const toast = useToast();
 
-  const getRequest = <T extends object>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
+  const getRequest = <T extends object>(
+    url: string,
+    onError?: Function,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
     return new Promise(async (resolve, reject) => {
       try {
         const res: AxiosResponse = await get<T>(url, {
@@ -19,6 +23,7 @@ const useHttpRequest = () => {
         if (res.status >= 200 && res.status <= 204) resolve(res);
         else {
           toast.showError(res.data.message);
+          if (onError) onError(res);
           reject(res);
         }
       } catch (error: any) {
@@ -28,7 +33,12 @@ const useHttpRequest = () => {
     });
   };
 
-  const postRequest = <T extends object>(url: string, body: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
+  const postRequest = <T extends object>(
+    url: string,
+    body: any,
+    onError?: Function,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> => {
     return new Promise(async (resolve, reject) => {
       try {
         const res: AxiosResponse = await post<T>(url, body, {
@@ -41,6 +51,7 @@ const useHttpRequest = () => {
         if (res.status >= 200 && res.status <= 204) resolve(res);
         else {
           toast.showError(res.data.message);
+          if (onError) onError(res);
           reject(res);
         }
       } catch (error: any) {
@@ -50,7 +61,7 @@ const useHttpRequest = () => {
     });
   };
 
-  const deleteRequest = <T extends object>(url: string, body?: any): Promise<AxiosResponse<T>> => {
+  const deleteRequest = <T extends object>(url: string, body?: any, onError?: Function): Promise<AxiosResponse<T>> => {
     return new Promise(async (resolve, reject) => {
       try {
         const res: AxiosResponse = await remove<T>(url, {
@@ -63,6 +74,7 @@ const useHttpRequest = () => {
         if (res.status >= 200 && res.status <= 204) resolve(res);
         else {
           toast.showError(res.data.message);
+          if (onError) onError(res);
           reject(res);
         }
       } catch (error: any) {
@@ -72,7 +84,7 @@ const useHttpRequest = () => {
     });
   };
 
-  const updateRequest = <T extends object>(url: string, body?: any): Promise<AxiosResponse<T>> => {
+  const updateRequest = <T extends object>(url: string, body?: any, onError?: Function): Promise<AxiosResponse<T>> => {
     return new Promise(async (resolve, reject) => {
       try {
         const res: AxiosResponse = await put<T>(url, body, {
@@ -84,6 +96,7 @@ const useHttpRequest = () => {
         if (res.status >= 200 && res.status <= 204) resolve(res);
         else {
           toast.showError(res.data.message);
+          if (onError) onError(res);
           reject(res);
         }
       } catch (error: any) {

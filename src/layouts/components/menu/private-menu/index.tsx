@@ -1,4 +1,4 @@
-import { URL_DASHBOARD, URL_LOGIN } from '@src/configs/urls';
+import { URL_DASHBOARD, URL_LOGIN, URL_MAIN } from '@src/configs/urls';
 import { RootStateType } from '@src/redux/Store';
 import { FunctionComponent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ export const PrivateMenu: FunctionComponent = (props: any) => {
 
   const logout = () => {
     dispatch(handleLogout());
-    navigate(URL_LOGIN);
+    navigate(URL_MAIN);
   };
 
   return (

@@ -60,6 +60,7 @@ const InputPasswordToggle: FunctionComponent<IInputPasswordToggleProp> = (props 
           type={inputVisibility === false ? 'password' : 'text'}
           placeholder={placeholder ? placeholder : '············'}
           autoComplete="off"
+          autoFocus={true}
           className={classnames({
             [inputClassName]: inputClassName,
           })}

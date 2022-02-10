@@ -9,6 +9,8 @@ import { APIURL_GET_COMPANIES, APIURL_GET_PAGES_TYPE } from '@src/configs/apiCon
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { IHistoryModel } from './../../models/output/history/IHistoryModel';
 import { ICompaniesModel } from './../../models/output/history/ICompaniesModel';
+import parse from 'html-react-parser';
+import { BASE_URL } from '@src/configs/apiConfig/apiBaseUrl';
 
 const History: FunctionComponent<IPageProps> = (props) => {
   const { getRequest } = useHttpRequest();
@@ -46,20 +48,22 @@ const History: FunctionComponent<IPageProps> = (props) => {
   useEffect(() => {
     getHistory();
     getBrand();
-    console.log(companies);
     document.title = props.title;
-  }, [props.title]);
+  }, []);
 
   return (
     <>
       <div className="main">
         <section className="page-header-section ptb-100 bg-image" image-overlay="8">
-          <div className="background-image-wraper" style={{ background: "url('assets/img/slider-bg-1.jpg')", opacity: '1' }} />
+          <div
+            className="background-image-wraper"
+            style={{ backgroundImage: 'url(' + require('@src/assets/images/shetaban/slide1.jpg') + ')', opacity: '1' }}
+          />
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-9 col-lg-7">
                 <div className="page-header-content text-white pt-4">
-                  <h1 className="text-white mb-0">درباره ما</h1>
+                  <h1 className="text-white mb-0">تاریخچه شتابان</h1>
                   <p className="lead">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
                   </p>
@@ -93,9 +97,9 @@ const History: FunctionComponent<IPageProps> = (props) => {
             <div className="container">
               <div className="row align-items-center justify-content-between">
                 <div className="col-md-12 col-lg-6">
-                  <div className="feature-contents section-heading">
+                  <div className="feature-contents section-heading section-bg">
                     <h2>{history.title}</h2>
-                    <p>{history.body}</p>
+                    <p className="html-body-container">{parse(history.body)}</p>
 
                     <ul className="check-list-wrap list-two-col py-3">
                       <li>بررسی کیفیت داده ها</li>
@@ -114,15 +118,12 @@ const History: FunctionComponent<IPageProps> = (props) => {
                       <a href="#" className="btn btn-brand-02 mr-3">
                         اکنون شروع کنید{' '}
                       </a>
-                      <a href="#" className="btn btn-outline-brand-02">
-                        بیشتر بدانید
-                      </a>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6 col-lg-6">
                   <div className="">
-                    <img src="assets/img/Capture.PNG" className="img-fluid" alt="درباره ما" />
+                    <img src={require('@src/assets/images/Capture.PNG')} className="img-fluid" alt="درباره ما" />
                     <div className="item-icon video-promo-content">
                       <a
                         href="https://www.youtube.com/watch?v=9No-FiEInLA"
@@ -176,7 +177,7 @@ const History: FunctionComponent<IPageProps> = (props) => {
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-md-8">
-                <div className="section-heading text-center mb-5">
+                <div className="section-heading text-center mb-5 section-bg">
                   <h2>مشتریان ارزشمند ما</h2>
                   <p>
                     منابع شفاف داخلی و یا منابع شفاف در حالی که منابع در حال مکیدن تجارت الکترونیکی هستند. به راحتی نوآورانه قانع
@@ -191,18 +192,24 @@ const History: FunctionComponent<IPageProps> = (props) => {
                   <div className="owl-stage-outer">
                     <div
                       className="owl-stage"
-                      style={{ transform: `translated(-1875px, 0px, 0px)`, transition: `all 4.5s linear 0s`, width: '3750px' }}
+                      style={{ transform: 'translated(-1875px, 0px, 0px)', transition: `all 4.5s linear 0s`, width: '3750px' }}
                     >
-                      {!!companies
+                      {companies
                         ? companies.map((brand: any) => {
-                            return (
+                            return brand.brandLink ? (
                               <a href={brand.brandLink} target={brand.urlTarget}>
                                 <div className="owl-item cloned" style={{ width: '172.5px', marginRight: '15px' }}>
                                   <div className="item single-customer">
-                                    <img src={brand.logo} alt={brand.name} className="customer-logo" />
+                                    <img src={`${BASE_URL + brand.logo}`} alt={brand.name} className="customer-logo" />
                                   </div>
                                 </div>
                               </a>
+                            ) : (
+                              <div className="owl-item cloned" style={{ width: '172.5px', marginRight: '15px' }}>
+                                <div className="item single-customer">
+                                  <img src={`${BASE_URL + brand.logo}`} alt={brand.name} className="customer-logo" />
+                                </div>
+                              </div>
                             );
                           })
                         : 'برندی ثبت نشده است'}

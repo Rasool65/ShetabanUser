@@ -6,7 +6,8 @@ export const useToast = () => {
   var [isRtl] = useRTL();
 
   const showToast = (message: string, type: ToastType) => {
-    const position = isRtl ? 'top-right' : 'top-left';
+    // const position = isRtl ? 'top-right' : 'top-left';
+    const position = 'top-center';
 
     switch (type) {
       case ToastType.Default:

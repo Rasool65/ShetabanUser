@@ -9,6 +9,7 @@ import { APIURL_GET_COMPANIES, APIURL_GET_PAGES_TYPE } from '@src/configs/apiCon
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { IHistoryModel } from './../../models/output/history/IHistoryModel';
 import { ICompaniesModel } from './../../models/output/history/ICompaniesModel';
+import parse from 'html-react-parser';
 
 const History: FunctionComponent<IPageProps> = (props) => {
   const { getRequest } = useHttpRequest();
@@ -46,10 +47,9 @@ const History: FunctionComponent<IPageProps> = (props) => {
   useEffect(() => {
     getHistory();
     getBrand();
-    console.log(companies);
     document.title = props.title;
-  }, [props.title]);
-
+  }, []);
+  console.log(history);
   return (
     <>
       <div className="main">
@@ -95,7 +95,8 @@ const History: FunctionComponent<IPageProps> = (props) => {
                 <div className="col-md-12 col-lg-6">
                   <div className="feature-contents section-heading">
                     <h2>{history.title}</h2>
-                    <p>{history.body}</p>
+
+                    <p className="html-body-container">{parse(history.body)}</p>
 
                     <ul className="check-list-wrap list-two-col py-3">
                       <li>بررسی کیفیت داده ها</li>

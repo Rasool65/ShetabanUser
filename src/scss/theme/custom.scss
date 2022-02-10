@@ -69,3 +69,16 @@ button:focus {
 .login-signup-wrap input[type='number'] {
   -moz-appearance: textfield;
 }
+.html-body-container {
+  html {
+    body {
+      background-color: inherit;
+      h1 {
+        color: #1b2e4b;
+      }
+      p {
+        color: #ffffff;
+      }
+    }
+  }
+}

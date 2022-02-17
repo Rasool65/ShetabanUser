@@ -1374,12 +1374,12 @@
 
 "@mapbox/corslite@0.0.7":
   version "0.0.7"
-  resolved "https://registry.npmjs.org/@mapbox/corslite/-/corslite-0.0.7.tgz"
+  resolved "https://registry.yarnpkg.com/@mapbox/corslite/-/corslite-0.0.7.tgz#29f5b6a188ba946e514bdf0b6401ed4fbe13a39e"
   integrity sha1-KfW2oYi6lG5RS98LZAHtT74To54=
 
 "@mapbox/polyline@^0.2.0":
   version "0.2.0"
-  resolved "https://registry.npmjs.org/@mapbox/polyline/-/polyline-0.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/@mapbox/polyline/-/polyline-0.2.0.tgz#6e25980744aa22331f94b645a542c02d3fcfee97"
   integrity sha1-biWYB0SqIjMflLZFpULALT/P7pc=
 
 "@nodelib/fs.scandir@2.1.5":
@@ -1425,7 +1425,7 @@
 
 "@react-leaflet/core@^1.1.1":
   version "1.1.1"
-  resolved "https://registry.npmjs.org/@react-leaflet/core/-/core-1.1.1.tgz"
+  resolved "https://registry.yarnpkg.com/@react-leaflet/core/-/core-1.1.1.tgz#827fd05bb542cf874116176d8ef48d5b12163f81"
   integrity sha512-7PGLWa9MZ5x/cWy8EH2VzI4T8q5WpuHbixzCDXqixP/WyqwIrg5NDUPgYuFnB4IEIZF+6nA265mYzswFo/h1Pw==
 
 "@reduxjs/toolkit@^1.7.1":
@@ -1740,7 +1740,7 @@
 
 "@types/geojson@*":
   version "7946.0.8"
-  resolved "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.8.tgz"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
   integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
 
 "@types/graceful-fs@^4.1.2":
@@ -1806,21 +1806,21 @@
 
 "@types/leaflet-polylinedecorator@^1.6.1":
   version "1.6.1"
-  resolved "https://registry.npmjs.org/@types/leaflet-polylinedecorator/-/leaflet-polylinedecorator-1.6.1.tgz"
+  resolved "https://registry.yarnpkg.com/@types/leaflet-polylinedecorator/-/leaflet-polylinedecorator-1.6.1.tgz#b6522f9dae52146bf73da249e4bedfbab200c6e4"
   integrity sha512-9etweJ2U4SWqcV/AR3i0NdWJByeMn6+zMUNlO6jVbpL8UI6qrMKybu8v9/s6UR4oXvsV4lZT6vzAsNAAMq5Ssg==
   dependencies:
     "@types/leaflet" "*"
 
 "@types/leaflet-routing-machine@^3.2.3":
   version "3.2.3"
-  resolved "https://registry.npmjs.org/@types/leaflet-routing-machine/-/leaflet-routing-machine-3.2.3.tgz"
+  resolved "https://registry.yarnpkg.com/@types/leaflet-routing-machine/-/leaflet-routing-machine-3.2.3.tgz#73a2b4c67363f8d9c6187bb9b0ffb9b0594f4e81"
   integrity sha512-otFJqBO96AUxanwQAQfP+6fot91XS6FML+0o9O6z+0WveTuQO13Hs32G/TMWPE1q57us+vJysNlSWkhBPDh1jQ==
   dependencies:
     "@types/leaflet" "*"
 
 "@types/leaflet@*", "@types/leaflet@^1.7.9":
   version "1.7.9"
-  resolved "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.7.9.tgz"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.9.tgz#7993d34f14cfa88c45b3d490daba39a3a1be9a2b"
   integrity sha512-H8vPgD49HKzqM41ArHGZM70g/tfhp8W+JcPxfnF+5H/Xvp+xiP+KQOUNWU8U89fqS1Jj3cpRY/+nbnaHFzwnFA==
   dependencies:
     "@types/geojson" "*"
@@ -1934,7 +1934,7 @@
 
 "@types/reactstrap@^8.7.2":
   version "8.7.2"
-  resolved "https://registry.npmjs.org/@types/reactstrap/-/reactstrap-8.7.2.tgz"
+  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-8.7.2.tgz#0ab86f35e472e8f2002eaf8c7a42193c9cea6add"
   integrity sha512-8sYGS/LhG+ic8vhLwxhuVn+TSqS1lKzplm9BHv4JaQoetStAi9uOqP2VREfefIRT3JnOq5Y+G7Afdryvn+UgZQ==
   dependencies:
     reactstrap "*"
@@ -2411,7 +2411,7 @@ alphanum-sort@^1.0.2:
 
 animated-scroll-to@^2.2.0:
   version "2.2.0"
-  resolved "https://registry.npmjs.org/animated-scroll-to/-/animated-scroll-to-2.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/animated-scroll-to/-/animated-scroll-to-2.2.0.tgz#0aea20d4d800e3e8bfd1504041091276f9593360"
   integrity sha512-VVhwrii9tMXwP1GlQacLplUrh/0x2IbU/JxTUMBvzam6lJpJ9jMCw8PKHOvqMJ52vYmBDfcf9lNDuSeoWCD/mw==
 
 ansi-colors@^4.1.1:
@@ -3259,9 +3259,9 @@ cookie@0.4.1:
   integrity sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
 
 copy-webpack-plugin@^10.2.2:
-  version "10.2.4"
-  resolved "https://registry.npmjs.org/copy-webpack-plugin/-/copy-webpack-plugin-10.2.4.tgz"
-  integrity sha512-xFVltahqlsRcyyJqQbDY6EYTtyQZF9rf+JPjwHObLdPFMEISqkFkr7mFoVOC6BfYS/dNThyoQKvziugm+OnwBg==
+  version "10.2.2"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-10.2.2.tgz#40a0475ea3921794bc4ea78a15c431a725ae3dee"
+  integrity sha512-hNdS4YM9NmbpW++GT2QevyXdeG9m2NZYFNDWN63MzZzFO1IFuH1KMtVJAoXX6yzTgsVz/x00exWcgdyX57ta9g==
   dependencies:
     fast-glob "^3.2.7"
     glob-parent "^6.0.1"
@@ -5464,12 +5464,12 @@ jake@^10.6.1:
 
 jalaali-js@^1.1.0:
   version "1.2.3"
-  resolved "https://registry.npmjs.org/jalaali-js/-/jalaali-js-1.2.3.tgz"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.2.3.tgz#365775826d2eece5e6552b96aff384c8773bb406"
   integrity sha512-irl0pXL59Xl0Oz6jyOiJed/NxrVeS6fSx6a8atQOH/LsPWPZwBCxwe5XVEIqjnwt69FRxvnCCwQn5dTMxwbazQ==
 
 jalali-moment@^3.3.1, jalali-moment@^3.3.10:
   version "3.3.10"
-  resolved "https://registry.npmjs.org/jalali-moment/-/jalali-moment-3.3.10.tgz"
+  resolved "https://registry.yarnpkg.com/jalali-moment/-/jalali-moment-3.3.10.tgz#10cb4c2080925a41ee8c72862ba63f6b5fb04743"
   integrity sha512-hyNsDJXB23MHLnZWPXY+Mu0zsrp+B+KzabyqPP0oGcMsEGp8yMpeVledOY+B/DrIOVeRY7JLz8b3lyJ3/vajsQ==
   dependencies:
     commander "^7.0.0"
@@ -5918,7 +5918,7 @@ jest@^27.4.3:
 
 jquery@>=1.8.3:
   version "3.6.0"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
@@ -6079,19 +6079,19 @@ language-tags@^1.0.5:
 
 leaflet-polylinedecorator@^1.6.0:
   version "1.6.0"
-  resolved "https://registry.npmjs.org/leaflet-polylinedecorator/-/leaflet-polylinedecorator-1.6.0.tgz"
+  resolved "https://registry.yarnpkg.com/leaflet-polylinedecorator/-/leaflet-polylinedecorator-1.6.0.tgz#9ef79fd1b5302d67b72efe959a8ecd2553f27266"
   integrity sha1-nvef0bUwLWe3Lv6Vmo7NJVPycmY=
   dependencies:
     leaflet-rotatedmarker "^0.2.0"
 
 leaflet-rotatedmarker@^0.2.0:
   version "0.2.0"
-  resolved "https://registry.npmjs.org/leaflet-rotatedmarker/-/leaflet-rotatedmarker-0.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/leaflet-rotatedmarker/-/leaflet-rotatedmarker-0.2.0.tgz#4467f49f98d1bfd56959bd9c6705203dd2601277"
   integrity sha1-RGf0n5jRv9VpWb2cZwUgPdJgEnc=
 
 leaflet-routing-machine@^3.2.12:
   version "3.2.12"
-  resolved "https://registry.npmjs.org/leaflet-routing-machine/-/leaflet-routing-machine-3.2.12.tgz"
+  resolved "https://registry.yarnpkg.com/leaflet-routing-machine/-/leaflet-routing-machine-3.2.12.tgz#9e4aef008321b0227cf894d829c3b4c1f13e4e13"
   integrity sha512-HLde58G1YtD9xSIzZavJ6BPABZaV1hHeGst8ouhzuxmSC3s32NVtADT+njbIUMW1maHRCrsgTk/E4hz5QH7FrA==
   dependencies:
     "@mapbox/corslite" "0.0.7"
@@ -6100,7 +6100,7 @@ leaflet-routing-machine@^3.2.12:
 
 leaflet@^1.7.1:
   version "1.7.1"
-  resolved "https://registry.npmjs.org/leaflet/-/leaflet-1.7.1.tgz"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
   integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
 
 leven@^3.1.0:
@@ -6662,12 +6662,12 @@ os-tmpdir@~1.0.2:
 
 osrm-text-instructions@^0.13.2:
   version "0.13.4"
-  resolved "https://registry.npmjs.org/osrm-text-instructions/-/osrm-text-instructions-0.13.4.tgz"
+  resolved "https://registry.yarnpkg.com/osrm-text-instructions/-/osrm-text-instructions-0.13.4.tgz#78bedabd84cbcabce9c9fd0fbb6b0fd9f06c7f9f"
   integrity sha512-ge4ZTIetMQKAHKq2MwWf83ntzdJN20ndRKRaVNoZ3SkDkBNO99Qddz7r6+hrVx38I+ih6Rk5T1yslczAB6Q9Pg==
 
 owl.carousel@~2.3.4:
   version "2.3.4"
-  resolved "https://registry.npmjs.org/owl.carousel/-/owl.carousel-2.3.4.tgz"
+  resolved "https://registry.yarnpkg.com/owl.carousel/-/owl.carousel-2.3.4.tgz#6c53dc8d24304b790e4f27a1dc4a655e973ccdc9"
   integrity sha512-JaDss9+feAvEW8KZppPSpllfposEzQiW+Ytt/Xm5t/3CTJ7YVmkh6RkWixoA2yXk2boIwedYxOvrrppIGzru9A==
   dependencies:
     jquery ">=1.8.3"
@@ -7657,7 +7657,7 @@ react-dev-utils@^12.0.0:
 
 react-dom@16.14.0:
   version "16.14.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.14.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
   integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
   dependencies:
     loose-envify "^1.1.0"
@@ -7717,21 +7717,21 @@ react-is@^17.0.1, react-is@^17.0.2:
 
 react-leaflet@^3.2.5:
   version "3.2.5"
-  resolved "https://registry.npmjs.org/react-leaflet/-/react-leaflet-3.2.5.tgz"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.2.5.tgz#bec0bfab9dd8c2b030ea630f7a0687a60322ca7d"
   integrity sha512-Z3KZ+4SijsRbbrt2I1a3ZDY6+V6Pm91eYTdxTN18G6IOkFRsJo1BuSPLFnyFrlF3WDjQFPEcTPkEgD1VEeAoBg==
   dependencies:
     "@react-leaflet/core" "^1.1.1"
 
 react-modern-calendar-datepicker@3.1.6:
   version "3.1.6"
-  resolved "https://registry.npmjs.org/react-modern-calendar-datepicker/-/react-modern-calendar-datepicker-3.1.6.tgz"
+  resolved "https://registry.yarnpkg.com/react-modern-calendar-datepicker/-/react-modern-calendar-datepicker-3.1.6.tgz#46b1533eb387a4d93ae8217eb30c26a4174a138f"
   integrity sha512-lnMqEMj9Wn32/sm119tjCl5lOkq4u9vJE7wggi7hdXV4s8rPdKlH56FVVehlBi0dfYeWQVZ9npY384Zprjn4WA==
   dependencies:
     jalaali-js "^1.1.0"
 
 react-owl-carousel@^2.3.3:
   version "2.3.3"
-  resolved "https://registry.npmjs.org/react-owl-carousel/-/react-owl-carousel-2.3.3.tgz"
+  resolved "https://registry.yarnpkg.com/react-owl-carousel/-/react-owl-carousel-2.3.3.tgz#bb8e40bfd740f6cda8f712863c3437484737d6c4"
   integrity sha512-B4TI2EDDtp7IDM8CWzl5Rh/17p1NfMW/QBIbkC18CkiMGCbO9ztY+vAPTN60tp+63V9v/oLqArLjkiQtDGqj/A==
   dependencies:
     owl.carousel "~2.3.4"
@@ -7878,7 +7878,7 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.2:
 
 react@16.14.0:
   version "16.14.0"
-  resolved "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
   integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
   dependencies:
     loose-envify "^1.1.0"
@@ -8244,7 +8244,7 @@ saxes@^5.0.1:
 
 scheduler@^0.19.1:
   version "0.19.1"
-  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.19.1.tgz"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
   integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
   dependencies:
     loose-envify "^1.1.0"

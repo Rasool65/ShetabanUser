@@ -23,3 +23,12 @@ export interface ILoginConfirmCodeModel {
 export const LoginConfirmCodeModelSchema: yup.SchemaOf<ILoginConfirmCodeModel> = yup.object({
   code: yup.string().required('لطفا کد را وارد نمایید'),
 });
+
+export interface ILoginForgetPasswordModel {
+  newPassword: string;
+  reNewPassword: string;
+}
+export const LoginForgetPasswordModelSchema: yup.SchemaOf<ILoginForgetPasswordModel> = yup.object({
+  newPassword: yup.string().required('کلمه عبور خود را وارد نمایید'),
+  reNewPassword: yup.string().required('تکرار کلمه عبور را وارد نمایید'),
+});

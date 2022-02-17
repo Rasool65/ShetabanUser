@@ -1,4 +1,5 @@
 export interface IInputPasswordToggleProp {
+  focuse?: boolean;
   invalid?: boolean;
   hideIcon?: any;
   showIcon?: any;

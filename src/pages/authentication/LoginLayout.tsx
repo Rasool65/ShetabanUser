@@ -7,9 +7,11 @@ const LoginLayout: FunctionComponent<IPageProps> = (props) => {
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<ILoginPage>(LoginPages[0]);
   const [mobile, setMobile] = useState<string>();
+  const [code, setCode] = useState<string>();
   const [remainingTimeSeconds, setRemainingTimeSeconds] = useState<number>(0);
 
-  const changePage = (pageIndex: number, mobile: string, remainingTimeSeconds: number = 0) => {
+  const changePage = (pageIndex: number, mobile: string, remainingTimeSeconds: number = 0, code: string = '') => {
+    setCode(code);
     setMobile(mobile);
     setCurrentPageIndex(pageIndex);
     setRemainingTimeSeconds(remainingTimeSeconds);
@@ -20,6 +22,11 @@ const LoginLayout: FunctionComponent<IPageProps> = (props) => {
     document.title = currentPage.title;
   }, [currentPage.title]);
 
+  useEffect(() => {
+    const element = document.getElementsByTagName('html')[0];
+    element.setAttribute('dir', 'ltr');
+  }, []);
+
   return (
     <>
       <section className="page-header-section ptb-100 bg-image full-height transparent-bg" image-overlay="8">
@@ -27,7 +34,7 @@ const LoginLayout: FunctionComponent<IPageProps> = (props) => {
           className="background-image-wraper"
           style={{ backgroundImage: 'url(' + require('@src/assets/images/shetaban/login-bg.jpg') + ')', opacity: '1' }}
         ></div>
-        <Container>
+        <Container className="simple-login">
           <Row className="align-items-center justify-content-center ">
             <Col sm={12} md={8} lg={6} className="login-box">
               {currentPageIndex > 0 ? (
@@ -53,6 +60,7 @@ const LoginLayout: FunctionComponent<IPageProps> = (props) => {
                 </div>
                 <currentPage.component
                   pageIndex={currentPageIndex}
+                  code={code}
                   remainingTimeSeconds={remainingTimeSeconds}
                   mobile={mobile}
                   changePage={changePage}

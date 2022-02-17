@@ -1,10 +1,7 @@
 import { ToastType } from '@src/components/toast/ToastType';
 import { toast } from 'react-toastify';
-import { useRTL } from './useRTL';
 
 export const useToast = () => {
-  var [isRtl] = useRTL();
-
   const showToast = (message: string, type: ToastType) => {
     // const position = isRtl ? 'top-right' : 'top-left';
     const position = 'top-center';

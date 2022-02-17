@@ -51,89 +51,59 @@ const History: FunctionComponent<IPageProps> = (props) => {
     document.title = props.title;
   }, []);
 
-  console.log(companies.length);
-
   return (
     <>
       <div className="main">
-        <section className="page-header-section ptb-100 bg-image" image-overlay="8">
+        <section className="page-header-section ptb-100 bg-image" image-overlay="1">
           <div
             className="background-image-wraper"
-            style={{ backgroundImage: 'url(' + require('@src/assets/images/shetaban/slide1.jpg') + ')', opacity: '1' }}
+            style={{
+              backgroundImage: 'url(' + require('@src/assets/images/shetaban/slide1.jpg') + ')',
+              opacity: '1',
+            }}
           />
           <div className="container">
             <div className="row align-items-center">
               <div className="col-md-9 col-lg-7">
                 <div className="page-header-content text-white pt-4">
-                  <h1 className="text-white mb-0">تاریخچه شتابان</h1>
-                  <p className="lead">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                  </p>
+                  <h1 className="text-white mb-0">تاریخچه شرکت شتابان شمال</h1>
+                  <p className="lead">{history.summery}</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <div className="breadcrumb-bar gray-light-bg border-bottom">
-          <div className="container">
-            <div className="row">
-              <div className="col-12">
-                <div className="custom-breadcrumb">
-                  <ol className="breadcrumb pl-0 mb-0 bg-transparent">
-                    <li className="breadcrumb-item">
-                      <a href="#">خانه</a>
-                    </li>
-                    <li className="breadcrumb-item">
-                      <a href="#">صفحات</a>
-                    </li>
-                    <li className="breadcrumb-item active">درباره ما</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="overflow-hidden">
           <section id="about" className="position-relative overflow-hidden feature-section ptb-100  ">
             <div className="container">
               <div className="row align-items-center justify-content-between">
                 <div className="col-md-12 col-lg-6">
                   <div className="feature-contents section-heading section-bg">
-                    <h2>{history.title}</h2>
-                    <div className="html-body-container">{parse(history.body)}</div>
-
+                    {/* <div className="html-body-container">{parse(history.body)}</div> */}
+                    <p className="html-body-container">{history.body}</p>
                     <ul className="check-list-wrap list-two-col py-3">
-                      <li>بررسی کیفیت داده ها</li>
-                      <li>محیط کار ایمن</li>
-                      <li>پشتیبانی 24x7</li>
-                      <li>به روزرسانی ها</li>
-                      <li>تیم مدیریت</li>
-                      <li>پشتیبانی فنی</li>
-                      <li>ادغام آماده است</li>
-                      <li>متن ساختگی</li>
-                      <li>سازگاری محور فرایند</li>
-                      <li>مدیریت نیروی کار</li>
+                      <li>۱۲ سال تجربه</li>
+                      <li>۶ شعبه در سراسر کشور</li>
+                      <li>عقد قرارداد با SLA مشخص</li>
+                      <li>ناوگان مجهز به GPS</li>
+                      <li>حمل ۳۰ میلیون تن بار</li>
+                      <li>طی بیش از ۵۰ میلیون کیلومتر</li>
+                      <li>پاسخ‌گویی ۲۴ ساعته</li>
+                      <li>مجهز به مرکز کنترل و هدایت</li>
                     </ul>
-
-                    <div className="action-btns mt-4">
-                      <a href="#" className="btn btn-brand-02 mr-3">
-                        اکنون شروع کنید{' '}
-                      </a>
-                    </div>
                   </div>
                 </div>
                 <div className="col-md-6 col-lg-6">
-                  <div className="">
-                    <img src={require('@src/assets/images/Capture.PNG')} className="img-fluid" alt="درباره ما" />
-                    <div className="item-icon video-promo-content">
+                  <div style={{ width: '400px', marginRight: '70px' }}>
+                    <img src={require('@src/assets/images/shetaban/s01.png')} className="img-fluid" alt="درباره ما" />
+                    {/* <div className="item-icon video-promo-content">
                       <a
                         href="https://www.youtube.com/watch?v=9No-FiEInLA"
                         className="popup-youtube video-play-icon text-center m-auto"
                       >
                         <span className="ti-control-play"></span>{' '}
                       </a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -145,30 +115,30 @@ const History: FunctionComponent<IPageProps> = (props) => {
             <div className="row">
               <div className="col-sm-6 col-md-6 col-lg-3">
                 <div className="bg-white p-5 rounded shadow count-data text-center mt-4">
-                  <span className="fas fa-users  color-primary icon-size-lg mb-2"></span>
-                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">21023</h3>
-                  <h6 className="mb-0">مشتریان</h6>
+                  <span className="fas fa-truck  color-primary icon-size-lg mb-2"></span>
+                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">300+</h3>
+                  <h6 className="mb-0">کشنده سنگین</h6>
                 </div>
               </div>
               <div className="col-sm-6 col-md-6 col-lg-3">
                 <div className="bg-white p-5 rounded shadow count-data text-center mt-4">
-                  <span className="fas fa-cloud-download-alt  color-primary icon-size-lg mb-2"></span>
-                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">44023</h3>
-                  <h6 className="mb-0">بارگیری ها</h6>
+                  <span className="fas fa-mobile color-primary icon-size-lg mb-2"></span>
+                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">700+</h3>
+                  <h6 className="mb-0">دستگاه ایسوزو</h6>
                 </div>
               </div>
               <div className="col-sm-6 col-md-6 col-lg-3">
                 <div className="bg-white p-5 rounded shadow count-data text-center mt-4">
-                  <span className="fas fa-smile  color-primary icon-size-lg mb-2"></span>
-                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">35023</h3>
-                  <h6 className="mb-0">رضایت مشتری</h6>
+                  <span className="fas fa-road  color-primary icon-size-lg mb-2"></span>
+                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">50+</h3>
+                  <h6 className="mb-0">میلیون کیلومتر پیمایش</h6>
                 </div>
               </div>
               <div className="col-sm-6 col-md-6 col-lg-3">
                 <div className="bg-white p-5 rounded shadow count-data text-center mt-4">
-                  <span className="fas fa-mug-hot  color-primary icon-size-lg mb-2"></span>
-                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">2323</h3>
-                  <h6 className="mb-0">فنجان قهوه</h6>
+                  <span className="fas fa-cube  color-primary icon-size-lg mb-2"></span>
+                  <h3 className="count-number mb-1 color-secondary font-weight-bolder">30+</h3>
+                  <h6 className="mb-0">میلیون تن بار حمل شده</h6>
                 </div>
               </div>
             </div>
@@ -190,6 +160,10 @@ const History: FunctionComponent<IPageProps> = (props) => {
             </div>
             <div className="row align-items-center">
               <div className="col-md-12">
+                {/* <div
+                  className="owl-stage"
+                  style={{ transform: 'translated(-1875px, 0px, 0px)', transition: `all 4.5s linear 0s`, width: '3750px' }}
+                > */}
                 {companies.length > 0 ? (
                   <OwlCarousel
                     items={4}
@@ -200,39 +174,46 @@ const History: FunctionComponent<IPageProps> = (props) => {
                     autoplayHoverPause={true}
                     className="owl-carousel owl-theme clients-carousel dot-indicator owl-loaded owl-drag"
                   >
-                    {companies.map((brand: any) =>
-                      brand.brandLink ? (
+                    {companies.map((brand: any) => {
+                      return brand.brandLink ? (
                         <div className="owl-stage-outer">
                           <a href={brand.brandLink} target={brand.urlTarget}>
                             <div className="item single-customer">
                               <div>
-                                <img src="//logo.clearbit.com/spotify.com" />
+                                <img src={`${BASE_URL + brand.logo}`} className="customer-logo" />
                               </div>
                             </div>
                           </a>
                         </div>
                       ) : (
                         <div className="owl-stage-outer">
-                          <a href={brand.brandLink} target={brand.urlTarget}>
-                            <div className="item single-customer">
-                              <div>
-                                <img src="//logo.clearbit.com/spotify.com" />
-                              </div>
+                          <div className="item single-customer">
+                            <div>
+                              <img src={`${BASE_URL + brand.logo}`} className="customer-logo" />
                             </div>
-                          </a>
+                          </div>
                         </div>
-                      )
-                    )}
+                      );
+                    })}
                   </OwlCarousel>
                 ) : (
                   'برندی ثبت نشده است'
                 )}
+                {/* </div> */}
 
-                {/* <div className="owl-carousel owl-theme clients-carousel dot-indicator owl-loaded owl-drag">
+                {/* <OwlCarousel
+                  items={4}
+                  loop
+                  nav={true}
+                  dots={false}
+                  autoPlay={true}
+                  autoplayHoverPause={true}
+                  className="owl-carousel owl-theme clients-carousel dot-indicator owl-loaded owl-drag"
+                >
                   <div className="owl-stage-outer">
                     <div
                       className="owl-stage"
-                      style={{ transform: 'translated(-1875px, 0px, 0px)', transition: `all 4.5s linear 0s`, width: '3750px' }}
+                      style={{ transform: 'translated(-1875px, 00px)', transitpx, ion: `all 4.5s linear 0s`, width: '3750px' }}
                     >
                       {companies
                         ? companies.map((brand: any) => {
@@ -263,8 +244,8 @@ const History: FunctionComponent<IPageProps> = (props) => {
                       <span aria-label="Next">›</span>
                     </button>
                   </div>
-                  <div className="owl-dots disabled"></div> 
-                </div>*/}
+                  <div className="owl-dots disabled"></div>
+                </OwlCarousel> */}
               </div>
             </div>
           </div>

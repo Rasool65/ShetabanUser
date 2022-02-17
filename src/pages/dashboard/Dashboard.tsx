@@ -8,6 +8,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import slide1 from '@src/assets/images/shetaban/m_slide1.jpg';
 import slide2 from '@src/assets/images/shetaban/m_slide2.jpg';
 import slide3 from '@src/assets/images/shetaban/m_slide3.jpg';
+import dashboardImg from '@src/assets/images/shetaban/Dashboard-Idea.png';
 import { Link } from 'react-router-dom';
 
 const Dashboard: FunctionComponent<IPageProps> = (props) => {
@@ -17,7 +18,7 @@ const Dashboard: FunctionComponent<IPageProps> = (props) => {
 
   return (
     <>
-      <OwlCarousel
+      {/* <OwlCarousel
         className="owl-theme dashboard-slide"
         loop={true}
         // margin={8}
@@ -61,7 +62,7 @@ const Dashboard: FunctionComponent<IPageProps> = (props) => {
           </Col>
         </Row>
       </Container>
-      <Container className="page-panel"></Container>
+      <Container className="page-panel"></Container> */}
     </>
   );
 };

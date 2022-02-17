@@ -1,7 +1,6 @@
 import React, { StrictMode, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './scss/theme/main.scss';
 import { Provider } from 'react-redux';
 import Store from './redux/Store';
 import { AbilityContext } from './utility/context/Can';
@@ -11,7 +10,6 @@ import { ToastContainer } from 'react-toastify';
 import './assets/fonts/feather/iconfont.css';
 // import './scss/core.scss';
 import './scss/react/app-loader.scss';
-import './assets/scss/style-rtl.scss';
 import Spinner from './components/spinner/Fallback-spinner';
 import './configs/i18n';
 import 'react-perfect-scrollbar/dist/css/styles.css';

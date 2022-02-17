@@ -1,19 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CustomButton } from '@src/components/customButton';
 import InputPasswordToggle from '@src/components/input-password-toggle';
-import { APIURL_LOGIN, APIURL_LOGIN_CONFIRM_CODE } from '@src/configs/apiConfig/apiUrls';
-import { URL_DASHBOARD, URL_MAIN } from '@src/configs/urls';
+import { APIURL_LOGIN, APIURL_LOGIN_CONFIRM_CODE, APIURL_LOGIN_FORGET_CODE } from '@src/configs/apiConfig/apiUrls';
+import { URL_DASHBOARD } from '@src/configs/urls';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 import { ILoginPasswordModel, LoginPasswordModelSchema } from '@src/models/input/authentication/ILoginModel';
 import { ILoginConfirmCodeResult } from '@src/models/output/authentication/ILoginConfirmCodeResult';
 import { ILoginResultModel } from '@src/models/output/authentication/ILoginResultModel';
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { handleLogin } from '@src/redux/reducers/authenticationReducer';
-import { FunctionComponent, useRef, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Form, FormFeedback, Input } from 'reactstrap';
+import { Form, FormFeedback } from 'reactstrap';
 import { ILoginProp } from './ILoginProp';
 
 const LoginGetPassword: FunctionComponent<ILoginProp> = (props) => {
@@ -60,6 +60,17 @@ const LoginGetPassword: FunctionComponent<ILoginProp> = (props) => {
       });
   };
 
+  const sendForgetPasswordCode = () => {
+    setConfirmCodeLoading(true);
+    httpRequest
+      .postRequest<IOutputResult<ILoginConfirmCodeResult>>(APIURL_LOGIN_FORGET_CODE, { mobile: props.mobile })
+      .then((result) => {
+        props.changePage(3, props.mobile, result.data.data.remainingTimeSeconds);
+      })
+      .finally(() => {
+        setConfirmCodeLoading(false);
+      });
+  };
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)} className="login-signup-form">
@@ -107,7 +118,13 @@ const LoginGetPassword: FunctionComponent<ILoginProp> = (props) => {
         )}
       </p>
       <p className="mb-0">
-        <a href="#" className="" onClick={() => {}}>
+        <a
+          href="#"
+          className=""
+          onClick={() => {
+            sendForgetPasswordCode();
+          }}
+        >
           <span className="fa fa-arrow-left"></span> فراموشی کلمه عبور
         </a>
       </p>

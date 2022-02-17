@@ -4,11 +4,11 @@
 const themeConfig = {
   app: {
     appName: 'Tour Monitor',
-    appLogoImage: require('@src/assets/images/logo/bonnychow_80.png'),
+    appLogoImage: require('@src/assets/images/shetaban/logo.png'),
     useRefreshToken: false,
   },
   layout: {
-    isRTL: false,
+    isRTL: true,
     skin: 'light', // light, dark, bordered, semi-dark
     routerTransition: 'fadeIn', // fadeIn, fadeInLeft, zoomIn, none or check this for more transition https://animate.style/
     type: 'vertical', // vertical, horizontal

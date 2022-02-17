@@ -1,28 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CustomButton } from '@src/components/customButton';
-import InputPasswordToggle from '@src/components/input-password-toggle';
-import { APIURL_LOGIN, APIURL_LOGIN_CHECK_CONFIRM_CODE, APIURL_LOGIN_CONFIRM_CODE } from '@src/configs/apiConfig/apiUrls';
-import { URL_MAIN } from '@src/configs/urls';
+import { APIURL_LOGIN_CHECK_CONFIRM_CODE, APIURL_LOGIN_CONFIRM_CODE } from '@src/configs/apiConfig/apiUrls';
 import useHttpRequest from '@src/hooks/useHttpRequest';
-import {
-  ILoginConfirmCodeModel,
-  ILoginPasswordModel,
-  LoginConfirmCodeModelSchema,
-  LoginPasswordModelSchema,
-} from '@src/models/input/authentication/ILoginModel';
+import { ILoginConfirmCodeModel, LoginConfirmCodeModelSchema } from '@src/models/input/authentication/ILoginModel';
 import { ILoginConfirmCodeResult } from '@src/models/output/authentication/ILoginConfirmCodeResult';
 import { ILoginResultModel } from '@src/models/output/authentication/ILoginResultModel';
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { handleLogin } from '@src/redux/reducers/authenticationReducer';
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Button, Form, FormFeedback, Input, InputGroup } from 'reactstrap';
+import { Form, Input, InputGroup } from 'reactstrap';
 import { ILoginProp } from './ILoginProp';
 
 const LoginCheckConfirmCode: FunctionComponent<ILoginProp> = (props) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -48,7 +39,7 @@ const LoginCheckConfirmCode: FunctionComponent<ILoginProp> = (props) => {
         })
         .then((result) => {
           dispatch(handleLogin(result));
-          navigate(URL_DASHBOARD);
+          // navigate(URL_DASHBOARD);
         })
         .finally(() => {
           setLoading(false);

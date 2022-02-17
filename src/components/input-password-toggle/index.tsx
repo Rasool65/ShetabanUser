@@ -11,6 +11,7 @@ import { InputGroup, Input, InputGroupText, Label } from 'reactstrap';
 import { IInputPasswordToggleProp } from './IInputPasswordToggleProp';
 
 const defaultProps: IInputPasswordToggleProp = {
+  focuse: true,
   visible: false,
   invalid: false,
   hideIcon: undefined,
@@ -25,12 +26,23 @@ const defaultProps: IInputPasswordToggleProp = {
 
 const InputPasswordToggle: FunctionComponent<IInputPasswordToggleProp> = (props = defaultProps) => {
   // ** Props
-  const { label, hideIcon, showIcon, visible, className, htmlFor, placeholder, iconSize, inputClassName, invalid, ...rest } =
-    props;
+  const {
+    label,
+    hideIcon,
+    showIcon,
+    focuse,
+    visible,
+    className,
+    htmlFor,
+    placeholder,
+    iconSize,
+    inputClassName,
+    invalid,
+    ...rest
+  } = props;
 
   // ** State
   const [inputVisibility, setInputVisibility] = useState(visible);
-
   // ** Renders Icon Based On Visibility
   const renderIcon = () => {
     const size = iconSize ? iconSize : 14;
@@ -58,9 +70,9 @@ const InputPasswordToggle: FunctionComponent<IInputPasswordToggleProp> = (props 
         <Input
           invalid={invalid}
           type={inputVisibility === false ? 'password' : 'text'}
-          placeholder={placeholder ? placeholder : '············'}
+          placeholder={placeholder ? placeholder : ''}
           autoComplete="off"
-          autoFocus={true}
+          autoFocus={focuse}
           className={classnames({
             [inputClassName]: inputClassName,
           })}

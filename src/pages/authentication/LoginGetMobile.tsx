@@ -1,23 +1,15 @@
-import { FunctionComponent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { URL_LOGIN, URL_MAIN } from '../../configs/urls';
-import IPageProps from '../../configs/routerConfig/IPageProps';
+import { FunctionComponent, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import InputPasswordToggle from '@components/input-password-toggle';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // ** Styles
 import '@styles/react/pages/page-authentication.scss';
 
 import { Form, FormFeedback, Input } from 'reactstrap';
-import { useDispatch } from 'react-redux';
 import { ILoginProp, LoginPages } from './ILoginProp';
 import { ILoginMobileModel, LoginMobileModelSchema } from '@src/models/input/authentication/ILoginModel';
 
 const LoginGetMobile: FunctionComponent<ILoginProp> = (props) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const {

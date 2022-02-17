@@ -1,4 +1,4 @@
-import { handleRouterTransition } from '@src/redux/reducers/LayoutReducer';
+import { handleRouterTransition } from '@src/redux/reducers/layoutReducer';
 import { RootStateType } from '@src/redux/Store';
 import { useDispatch, useSelector } from 'react-redux';
 

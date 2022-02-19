@@ -5,7 +5,7 @@
 
   .modal-header {
     background-color: $body-bg;
-
+    margin: 0 0 1rem 0;
     // close button
     .btn-close {
       padding: 0.8rem;
@@ -40,6 +40,7 @@
     // overflow: unset; updated to "visible" as close icon is not visible in IE
     overflow: visible;
     box-shadow: 0 5px 20px 0 rgba($black, 0.1);
+    padding: 1rem 2.5rem;
   }
 
   .modal-footer {

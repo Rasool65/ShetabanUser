@@ -1,4 +1,4 @@
-import { URL_DASHBOARD, URL_HISTORY } from './../urls';
+import { URL_DASHBOARD, URL_HISTORY, URL_TICKET } from './../urls';
 import IRoute from './IRoute';
 import RouteType from './RouteType';
 import { URL_CONTACT_US, URL_MAIN, URL_LOGIN, URL_TICKET } from '../urls';
@@ -8,6 +8,9 @@ import Home from '@src/pages/home/Home';
 import Dashboard from '@src/pages/dashboard/Dashboard';
 import LoginLayout from '@src/pages/authentication/LoginLayout';
 import History from '@src/pages/aboutUs/History';
+import path from 'path/posix';
+import AppChat from '@src/pages/chat';
+
 import path from 'path/posix';
 import AppChat from '@src/pages/chat';
 

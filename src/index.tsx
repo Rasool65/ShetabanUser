@@ -1,6 +1,7 @@
 import React, { StrictMode, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+// import '@styles/core.scss';
 import { Provider } from 'react-redux';
 import Store from './redux/Store';
 import { AbilityContext } from './utility/context/Can';

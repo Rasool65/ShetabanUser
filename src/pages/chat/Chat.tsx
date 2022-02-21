@@ -1,12 +1,11 @@
 // ** React Imports
 import ReactDOM, { render } from 'react-dom';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FunctionComponent } from 'react';
 
 // ** Custom Components
 import Avatar from '@components/avatar';
 
 // ** Store & Actions
-import { sendMsg } from './store';
 import { useDispatch, useSelector } from 'react-redux';
 
 // ** Third Party Components
@@ -15,32 +14,24 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { MessageSquare, Menu, PhoneCall, Video, Search, MoreVertical, Mic, Image, Send } from 'react-feather';
 
 // ** Reactstrap Imports
-import {
-  Form,
-  Label,
-  Input,
-  Button,
-  InputGroup,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  InputGroupText,
-  UncontrolledDropdown,
-  Modal,
-  ModalHeader,
-  FormGroup,
-} from 'reactstrap';
+import { Form, Label, Input, Button, InputGroup, Modal, ModalHeader, FormGroup } from 'reactstrap';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 import { APIURL_CREATE_CONVERSATION, APIURL_SEND_MESSAGE } from '@src/configs/apiConfig/apiUrls';
 import { Controller, useForm } from 'react-hook-form';
+import { RootStateType } from '@src/redux/Store';
+import { IChatLogProps, IChatMessage, IChatMessagesGroup } from './IChat';
+import { ICurrentTicket } from '@src/redux/states/ICurrentTicket';
+import { IOutputResult } from '@src/models/output/IOutputResult';
+import { ISendMessageModel } from '@src/models/output/ticket/IMessagesModel';
 
-const ChatLog = (props) => {
+const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
   // ** Props & Store
-  const { handleUser, handleUserSidebarRight, handleSidebar, store, userSidebarLeft, getCurrentConversation } = props;
+  const { store, getCurrentConversation, getAllConversations } = props;
   const { currentTicket } = store;
-  const userId = useSelector((store) => store.authentication.userData.userRole);
+  const userId = useSelector((state: RootStateType) => state.authentication?.userData?.userRole);
   // ** Refs & Dispatch
-  const chatArea = useRef(null);
+  const chatArea = useRef<HTMLDivElement>(null);
+
   const dispatch = useDispatch();
 
   // ** State
@@ -52,46 +43,48 @@ const ChatLog = (props) => {
 
   // ** Scroll to chat bottom
   const scrollToBottom = () => {
-    const chatContainer = ReactDOM.findDOMNode(chatArea.current);
+    const chatContainer = ReactDOM.findDOMNode(chatArea.current) as HTMLDivElement;
     chatContainer.scrollTop = Number.MAX_SAFE_INTEGER;
   };
 
-  // ** If user chat is not empty scrollToBottom
-  // useEffect(() => {
-  //   const selectedUserLen = Object.keys(selectedUser).length;
+  // ** If ticket is not empty && new message receieved scrollToBottom
+  useEffect(() => {
+    const messagesLength = currentTicket.length;
 
-  //   if (selectedUserLen) {
-  //     scrollToBottom();
-  //   }
-  // }, [selectedUser]);
+    if (messagesLength) {
+      scrollToBottom();
+    }
+  }, [currentTicket]);
 
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog = [];
     chatLog = currentTicket;
-    const formattedChatLog = [];
+    const formattedChatLog: Array<IChatMessagesGroup> = [];
+
     let chatMessageSenderId = userId;
-    let msgGroup = {
+    let msgGroup: IChatMessagesGroup = {
       senderId: chatMessageSenderId,
       messages: [],
     };
+
     chatLog.length > 0 &&
-      chatLog.forEach((msg, index) => {
+      chatLog.forEach((msg: ICurrentTicket, index: number) => {
+        console.log(msg);
         if (chatMessageSenderId === msg.userId) {
-          console.log(msg);
-          msgGroup.messages.push({
+          msgGroup?.messages?.unshift({
             msg: msg.message,
             time: msg.createOn,
           });
         } else {
-          chatMessageSenderId = msg.senderId;
-          formattedChatLog.push(msgGroup);
+          chatMessageSenderId = msg.userId;
+          formattedChatLog.unshift(msgGroup);
           msgGroup = {
             senderId: msg.userId,
             messages: [
               {
                 msg: msg.message,
-                time: msg.time,
+                time: msg.createOn,
               },
             ],
           };
@@ -104,7 +97,6 @@ const ChatLog = (props) => {
   // ** Renders user chat
   const renderChats = () =>
     formattedChatData().map((item, index) => {
-      console.log(item.messages);
       return (
         <div
           key={index}
@@ -122,7 +114,7 @@ const ChatLog = (props) => {
             </div> */}
 
           <div className="chat-body">
-            {item.messages.map((chat, index) => (
+            {item?.messages?.map((chat: any, index: number) => (
               <div key={index + '_chat'} className="chat-content">
                 <p>{chat.msg}</p>
               </div>
@@ -133,10 +125,6 @@ const ChatLog = (props) => {
     });
 
   // ** Opens right sidebar & handles its data
-  const handleAvatarClick = (obj) => {
-    handleUserSidebarRight();
-    handleUser(obj);
-  };
 
   // ** On mobile screen open left sidebar on Start Conversation Click
   // const handleStartConversation = () => {
@@ -146,10 +134,10 @@ const ChatLog = (props) => {
   // };
 
   // ** Sends New Msg
-  const handleSendMsg = (e) => {
+  const handleSendMsg = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (msg.length) {
-      postRequest(APIURL_SEND_MESSAGE, {
+      postRequest<IOutputResult<ISendMessageModel>>(APIURL_SEND_MESSAGE, {
         conversationId: currentTicket[0].conversationId,
         message: msg,
       }).then(() => {
@@ -163,8 +151,9 @@ const ChatLog = (props) => {
     setShowModal(!showModal);
     console.log(2134234);
   };
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     postRequest(APIURL_CREATE_CONVERSATION, data).then((result) => {
+      getAllConversations();
       toggleModal();
     });
   };
@@ -216,7 +205,7 @@ const ChatLog = (props) => {
         <div className="chat-navbar">
           <header className="chat-header">
             <div className="d-flex align-items-center">
-              <div className="sidebar-toggle d-block d-lg-none me-1" onClick={handleSidebar}>
+              <div className="sidebar-toggle d-block d-lg-none me-1">
                 <Menu size={21} />
               </div>
               <Avatar
@@ -259,7 +248,7 @@ const ChatLog = (props) => {
           </header>
         </div>
 
-        <ChatWrapper ref={chatArea} className="user-chats" style={{ overflow: 'scroll' }} options={{ wheelPropagation: true }}>
+        <ChatWrapper ref={chatArea} className="user-chats" options={{ wheelPropagation: true }}>
           {formattedChatData().length > 0 ? <div className="chats">{renderChats()}</div> : null}
         </ChatWrapper>
 

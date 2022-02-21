@@ -4,33 +4,35 @@ import { Fragment, useState, useEffect } from 'react';
 // ** Chat App Component Imports
 import Chat from './Chat';
 import Sidebar from './SidebarLeft';
-import UserProfileSidebar from './UserProfileSidebar';
 
 // ** Third Party Components
 import classnames from 'classnames';
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserProfile, getChatContacts } from './store';
+
+import { IOutputResult } from '@src/models/output/IOutputResult';
 
 import '@styles/base/pages/app-chat.scss';
 import '@styles/base/pages/app-chat-list.scss';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 import { APIURL_GET_CONVERSATIONS, APIURL_GET_MESSAGES } from '@src/configs/apiConfig/apiUrls';
 import { handleAllTickets, handleCurrentTicket } from '@src/redux/reducers/ticketReducer';
+import { IConversationModel } from '@src/models/output/ticket/IConversationModel';
+import { IGetMessagesModel } from '@src/models/output/ticket/IMessagesModel';
+import { ITicketReducerState } from '@src/redux/states/ITicketReducerState';
+import { RootStateType } from '@src/redux/Store';
 
 const AppChat = () => {
   // ** Store Vars
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.ticket);
+  const store = useSelector((state: RootStateType) => state.ticket);
   const { currentTicket } = store;
   // ** States
-  const [user, setUser] = useState({});
   const [sidebar, setSidebar] = useState(false);
   const [userSidebarRight, setUserSidebarRight] = useState(false);
   const [userSidebarLeft, setUserSidebarLeft] = useState(false);
-
-  const { getRequest, postRequest } = useHttpRequest();
+  const httpRequest = useHttpRequest();
 
   // ** Sidebar & overlay toggle functions
   const handleSidebar = () => setSidebar(!sidebar);
@@ -43,7 +45,7 @@ const AppChat = () => {
   };
 
   // ** Set user function for Right Sidebar
-  const handleUser = (obj) => setUser(obj);
+  // const handleUser = (obj) => setUser(obj);
 
   // ** Get data on Mount
   // useEffect(() => {
@@ -52,24 +54,32 @@ const AppChat = () => {
   // }, [dispatch]);
 
   useEffect(() => {
-    postRequest(APIURL_GET_CONVERSATIONS, {
-      page: 9999,
-      limit: 100,
-      search: 'string',
-    }).then((result) => {
-      dispatch(handleAllTickets(result.data.data));
-    });
+    getAllConversations();
   }, []);
 
+  const getAllConversations = () => {
+    httpRequest
+      .postRequest<IOutputResult<IConversationModel>>(APIURL_GET_CONVERSATIONS, {
+        page: 9999,
+        limit: 100,
+        search: 'string',
+      })
+      .then((result) => {
+        dispatch(handleAllTickets(result.data.data));
+      });
+  };
+
   const getCurrentConversation = () => {
-    postRequest(APIURL_GET_MESSAGES, {
-      page: 9999,
-      limit: 100,
-      search: '',
-      conversationId: currentTicket[0].conversationId,
-    }).then((result) => {
-      dispatch(handleCurrentTicket(result.data.data));
-    });
+    httpRequest
+      .postRequest<IOutputResult<IGetMessagesModel>>(APIURL_GET_MESSAGES, {
+        page: 9999,
+        limit: 100,
+        search: '',
+        conversationId: currentTicket[0].conversationId,
+      })
+      .then((result) => {
+        dispatch(handleCurrentTicket(result.data.data));
+      });
   };
 
   return (
@@ -81,10 +91,7 @@ const AppChat = () => {
         >
           <Sidebar
             store={store}
-            sidebar={sidebar}
-            handleSidebar={handleSidebar}
-            userSidebarLeft={userSidebarLeft}
-            handleUserSidebarLeft={handleUserSidebarLeft}
+            // getCurrentConversation={getCurrentConversation}
           />
           <div className="content-right">
             <div className="content-wrapper" style={{ height: '100%' }}>
@@ -98,10 +105,9 @@ const AppChat = () => {
                 <Chat
                   getCurrentConversation={getCurrentConversation}
                   store={store}
-                  handleUser={handleUser}
-                  handleSidebar={handleSidebar}
-                  userSidebarLeft={userSidebarLeft}
-                  handleUserSidebarRight={handleUserSidebarRight}
+                  // handleSidebar={handleSidebar}
+                  getAllConversations={getAllConversations}
+                  // handleUserSidebarRight={handleUserSidebarRight}
                 />
                 {/* <UserProfileSidebar
                   user={user}

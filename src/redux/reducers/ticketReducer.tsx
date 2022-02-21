@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ITicketReducerState } from '../states/ITicketReducerState';
 
 export const ticketSlice = createSlice({
   name: 'ticket',
   initialState: {
     tickets: [],
     currentTicket: [],
-  },
+  } as ITicketReducerState,
   reducers: {
     handleAllTickets: (state, action) => {
       console.log(action.payload);

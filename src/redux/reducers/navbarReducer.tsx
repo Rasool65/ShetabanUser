@@ -37,7 +37,7 @@ export const navbarSlice = createSlice({
         isBookmarked: true,
         title: 'Chat',
         icon: 'MessageSquare',
-        link: '/apps/chat',
+        link: '/ticket',
       },
       {
         id: 5,

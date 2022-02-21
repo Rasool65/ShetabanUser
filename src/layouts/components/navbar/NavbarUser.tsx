@@ -19,7 +19,8 @@ const NavbarUser = (props: any) => {
 
   return (
     <ul className="nav navbar-nav align-items-center ms-auto">
-      <IntlDropdown />
+      {/* <IntlDropdown /> */}
+
       <NavItem className="d-none d-lg-block">
         <NavLink className="nav-link-style">
           <ThemeToggler />

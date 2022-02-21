@@ -8,3 +8,8 @@ export const APIURL_LOGIN_CHECK_CONFIRM_CODE = '/account/confirmCode';
 export const APIURL_GET_GENERAL_INFO = '/common/getGeneralInfoSetting';
 export const APIURL_GET_PAGES_TYPE = '/common/pages';
 export const APIURL_GET_COMPANIES = 'common/getcompanies';
+// Ticket
+export const APIURL_GET_CONVERSATIONS = '/user/conversation/conversations';
+export const APIURL_GET_MESSAGES = '/user/conversation/messages';
+export const APIURL_SEND_MESSAGE = '/user/conversation/sendmessage';
+export const APIURL_CREATE_CONVERSATION = '/user/conversation/createConversation';

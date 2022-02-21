@@ -22,6 +22,7 @@ const LoginGetPassword: FunctionComponent<ILoginProp> = (props) => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [confirmCodeLoading, setConfirmCodeLoading] = useState<boolean>(false);
+  const [forgetCodeLoading, setForgetCodeLoading] = useState<boolean>(false);
 
   const httpRequest = useHttpRequest();
 
@@ -61,14 +62,14 @@ const LoginGetPassword: FunctionComponent<ILoginProp> = (props) => {
   };
 
   const sendForgetPasswordCode = () => {
-    setConfirmCodeLoading(true);
+    setForgetCodeLoading(true);
     httpRequest
       .postRequest<IOutputResult<ILoginConfirmCodeResult>>(APIURL_LOGIN_FORGET_CODE, { mobile: props.mobile })
       .then((result) => {
         props.changePage(3, props.mobile, result.data.data.remainingTimeSeconds);
       })
       .finally(() => {
-        setConfirmCodeLoading(false);
+        setForgetCodeLoading(false);
       });
   };
   return (
@@ -118,15 +119,19 @@ const LoginGetPassword: FunctionComponent<ILoginProp> = (props) => {
         )}
       </p>
       <p className="mb-0">
-        <a
-          href="#"
-          className=""
-          onClick={() => {
-            sendForgetPasswordCode();
-          }}
-        >
-          <span className="fa fa-arrow-left"></span> فراموشی کلمه عبور
-        </a>
+        {forgetCodeLoading ? (
+          <img className="loading-link" src={require('@src/assets/images/shetaban/loading.gif')} />
+        ) : (
+          <a
+            href="#"
+            className=""
+            onClick={() => {
+              sendForgetPasswordCode();
+            }}
+          >
+            <span className="fa fa-arrow-left"></span> فراموشی کلمه عبور
+          </a>
+        )}
       </p>
     </>
   );

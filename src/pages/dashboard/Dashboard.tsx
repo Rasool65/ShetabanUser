@@ -10,6 +10,7 @@ import slide2 from '@src/assets/images/shetaban/m_slide2.jpg';
 import slide3 from '@src/assets/images/shetaban/m_slide3.jpg';
 import dashboardImg from '@src/assets/images/shetaban/Dashboard-Idea.png';
 import { Link } from 'react-router-dom';
+import AppChat from '../chat';
 
 const Dashboard: FunctionComponent<IPageProps> = (props) => {
   useEffect(() => {
@@ -18,6 +19,10 @@ const Dashboard: FunctionComponent<IPageProps> = (props) => {
 
   return (
     <>
+      {/* <div className="content-area-wrapper container-xxl p-0 animate__fadeIn">
+        <AppChat />
+      </div> */}
+
       {/* <OwlCarousel
         className="owl-theme dashboard-slide"
         loop={true}

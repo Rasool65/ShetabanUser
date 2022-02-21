@@ -61,13 +61,25 @@ $chat-widget-height: 390px;
         padding: 0.7rem 1rem;
         margin: 0 1rem 10px 0;
         clear: both;
+
         color: $white;
-        @include gradient-directional(map-get($primary-color, 'base'), map-get($primary-color, 'lighten-2'), 80deg);
-        border-radius: $border-radius;
+        @include gradient-directional(map-get($primary-color, 'base'), map-get($primary-color, 'lighten-1'), 80deg);
+        border-radius: 0.1rem 0.95rem 0.95rem 0.95rem;
         box-shadow: 0 4px 8px 0 rgba($black, 0.12);
         max-width: 75%;
+        min-width: 12rem;
         p {
           margin: 0;
+          line-height: 1.6rem;
+        }
+        .msg {
+          font-size: 1.1rem;
+          padding: 0.6rem 0;
+        }
+        .time-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
         }
       }
     }
@@ -78,6 +90,7 @@ $chat-widget-height: 390px;
       }
       .chat-body {
         .chat-content {
+          border-radius: 0.95rem 0.1rem 0.95rem 0.95rem;
           float: right;
           margin: 0 0 10px 1rem;
           color: $body-color;

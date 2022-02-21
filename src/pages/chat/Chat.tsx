@@ -23,10 +23,11 @@ import { IChatLogProps, IChatMessage, IChatMessagesGroup } from './IChat';
 import { ICurrentTicket } from '@src/redux/states/ICurrentTicket';
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { ISendMessageModel } from '@src/models/output/ticket/IMessagesModel';
+import { DateHelper } from '@src/utility/dateHelper';
 
 const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
   // ** Props & Store
-  const { store, getCurrentConversation, getAllConversations } = props;
+  const { store, getCurrentConversation, getAllConversations, showModal, toggleModal } = props;
   const { currentTicket } = store;
   const userId = useSelector((state: RootStateType) => state.authentication?.userData?.userRole);
   // ** Refs & Dispatch
@@ -36,7 +37,6 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
 
   // ** State
   const [msg, setMsg] = useState('');
-  const [showModal, setShowModal] = useState(false);
 
   const { postRequest } = useHttpRequest();
   const { control, handleSubmit } = useForm();
@@ -64,7 +64,7 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
 
     let chatMessageSenderId = userId;
     let msgGroup: IChatMessagesGroup = {
-      senderId: chatMessageSenderId,
+      senderId: 'user' + chatMessageSenderId,
       messages: [],
     };
 
@@ -74,17 +74,19 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
         if (chatMessageSenderId === msg.userId) {
           msgGroup?.messages?.unshift({
             msg: msg.message,
-            time: msg.createOn,
+            date: DateHelper.isoDateTopersian(msg.createOn),
+            time: DateHelper.splitTime(msg.createOn),
           });
         } else {
-          chatMessageSenderId = msg.userId;
+          chatMessageSenderId = msg.adminUsersId;
           formattedChatLog.unshift(msgGroup);
           msgGroup = {
-            senderId: msg.userId,
+            senderId: 'admin' + msg.adminUsersId,
             messages: [
               {
                 msg: msg.message,
-                time: msg.createOn,
+                date: DateHelper.isoDateTopersian(msg.createOn),
+                time: DateHelper.splitTime(msg.createOn),
               },
             ],
           };
@@ -94,6 +96,8 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
     return formattedChatLog;
   };
 
+  console.log(formattedChatData());
+
   // ** Renders user chat
   const renderChats = () =>
     formattedChatData().map((item, index) => {
@@ -101,7 +105,7 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
         <div
           key={index}
           className={classnames('chat', {
-            'chat-left': item.senderId !== userId,
+            'chat-left': item.senderId !== 'user' + userId,
           })}
         >
           {/* <div className="chat-avatar">
@@ -114,11 +118,17 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
             </div> */}
 
           <div className="chat-body">
-            {item?.messages?.map((chat: any, index: number) => (
-              <div key={index + '_chat'} className="chat-content">
-                <p>{chat.msg}</p>
-              </div>
-            ))}
+            {item?.messages?.map((chat: any, index: number) => {
+              return (
+                <div key={index + '_chat'} className="chat-content">
+                  <p className="msg">{chat.msg}</p>
+                  <div className="time-container">
+                    <span>{chat.date}</span>
+                    <span>{chat.time}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       );
@@ -147,9 +157,6 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
     }
   };
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
   const onSubmit = (data: any) => {
     postRequest(APIURL_CREATE_CONVERSATION, data).then((result) => {
       getAllConversations();
@@ -161,7 +168,12 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
   const ChatWrapper = currentTicket.length > 0 ? PerfectScrollbar : 'div';
   return (
     <div className="chat-app-window">
-      <Modal toggle={toggleModal} isOpen={showModal}>
+      <Modal
+        toggle={() => {
+          toggleModal();
+        }}
+        isOpen={showModal}
+      >
         <ModalHeader>ایجاد پیام جدید</ModalHeader>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
@@ -193,7 +205,12 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
           </Button>
         </Form>
       </Modal>
-      <div onClick={toggleModal} className={classnames('start-chat-area', { 'd-none': currentTicket.length > 0 })}>
+      <div
+        onClick={() => {
+          toggleModal();
+        }}
+        className={classnames('start-chat-area', { 'd-none': currentTicket.length > 0 })}
+      >
         <div className="start-chat-icon mb-1">
           <MessageSquare />
         </div>
@@ -207,14 +224,14 @@ const ChatLog: FunctionComponent<IChatLogProps> = (props) => {
               <div className="sidebar-toggle d-block d-lg-none me-1">
                 <Menu size={21} />
               </div>
-              <Avatar
+              {/* <Avatar
                 imgHeight="36"
                 imgWidth="36"
                 // img={selectedUser.contact.avatar}
                 // status={selectedUser.contact.status}
                 // className="avatar-border user-profile-toggle m-0 me-1"
                 // onClick={() => handleAvatarClick(selectedUser.contact)}
-              />
+              /> */}
               {/* <h6 className="mb-0">{selectedUser.contact.fullName}</h6> */}
             </div>
             <div className="d-flex align-items-center">

@@ -18,15 +18,17 @@ import { X, Search, CheckSquare, Bell, User, Trash, Send } from 'react-feather';
 import { CardText, InputGroup, InputGroupText, Badge, Input, Button, Label } from 'reactstrap';
 import { useTokenAuthentication } from '@src/hooks/useTokenAuthentication';
 import useHttpRequest from '@src/hooks/useHttpRequest';
-import { APIURL_GET_MESSAGES } from '@src/configs/apiConfig/apiUrls';
-import { handleCurrentTicket } from '@src/redux/reducers/ticketReducer';
+import { APIURL_GET_CONVERSATIONS, APIURL_GET_MESSAGES } from '@src/configs/apiConfig/apiUrls';
+import { handleAllTickets, handleCurrentTicket } from '@src/redux/reducers/ticketReducer';
 import { ITicket } from '@src/redux/states/ITickets';
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { IGetMessagesModel } from '@src/models/output/ticket/IMessagesModel';
 import { ISidebarProps } from './IChat';
+import { DateHelper } from '@src/utility/dateHelper';
+import { IConversationModel } from '@src/models/output/ticket/IConversationModel';
 const SidebarLeft: FunctionComponent<ISidebarProps> = (props) => {
   // ** Props & Store
-  const { store } = props;
+  const { store, toggleModel, showModal } = props;
   const { tickets } = store;
 
   // ** Dispatch
@@ -34,6 +36,7 @@ const SidebarLeft: FunctionComponent<ISidebarProps> = (props) => {
 
   // ** State
   const [active, setActive] = useState(0);
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const { getRequest, postRequest } = useHttpRequest();
 
@@ -41,7 +44,7 @@ const SidebarLeft: FunctionComponent<ISidebarProps> = (props) => {
   const handleUserClick = (id: number) => {
     console.log(id);
     postRequest<IOutputResult<IGetMessagesModel>>(APIURL_GET_MESSAGES, {
-      page: 9999,
+      page: 990,
       limit: 100,
       search: '',
       conversationId: id,
@@ -53,6 +56,24 @@ const SidebarLeft: FunctionComponent<ISidebarProps> = (props) => {
     // if (sidebar === true) {
     //   handleSidebar();
     // }
+  };
+  const getTicketList = (value: string) => {
+    postRequest<IOutputResult<IConversationModel>>(APIURL_GET_CONVERSATIONS, {
+      page: 999,
+      limit: 100,
+      search: value,
+    }).then((result) => {
+      console.log(result.data.data);
+      dispatch(handleAllTickets(result.data.data));
+    });
+  };
+
+  const handleChangeSearch = (e: any) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    if (value.length > 3) {
+      getTicketList(value);
+    }
   };
 
   // useEffect(() => {
@@ -95,9 +116,12 @@ const SidebarLeft: FunctionComponent<ISidebarProps> = (props) => {
               {/* <Avatar img={item.avatar} imgHeight="42" imgWidth="42" status={item.status} /> */}
               <div className="chat-info flex-grow-1">
                 <h5 className="mb-0">{item.title}</h5>
-                <CardText className="text-truncate">
-                  {/* {item.chat.lastMessage ? item.chat.lastMessage.message : chats[chats.length - 1].message} */}
-                </CardText>
+
+                <CardText className="text-truncate">{item.lastMessage}</CardText>
+              </div>
+              <div className="time-container">
+                <CardText>{DateHelper.isoDateTopersian(item.createOn)}</CardText>
+                <CardText>{DateHelper.splitTime(item.createOn)}</CardText>
               </div>
               {/* <div className="chat-meta text-nowrap">
                 <small className="float-end mb-25 chat-time ms-25">{12}</small>
@@ -171,8 +195,8 @@ const SidebarLeft: FunctionComponent<ISidebarProps> = (props) => {
           <div className="chat-fixed-search">
             <div className="d-flex align-items-center w-100">
               <InputGroup className="input-group-merge  w-100">
-                <Input className="round" placeholder="جست و جو ..." />
-                <Button className="send" color="primary">
+                <Input className="round" onChange={handleChangeSearch} value={searchValue} placeholder="جست و جو ..." />
+                <Button className="send" color="primary" onClick={() => toggleModel()}>
                   <Send size={14} className="d-lg-none" />
                   <span className="d-none d-lg-block">ایجاد پیام</span>
                 </Button>

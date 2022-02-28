@@ -29,9 +29,11 @@ const AppChat = () => {
   const store = useSelector((state: RootStateType) => state.ticket);
   const { currentTicket } = store;
   // ** States
-  const [sidebar, setSidebar] = useState(false);
-  const [userSidebarRight, setUserSidebarRight] = useState(false);
-  const [userSidebarLeft, setUserSidebarLeft] = useState(false);
+  const [sidebar, setSidebar] = useState<boolean>(false);
+  const [userSidebarRight, setUserSidebarRight] = useState<boolean>(false);
+  const [userSidebarLeft, setUserSidebarLeft] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   const httpRequest = useHttpRequest();
 
   // ** Sidebar & overlay toggle functions
@@ -62,13 +64,16 @@ const AppChat = () => {
       .postRequest<IOutputResult<IConversationModel>>(APIURL_GET_CONVERSATIONS, {
         page: 9999,
         limit: 100,
-        search: 'string',
+        search: '',
       })
       .then((result) => {
         dispatch(handleAllTickets(result.data.data));
       });
   };
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   const getCurrentConversation = () => {
     httpRequest
       .postRequest<IOutputResult<IGetMessagesModel>>(APIURL_GET_MESSAGES, {
@@ -91,6 +96,8 @@ const AppChat = () => {
         >
           <Sidebar
             store={store}
+            toggleModel={toggleModal}
+            showModal={showModal}
             // getCurrentConversation={getCurrentConversation}
           />
           <div className="content-right">
@@ -105,6 +112,8 @@ const AppChat = () => {
                 <Chat
                   getCurrentConversation={getCurrentConversation}
                   store={store}
+                  toggleModal={toggleModal}
+                  showModal={showModal}
                   // handleSidebar={handleSidebar}
                   getAllConversations={getAllConversations}
                   // handleUserSidebarRight={handleUserSidebarRight}

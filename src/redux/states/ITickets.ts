@@ -5,4 +5,5 @@ export interface ITicket {
   createOn: string;
   userId: number;
   messageCount: number;
+  lastMessage: string;
 }

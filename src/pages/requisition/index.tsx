@@ -1,23 +1,39 @@
 import BreadCrumbs from '@src/components/breadcrumbs';
 import IPageProps from '@src/configs/routerConfig/IPageProps';
 import { FunctionComponent, useEffect, useState } from 'react';
-import { Button, Card, CardBody, CardHeader, CardTitle, Col, Form, FormFeedback, Input, Label, Row, Spinner } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  CardTitle,
+  Col,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+  Spinner,
+} from 'reactstrap';
 import AsyncSelect from 'react-select/async';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 import { IOutputResult } from '@src/models/output/IOutputResult';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  APIURL_CREATE_REQUEST,
   APIURL_GET_CUSTOMERS,
   APIURL_GET_MATERIALS,
   APIURL_GET_ROUTES,
   APIURL_GET_SHIPPINGS,
+  APIURL_LOGIN,
 } from '@src/configs/apiConfig/apiUrls';
 import { RootStateType } from '@src/redux/Store';
 
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IRequestModel, RequestModelSchema } from '@src/models/input/request/IRequestModel';
-import DatePicker from 'react-multi-date-picker';
+import DatePicker, { DateObject } from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 
@@ -33,9 +49,14 @@ const Request: FunctionComponent<IPageProps> = (props) => {
   let MaterialSelectData: any[] = [];
   let RouteSelectData: any[] = [];
 
-  const [poDate, setPoDate] = useState();
+  const [selectedCustomer, setSelectedCustomer] = useState<string>('');
+  const [selectedRoute, setSelectedRoute] = useState<string>('');
+  const [selectedMaterial, setSelectedMaterial] = useState<string>('');
+  const [selectedShipping, setSelectedShipping] = useState<string>('');
+
+  const [poDate, setPoDate] = useState<any>(new Date());
   const [validFrom, setValidFrom] = useState<any>(new Date());
-  const [toDate, setToDate] = useState<any>(new Date());
+  const [validTo, setValidTo] = useState<any>(new Date());
   const [loadingDateTime, setLoadingDateTime] = useState<any>(new Date());
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -49,35 +70,18 @@ const Request: FunctionComponent<IPageProps> = (props) => {
 
   const onSubmit = (data: IRequestModel) => {
     debugger;
+    (data.poDate = poDate), (data.validFrom = validFrom), (data.validTo = validTo), (data.loadingDateTime = '');
     if (data && !isLoading) {
       setIsLoading(true);
-      // httpRequest
-      //   .postRequest<IOutputResult<ILoginResultModel>>(APIURL_LOGIN, { username: data.userName, password: data.password })
-      //   .then((result) => {
-      //     dispatch(handleLogin(result));
-      //     navigate(URL_MAIN);
-      //   })
-      //   .finally(() => setIsLoading(false));
+
+      httpRequest
+        .postRequest<IOutputResult<IRequestModel>>(APIURL_CREATE_REQUEST, { data })
+        .then((result) => {})
+        .finally(() => setIsLoading(false));
     }
   };
   const authenticationStore = useSelector((state: RootStateType) => state.authentication);
 
-  const handleReset = () => {
-    reset({
-      soldToParty: '',
-      poNumber: '',
-      poDate: '',
-      validFrom: '',
-      validTo: '',
-      route: '',
-      material: '',
-      meansOfTransPortType: '',
-      recevingPoint: '',
-      shippingType: '',
-      netWeight: '',
-      loadingDateTime: '',
-    });
-  };
   const httpRequest = useHttpRequest();
 
   const filterCustomerListData = (inputValue: string) => {
@@ -117,7 +121,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
       }
     });
   };
-
   const ShippingListData = (data: ShippingModel[]) => {
     ShippingSelectData = [];
     data.forEach((d) => {
@@ -138,7 +141,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
       }
     });
   };
-
   const MaterialListData = (data: MaterialModel[]) => {
     MaterialSelectData = [];
     data.forEach((d) => {
@@ -159,7 +161,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
       }
     });
   };
-
   const RouteListData = (data: RouteModel[]) => {
     RouteSelectData = [];
     data.forEach((d) => {
@@ -180,6 +181,31 @@ const Request: FunctionComponent<IPageProps> = (props) => {
       }
     });
   };
+  const selectCustomer = (e: any) => {
+    debugger;
+    var selectedValue = e.value;
+    if (selectedValue) {
+      setSelectedCustomer(selectedValue);
+    }
+  };
+  const selectRoute = (e: any) => {
+    var selectedValue = e.value;
+    if (selectedValue) {
+      setSelectedRoute(selectedValue);
+    }
+  };
+  const selectMaterial = (e: any) => {
+    var selectedValue = e.value;
+    if (selectedValue) {
+      setSelectedMaterial(selectedValue);
+    }
+  };
+  const selectShipping = (e: any) => {
+    var selectedValue = e.value;
+    if (selectedValue) {
+      setSelectedShipping(selectedValue);
+    }
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -195,22 +221,25 @@ const Request: FunctionComponent<IPageProps> = (props) => {
               <Controller
                 name="soldToParty"
                 control={control}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <>
                     <AsyncSelect
                       isClearable
+                      defaultOptions
                       className="react-select"
                       classNamePrefix="select"
-                      // loadOptions={CustomerOption}
+                      loadOptions={CustomerOption}
                       cacheOptions
-                      defaultOptions
+                      // onInputChange={selectCustomer}
                       {...field}
                     />
-                    <FormFeedback>{errors.soldToParty?.message}</FormFeedback>
+                    <div style={{ color: 'red' }}>{errors.soldToParty?.value?.message}</div>
                   </>
                 )}
               />
             </Col>
+            <Col lg="6" md="6" sm="12" className="mb-1"></Col>
             <Col lg="6" md="6" sm="12" className="mb-1">
               <Label className="form-label">شماره سند فروش داخلی</Label>
               <Controller
@@ -225,20 +254,28 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       autoComplete="off"
                       {...field}
                     />
-                    {/* <FormFeedback>{errors.poNumber?.message}</FormFeedback> */}
                   </>
                 )}
               />
             </Col>
-            <Col lg="6" md="6" sm="12" className="mb-1">
+            <Col lg="6" md="6" sm="12" className="mb-1" style={{ display: 'grid' }}>
               <Label className="form-label">تاریخ سند فروش داخلی</Label>
-              <Controller
+              <DatePicker
+                inputClass="form-control"
+                value={poDate}
+                onChange={setPoDate}
+                calendar={persian}
+                locale={persian_fa}
+                calendarPosition="bottom-right"
+              />
+              {poDate?.toDate?.().toString()}
+              {/* <Controller
                 name="poDate"
                 rules={{ required: true }}
                 control={control}
                 render={({
                   field: { onChange, name, value },
-                  fieldState: { invalid, isDirty }, //optional
+
                   formState: { errors }, //optional, but necessary if you want to show an error message
                 }) => (
                   <>
@@ -252,14 +289,14 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       locale={persian_fa}
                       calendarPosition="bottom-right"
                     />
-                    {/* <FormFeedback>{errors.poDate?.message}</FormFeedback> */}
+                    <div>{errors.poDate?.message}</div>
                     {errors && errors[name] && errors[name]?.type === 'required' && (
                       //if you want to show an error message
                       <span>your error message !</span>
                     )}
                   </>
                 )}
-              />
+              /> */}
             </Col>
           </Row>
         </CardBody>
@@ -270,15 +307,29 @@ const Request: FunctionComponent<IPageProps> = (props) => {
         </CardHeader>
         <hr />
         <CardBody>
-          <Col lg="6" md="6" sm="12">
+          <Col lg="7" md="6" sm="12">
             <Row className="mb-1">
               <Col>
                 <Label className="form-label">تاریخ شروع</Label>
-                <Input type="date" name="name" />
+                <DatePicker
+                  style={{ marginRight: '1rem' }}
+                  inputClass="form-control"
+                  value={validFrom}
+                  onChange={setValidFrom}
+                  calendar={persian}
+                  locale={persian_fa}
+                />
               </Col>
               <Col>
                 <Label className="form-label">تاریخ پایان</Label>
-                <Input type="date" name="name" />
+                <DatePicker
+                  style={{ marginRight: '1rem' }}
+                  inputClass="form-control"
+                  value={validTo}
+                  onChange={setValidTo}
+                  calendar={persian}
+                  locale={persian_fa}
+                />
               </Col>
             </Row>
           </Col>
@@ -299,15 +350,16 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                 render={({ field }) => (
                   <>
                     <AsyncSelect
-                      isClearable={true}
+                      {...field}
+                      isClearable
+                      defaultOptions
                       className="react-select"
                       classNamePrefix="select"
                       loadOptions={RouteOption}
                       cacheOptions
-                      defaultOptions
-                      {...field}
+                      onInputChange={selectRoute}
                     />
-                    <FormFeedback>{errors.route?.message}</FormFeedback>
+                    <FormFeedback>{errors.route?.value?.message}</FormFeedback>
                   </>
                 )}
               />
@@ -320,36 +372,38 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                 render={({ field }) => (
                   <>
                     <AsyncSelect
-                      isClearable={true}
+                      {...field}
+                      isClearable
+                      defaultOptions
                       className="react-select"
                       classNamePrefix="select"
                       loadOptions={MaterialOption}
                       cacheOptions
-                      defaultOptions
-                      {...field}
+                      onInputChange={selectMaterial}
                     />
-                    <FormFeedback>{errors.material?.message}</FormFeedback>
+                    <FormFeedback>{errors.material?.value?.message}</FormFeedback>
                   </>
                 )}
               />
             </Col>
             <Col lg="6" md="6" sm="12" className="mb-1">
-              <Label className="form-label">نوع وسیله حمل و نقل</Label>
+              <Label className="form-label">نوع حمل</Label>
               <Controller
-                name="meansOfTransPortType"
+                name="shippingType"
                 control={control}
                 render={({ field }) => (
                   <>
                     <AsyncSelect
-                      isClearable={true}
+                      {...field}
+                      isClearable
+                      defaultOptions
                       className="react-select"
                       classNamePrefix="select"
                       loadOptions={ShippingOption}
                       cacheOptions
-                      defaultOptions
-                      {...field}
+                      onInputChange={selectShipping}
                     />
-                    {/* <FormFeedback>{errors.shippingType?.message}</FormFeedback> */}
+                    <FormFeedback>{errors.shippingType?.value?.message}</FormFeedback>
                   </>
                 )}
               />
@@ -365,25 +419,24 @@ const Request: FunctionComponent<IPageProps> = (props) => {
         <CardBody>
           <Row>
             <Col lg="6" md="6" sm="12" className="mb-1">
-              <Label className="form-label">نوع حمل</Label>
+              <Label className="form-label">نوع وسیله حمل و نقل</Label>
               <Controller
-                name="shippingType"
+                name="meansOfTransPortType"
                 control={control}
                 render={({ field }) => (
                   <>
                     <Input
                       type="text"
-                      invalid={errors.poNumber && true}
-                      placeholder="نوع حمل را وارد نمایید"
+                      invalid={errors.meansOfTransPortType && true}
+                      placeholder="نوع وسیله حمل و نقل را وارد نمایید"
                       autoComplete="off"
                       {...field}
                     />
-                    {/* <FormFeedback>{errors.poNumber?.message}</FormFeedback> */}
                   </>
                 )}
               />
             </Col>
-            <Col lg="6" md="6" sm="12" className="mb-1">
+            <Col lg="6" md="6" sm="12" className="mb-1" style={{ display: 'grid' }}>
               <Label className="form-label">تاریخ و زمان بارگیری</Label>
               <Controller
                 name="loadingDateTime"
@@ -391,6 +444,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                 render={({ field }) => (
                   <>
                     <DatePicker
+                      inputClass="form-control"
                       onChange={setLoadingDateTime}
                       value={loadingDateTime}
                       format="MM/DD/YYYY HH:mm:ss"
@@ -399,7 +453,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       locale={persian_fa}
                       calendarPosition="bottom-right"
                     />
-                    {/* <FormFeedback>{errors.poNumber?.message}</FormFeedback> */}
+                    {/* <FormFeedback>{errors.loadingDateTime?.message}</FormFeedback> */}
                   </>
                 )}
               />
@@ -437,7 +491,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       autoComplete="off"
                       {...field}
                     />
-                    {/* <FormFeedback>{errors.poNumber?.message}</FormFeedback> */}
                   </>
                 )}
               />

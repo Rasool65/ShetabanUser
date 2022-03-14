@@ -25,3 +25,4 @@ export const APIURL_GET_CUSTOMERS = 'user/customers/getlist';
 export const APIURL_GET_SHIPPINGS = 'user/shippingtypes/getlist';
 export const APIURL_GET_MATERIALS = 'user/materials/getlist';
 export const APIURL_GET_ROUTES = 'user/routes/getlist';
+export const APIURL_CREATE_REQUEST = 'user/shipmentorder/create';

@@ -20,7 +20,6 @@ export const RequestModelSchema: yup.SchemaOf<IRequestModel> = yup.object({
     label: yup.string().required('مشتری مورد نظر را انتخاب نمایید'),
   }),
   poNumber: yup.string(),
-  poDate: yup.string(),
   validFrom: yup.string().required('تاریخ شروع اعتبار را وارد نمایید'),
   validTo: yup.string().required('تاریخ پایان اعتبار را وارد نمایید'),
   route: yup.object({

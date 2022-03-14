@@ -16,6 +16,8 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
+import classnames from 'classnames';
+
 import AsyncSelect from 'react-select/async';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 import { IOutputResult } from '@src/models/output/IOutputResult';
@@ -33,9 +35,10 @@ import { RootStateType } from '@src/redux/Store';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IRequestModel, RequestModelSchema } from '@src/models/input/request/IRequestModel';
-import DatePicker, { DateObject } from 'react-multi-date-picker';
+import DatePicker, { Calendar, DateObject } from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
+import persian_en from 'react-date-object/locales/persian_en';
 
 import { CustomerModel } from '@src/models/output/requisition/CustomerModel';
 import { ShippingModel } from '@src/models/output/requisition/ShippingModel';
@@ -69,14 +72,29 @@ const Request: FunctionComponent<IPageProps> = (props) => {
   } = useForm<IRequestModel>({ mode: 'onChange', resolver: yupResolver(RequestModelSchema) });
 
   const onSubmit = (data: IRequestModel) => {
-    debugger;
-    (data.poDate = poDate), (data.validFrom = validFrom), (data.validTo = validTo), (data.loadingDateTime = '');
     if (data && !isLoading) {
       setIsLoading(true);
+      console.log(data);
+      const body = {
+        customerCode: data.soldToParty.value,
+        documnetNumber: data.poNumber,
+        documentDate: data.poDate,
+        validFrom: data.validFrom,
+        validTo: data.validTo,
+        routeCode: data.route.value,
+        materialNumber: data.material.value,
+        meansOfTransPortType: data.meansOfTransPortType,
+        recevingPoint: data.recevingPoint,
+        shippingTypeCode: data.shippingType.value,
+        netWeight: data.netWeight,
+        landingDateTime: data.loadingDateTime,
+      };
 
       httpRequest
-        .postRequest<IOutputResult<IRequestModel>>(APIURL_CREATE_REQUEST, { data })
-        .then((result) => {})
+        .postRequest<IOutputResult<IRequestModel>>(APIURL_CREATE_REQUEST, body)
+        .then((result) => {
+          alert('Success');
+        })
         .finally(() => setIsLoading(false));
     }
   };
@@ -221,20 +239,24 @@ const Request: FunctionComponent<IPageProps> = (props) => {
               <Controller
                 name="soldToParty"
                 control={control}
-                rules={{ required: true }}
+                // rules={{ required: true }}
                 render={({ field }) => (
                   <>
                     <AsyncSelect
                       isClearable
                       defaultOptions
-                      className="react-select"
+                      className={classnames('react-select', {
+                        'is-invalid': errors.soldToParty?.value?.message || errors.soldToParty?.message,
+                      })}
                       classNamePrefix="select"
                       loadOptions={CustomerOption}
                       cacheOptions
                       // onInputChange={selectCustomer}
                       {...field}
                     />
-                    <div style={{ color: 'red' }}>{errors.soldToParty?.value?.message}</div>
+                    <FormFeedback className="d-block">
+                      {errors.soldToParty?.value?.message || (errors.soldToParty?.message && 'مشتری مورد نظر را وارد نمایید')}
+                    </FormFeedback>
                   </>
                 )}
               />
@@ -260,14 +282,28 @@ const Request: FunctionComponent<IPageProps> = (props) => {
             </Col>
             <Col lg="6" md="6" sm="12" className="mb-1" style={{ display: 'grid' }}>
               <Label className="form-label">تاریخ سند فروش داخلی</Label>
-              <DatePicker
-                inputClass="form-control"
-                value={poDate}
-                onChange={setPoDate}
-                calendar={persian}
-                locale={persian_fa}
-                calendarPosition="bottom-right"
+              <Controller
+                name="poDate"
+                control={control}
+                render={({ field: { onChange, name, value } }) => (
+                  <div style={{ marginRight: '1rem' }}>
+                    <DatePicker
+                      inputClass="form-control ltr"
+                      onChange={(date: any) => {
+                        const selectedDate = date.toDate();
+                        onChange(selectedDate.toISOString());
+                      }}
+                      value={value}
+                      format="YYYY/DD/MM"
+                      plugins={[<TimePicker position="bottom" />]}
+                      calendar={persian}
+                      locale={persian_fa}
+                      calendarPosition="bottom-right"
+                    />
+                  </div>
+                )}
               />
+
               {poDate?.toDate?.().toString()}
               {/* <Controller
                 name="poDate"
@@ -311,24 +347,56 @@ const Request: FunctionComponent<IPageProps> = (props) => {
             <Row className="mb-1">
               <Col>
                 <Label className="form-label">تاریخ شروع</Label>
-                <DatePicker
-                  style={{ marginRight: '1rem' }}
-                  inputClass="form-control"
-                  value={validFrom}
-                  onChange={setValidFrom}
-                  calendar={persian}
-                  locale={persian_fa}
+                <Controller
+                  name="validFrom"
+                  control={control}
+                  render={({ field: { onChange, name, value } }) => (
+                    <div style={{ marginRight: '1rem' }}>
+                      <DatePicker
+                        inputClass={classnames('form-control react-select ltr', {
+                          'is-invalid': errors.validFrom?.message,
+                        })}
+                        onChange={(date: any) => {
+                          const selectedDate = date.toDate();
+                          onChange(selectedDate.toISOString());
+                        }}
+                        value={value}
+                        format="YYYY/DD/MM"
+                        plugins={[<TimePicker position="bottom" />]}
+                        calendar={persian}
+                        locale={persian_fa}
+                        calendarPosition="bottom-right"
+                      />
+                      <FormFeedback className="d-block">{errors.validFrom?.message}</FormFeedback>
+                    </div>
+                  )}
                 />
               </Col>
               <Col>
                 <Label className="form-label">تاریخ پایان</Label>
-                <DatePicker
-                  style={{ marginRight: '1rem' }}
-                  inputClass="form-control"
-                  value={validTo}
-                  onChange={setValidTo}
-                  calendar={persian}
-                  locale={persian_fa}
+                <Controller
+                  name="validTo"
+                  control={control}
+                  render={({ field: { onChange, name, value } }) => (
+                    <div style={{ marginRight: '1rem' }}>
+                      <DatePicker
+                        inputClass={classnames('form-control react-select ltr', {
+                          'is-invalid': errors.validTo?.message,
+                        })}
+                        onChange={(date: any) => {
+                          const selectedDate = date.toDate();
+                          onChange(selectedDate.toISOString());
+                        }}
+                        value={value}
+                        format="YYYY/DD/MM"
+                        plugins={[<TimePicker position="bottom" />]}
+                        calendar={persian}
+                        locale={persian_fa}
+                        calendarPosition="bottom-right"
+                      />
+                      <FormFeedback className="d-block">{errors.validTo?.message}</FormFeedback>
+                    </div>
+                  )}
                 />
               </Col>
             </Row>
@@ -353,13 +421,17 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       {...field}
                       isClearable
                       defaultOptions
-                      className="react-select"
                       classNamePrefix="select"
                       loadOptions={RouteOption}
+                      className={classnames('react-select', {
+                        'is-invalid': errors.route?.value?.message || errors.route?.message,
+                      })}
                       cacheOptions
                       onInputChange={selectRoute}
                     />
-                    <FormFeedback>{errors.route?.value?.message}</FormFeedback>
+                    <FormFeedback className="d-block">
+                      {errors.route?.value?.message || (errors.route?.message && 'نوع مسیر را وارد کنید')}
+                    </FormFeedback>
                   </>
                 )}
               />
@@ -375,13 +447,15 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       {...field}
                       isClearable
                       defaultOptions
-                      className="react-select"
                       classNamePrefix="select"
                       loadOptions={MaterialOption}
                       cacheOptions
+                      className={classnames('react-select', {
+                        'is-invalid': errors.material?.value?.message || errors.material?.message,
+                      })}
                       onInputChange={selectMaterial}
                     />
-                    <FormFeedback>{errors.material?.value?.message}</FormFeedback>
+                    <FormFeedback className="d-block">{errors.material?.value?.message || errors.material?.message}</FormFeedback>
                   </>
                 )}
               />
@@ -397,13 +471,17 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       {...field}
                       isClearable
                       defaultOptions
-                      className="react-select"
+                      className={classnames('react-select', {
+                        'is-invalid': errors.shippingType?.value?.message || errors.shippingType?.message,
+                      })}
                       classNamePrefix="select"
                       loadOptions={ShippingOption}
                       cacheOptions
                       onInputChange={selectShipping}
                     />
-                    <FormFeedback>{errors.shippingType?.value?.message}</FormFeedback>
+                    <FormFeedback className="d-block">
+                      {errors.shippingType?.value?.message || (errors.shippingType?.message && 'نوع حمل را وارد نمایید')}
+                    </FormFeedback>
                   </>
                 )}
               />
@@ -441,19 +519,24 @@ const Request: FunctionComponent<IPageProps> = (props) => {
               <Controller
                 name="loadingDateTime"
                 control={control}
-                render={({ field }) => (
+                render={({ field: { onChange, name, value } }) => (
                   <>
                     <DatePicker
-                      inputClass="form-control"
-                      onChange={setLoadingDateTime}
-                      value={loadingDateTime}
-                      format="MM/DD/YYYY HH:mm:ss"
+                      inputClass={classnames('form-control react-select', {
+                        'is-invalid': errors.loadingDateTime?.message,
+                      })}
+                      onChange={(date: any) => {
+                        const selectedDate = date.toDate();
+                        onChange(selectedDate.toISOString());
+                      }}
+                      value={value}
+                      format="HH:mm:ss YYYY/DD/MM"
                       plugins={[<TimePicker position="bottom" />]}
                       calendar={persian}
                       locale={persian_fa}
                       calendarPosition="bottom-right"
                     />
-                    {/* <FormFeedback>{errors.loadingDateTime?.message}</FormFeedback> */}
+                    <FormFeedback className="d-block">{errors.loadingDateTime?.message}</FormFeedback>
                   </>
                 )}
               />
@@ -472,7 +555,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       autoComplete="off"
                       {...field}
                     />
-                    <FormFeedback>{errors.netWeight?.message}</FormFeedback>
+                    <FormFeedback className="d-block">{errors.netWeight?.message}</FormFeedback>
                   </>
                 )}
               />

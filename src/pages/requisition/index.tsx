@@ -93,6 +93,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
       httpRequest
         .postRequest<IOutputResult<IRequestModel>>(APIURL_CREATE_REQUEST, body)
         .then((result) => {
+          
           alert('Success');
         })
         .finally(() => setIsLoading(false));
@@ -286,7 +287,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                 name="poDate"
                 control={control}
                 render={({ field: { onChange, name, value } }) => (
-                  <div style={{ marginRight: '1rem' }}>
+                  <div >
                     <DatePicker
                       inputClass="form-control ltr"
                       onChange={(date: any) => {
@@ -295,7 +296,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       }}
                       value={value}
                       format="YYYY/DD/MM"
-                      plugins={[<TimePicker position="bottom" />]}
                       calendar={persian}
                       locale={persian_fa}
                       calendarPosition="bottom-right"
@@ -303,36 +303,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                   </div>
                 )}
               />
-
-              {poDate?.toDate?.().toString()}
-              {/* <Controller
-                name="poDate"
-                rules={{ required: true }}
-                control={control}
-                render={({
-                  field: { onChange, name, value },
-
-                  formState: { errors }, //optional, but necessary if you want to show an error message
-                }) => (
-                  <>
-                    <DatePicker
-                      value={value || ''}
-                      onChange={(date: any) => {
-                        onChange(date?.isValid ? date : '');
-                      }}
-                      // format={language === "fa" ? "MM/DD/YYYY" : "YYYY/MM/DD"}
-                      calendar={persian}
-                      locale={persian_fa}
-                      calendarPosition="bottom-right"
-                    />
-                    <div>{errors.poDate?.message}</div>
-                    {errors && errors[name] && errors[name]?.type === 'required' && (
-                      //if you want to show an error message
-                      <span>your error message !</span>
-                    )}
-                  </>
-                )}
-              /> */}
             </Col>
           </Row>
         </CardBody>
@@ -351,7 +321,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                   name="validFrom"
                   control={control}
                   render={({ field: { onChange, name, value } }) => (
-                    <div style={{ marginRight: '1rem' }}>
+                    <div>
                       <DatePicker
                         inputClass={classnames('form-control react-select ltr', {
                           'is-invalid': errors.validFrom?.message,
@@ -362,7 +332,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                         }}
                         value={value}
                         format="YYYY/DD/MM"
-                        plugins={[<TimePicker position="bottom" />]}
                         calendar={persian}
                         locale={persian_fa}
                         calendarPosition="bottom-right"
@@ -378,7 +347,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                   name="validTo"
                   control={control}
                   render={({ field: { onChange, name, value } }) => (
-                    <div style={{ marginRight: '1rem' }}>
+                    <div >
                       <DatePicker
                         inputClass={classnames('form-control react-select ltr', {
                           'is-invalid': errors.validTo?.message,
@@ -389,7 +358,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                         }}
                         value={value}
                         format="YYYY/DD/MM"
-                        plugins={[<TimePicker position="bottom" />]}
                         calendar={persian}
                         locale={persian_fa}
                         calendarPosition="bottom-right"

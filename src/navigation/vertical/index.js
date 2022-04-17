@@ -12,6 +12,6 @@ import request from './request';
 // ** Merge & Export
 export default [
   ...dashboards,
-  ...request,
+  // ...request,
   // ...apps, ...pages, ...uiElements, ...forms, ...tables, ...charts, ...others
 ];

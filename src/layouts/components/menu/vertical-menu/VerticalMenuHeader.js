@@ -41,7 +41,7 @@ const VerticalMenuHeader = (props) => {
   };
 
   return (
-    <div className="navbar-header">
+    <div className="navbar-header" style={{ background: 'none' }}>
       <ul className="nav navbar-nav flex-row">
         <li className="nav-item m-auto">
           <NavLink to="/" className="navbar-brand" style={{ filter: 'none' }}>

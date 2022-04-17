@@ -11,7 +11,7 @@ export default [
     children: [
       {
         id: 'requestDash',
-        title: 'ثبت موقت سفارش',
+        title: 'ثبت درخواست',
         icon: <Circle size={12} />,
         navLink: '/request',
       },

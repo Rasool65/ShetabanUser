@@ -200,10 +200,8 @@ const Home: FunctionComponent<IPageProps> = (props) => {
 
               <div className="col-md-12 col-lg-12">
                 <div className="contact-us-content">
-                  <h2>{generalInformationStore.title}</h2>
+                  <h2>تماس با ما</h2>
                   <p className="lead" style={{ fontSize: '17px' }}>
-                    مشاوران شتابان در خدمت شما هستند.
-                    <br />
                     {generalInformationStore.description}
                   </p>
 

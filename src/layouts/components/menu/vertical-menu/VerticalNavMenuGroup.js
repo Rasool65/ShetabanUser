@@ -1,6 +1,6 @@
 // ** React Imports
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 // ** Third Party Components
 import classnames from 'classnames'
@@ -37,7 +37,7 @@ const VerticalNavMenuGroup = ({
   const navigate = useNavigate()
 
   // ** Current Val
-  const currentURL = useNavigate().pathname
+  const currentURL = useLocation().pathname
 
   // ** Toggle Open Group
   const toggleOpenGroup = (item, parent) => {

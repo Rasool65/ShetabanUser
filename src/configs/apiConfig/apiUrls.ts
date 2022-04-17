@@ -25,4 +25,7 @@ export const APIURL_GET_CUSTOMERS = 'user/customers/getlist';
 export const APIURL_GET_SHIPPINGS = 'user/shippingtypes/getlist';
 export const APIURL_GET_MATERIALS = 'user/materials/getlist';
 export const APIURL_GET_ROUTES = 'user/routes/getlist';
+
 export const APIURL_CREATE_REQUEST = 'user/shipmentorder/create';
+export const APIURL_CREATE_PERMANENT_REQUEST = 'user/shipmentorder/createandpermanent';
+export const APIURL_RETRY_PERMANENT_REQUEST = 'user/shipmentorder/createpermanent';

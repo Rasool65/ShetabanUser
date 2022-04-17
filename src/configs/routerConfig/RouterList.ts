@@ -9,6 +9,7 @@ import {
   URL_LOGIN,
   URL_TICKET,
   URL_ADD_REQUEST,
+  URL_TRACK_CODE,
 } from './../urls';
 import IRoute from './IRoute';
 import RouteType from './RouteType';
@@ -21,6 +22,7 @@ import Profile from '@src/pages/profile/Profile';
 
 import AppChat from '@src/pages/chat';
 import Request from '@src/pages/requisition';
+import TrackCode from '@src/pages/requisition/trackCode';
 
 const routes: IRoute[] = [
   {
@@ -93,6 +95,14 @@ const routes: IRoute[] = [
     type: RouteType.private,
     props: {
       title: 'ثبت موقت درخواست',
+    },
+  },
+  {
+    path: URL_TRACK_CODE,
+    component: TrackCode,
+    type: RouteType.private,
+    props: {
+      title: 'کد رهگیری',
     },
   },
 ];

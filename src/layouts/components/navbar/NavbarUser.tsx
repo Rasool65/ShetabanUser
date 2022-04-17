@@ -56,6 +56,7 @@ const NavbarUser = (props: any) => {
           <ThemeToggler />
         </NavLink>
       </NavItem>
+      <NavbarSearch />
       <NavItem className="d-none d-lg-block">
         <Link to={URL_TICKET}>
           <NavLink className="nav-link-style position-relative">
@@ -68,7 +69,6 @@ const NavbarUser = (props: any) => {
           </NavLink>
         </Link>
       </NavItem>
-      <NavbarSearch />
       {/* <NotificationDropdown /> */}
       <UserDropdown />
     </ul>

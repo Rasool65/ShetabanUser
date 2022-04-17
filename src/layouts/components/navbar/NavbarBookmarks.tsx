@@ -107,14 +107,14 @@ const NavbarBookmarks = (props: any) => {
 
   return (
     <Fragment>
-      {/* <ul className="navbar-nav d-xl-none">
+      <ul className="navbar-nav d-xl-none">
         <NavItem className="mobile-menu me-auto">
           <NavLink className="nav-menu-main menu-toggle hidden-xs is-active" onClick={() => setMenuVisibility(true)}>
             <Icon.Menu className="ficon" />
           </NavLink>
         </NavItem>
       </ul>
-      <ul className="nav navbar-nav bookmark-icons">
+      {/* <ul className="nav navbar-nav bookmark-icons">
         {renderBookmarks()}
         {renderExtraBookmarksDropdown()}
         <NavItem className="nav-item d-none d-lg-block">

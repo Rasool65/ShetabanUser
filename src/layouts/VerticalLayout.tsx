@@ -68,8 +68,9 @@ const VerticalLayout = (props: any) => {
   const isHidden = layoutStore.menuHidden;
 
   // ** Toggles Menu Collapsed
-  const setMenuCollapsed = (val: any) => dispatch(handleMenuCollapsed(val));
-
+  const setMenuCollapsed = (val: any) => {
+    dispatch(handleMenuCollapsed(val));
+  };
   // ** Handles Content Width
   const setContentWidth = (val: any) => dispatch(handleContentWidth(val));
 

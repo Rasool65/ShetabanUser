@@ -1,19 +1,24 @@
 // ** React Imports
+<<<<<<< HEAD
 import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+=======
+import { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+>>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
 
 // ** Third Party Components
-import classnames from 'classnames'
-import { useTranslation } from 'react-i18next'
+import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 // ** Reactstrap Imports
-import { Collapse, Badge } from 'reactstrap'
+import { Collapse, Badge } from 'reactstrap';
 
 // ** Vertical Menu Items Component
-import VerticalNavMenuItems from './VerticalNavMenuItems'
+import VerticalNavMenuItems from './VerticalNavMenuItems';
 
 // ** Utils
-import { hasActiveChild, removeChildren } from '@layouts/utils'
+import { hasActiveChild, removeChildren } from '@layouts/utils';
 
 const VerticalNavMenuGroup = ({
   item,
@@ -33,20 +38,24 @@ const VerticalNavMenuGroup = ({
   ...rest
 }) => {
   // ** Hooks
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // ** Current Val
+<<<<<<< HEAD
   const currentURL = useLocation().pathname
+=======
+  const currentURL = useLocation().pathname;
+>>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
 
   // ** Toggle Open Group
   const toggleOpenGroup = (item, parent) => {
-    let openGroup = groupOpen
-    const activeGroup = groupActive
+    let openGroup = groupOpen;
+    const activeGroup = groupActive;
 
     // ** If Group is already open and clicked, close the group
     if (openGroup.includes(item.id)) {
-      openGroup.splice(openGroup.indexOf(item.id), 1)
+      openGroup.splice(openGroup.indexOf(item.id), 1);
 
       // ** If clicked Group has open group children, Also remove those children to close those groups
       if (item.children) {
@@ -72,13 +81,13 @@ const VerticalNavMenuGroup = ({
 
       // ** After removing all the open groups under that parent, add the clicked group to open group array
       if (!openGroup.includes(item.id)) {
-        openGroup.push(item.id)
+        openGroup.push(item.id);
       }
     } else {
       // ** If clicked on another group that is not active or open, create openGroup array from scratch
 
       // ** Empty Open Group array
-      openGroup = []
+      openGroup = [];
 
       // ** Push current clicked group item to Open Group array
       if (!openGroup.includes(item.id)) {
@@ -142,7 +151,7 @@ const VerticalNavMenuGroup = ({
       </Link>
 
       {/* Render Child Recursively Through VerticalNavMenuItems Component */}
-      <ul className='menu-content'>
+      <ul className="menu-content">
         <Collapse isOpen={(groupActive && groupActive.includes(item.id)) || (groupOpen && groupOpen.includes(item.id))}>
           <VerticalNavMenuItems
             {...rest}
@@ -164,7 +173,7 @@ const VerticalNavMenuGroup = ({
         </Collapse>
       </ul>
     </li>
-  )
-}
+  );
+};
 
-export default VerticalNavMenuGroup
+export default VerticalNavMenuGroup;

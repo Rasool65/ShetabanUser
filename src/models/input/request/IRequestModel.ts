@@ -24,13 +24,9 @@ export const RequestModelSchema: yup.SchemaOf<IRequestModel> = yup.object({
     value: yup.string().required('مشتری مورد نظر را انتخاب نمایید'),
     label: yup.string().required('مشتری مورد نظر را انتخاب نمایید'),
   }),
-<<<<<<< HEAD
   inquiryNumber: yup.number(),
   documentNumber: yup.string(),
   poDate: yup.string(),
-=======
-  poNumber: yup.string(),
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
   validFrom: yup.string().required('تاریخ شروع اعتبار را وارد نمایید'),
   validTo: yup.string().required('تاریخ پایان اعتبار را وارد نمایید'),
   route: yup.object({

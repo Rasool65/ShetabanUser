@@ -1,27 +1,7 @@
 import IPageProps from '@src/configs/routerConfig/IPageProps';
 import { FunctionComponent, useEffect, useState } from 'react';
-<<<<<<< HEAD
 import { Button, Card, CardBody, CardHeader, CardTitle, Col, Form, FormFeedback, Input, Label, Row, Spinner } from 'reactstrap';
 import classnames from 'classnames';
-=======
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Col,
-  Form,
-  FormFeedback,
-  FormGroup,
-  Input,
-  Label,
-  Row,
-  Spinner,
-} from 'reactstrap';
-import classnames from 'classnames';
-
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
 import AsyncSelect from 'react-select/async';
 import useHttpRequest from '@src/hooks/useHttpRequest';
 import { IOutputResult } from '@src/models/output/IOutputResult';
@@ -40,14 +20,9 @@ import { RootStateType } from '@src/redux/Store';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IRequestModel, RequestModelSchema } from '@src/models/input/request/IRequestModel';
-<<<<<<< HEAD
 import DatePicker from 'react-multi-date-picker';
-=======
-import DatePicker, { Calendar, DateObject } from 'react-multi-date-picker';
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
-import persian_en from 'react-date-object/locales/persian_en';
 
 import { CustomerModel } from '@src/models/output/requisition/CustomerModel';
 import { ShippingModel } from '@src/models/output/requisition/ShippingModel';
@@ -93,23 +68,15 @@ const Request: FunctionComponent<IPageProps> = (props) => {
     if (data && !isLoading) {
       debugger;
       setIsLoading(true);
-<<<<<<< HEAD
       const body = {
         customerCode: data.soldToParty.value,
         documentNumber: data.documentNumber,
-=======
-      console.log(data);
-      const body = {
-        customerCode: data.soldToParty.value,
-        documnetNumber: data.poNumber,
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
         documentDate: data.poDate,
         validFrom: data.validFrom,
         validTo: data.validTo,
         routeCode: data.route.value,
         materialNumber: data.material.value,
         meansOfTransPortType: data.meansOfTransPortType,
-<<<<<<< HEAD
         receivingPoint: data.receivingPoint,
         shippingTypeCode: data.shippingType.value,
         netWeight: data.netWeight,
@@ -131,21 +98,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
               navigate(URL_TRACK_CODE + '?orderNumber=' + result.data.data.orderNumber);
             })
             .finally(() => setIsLoading(false));
-=======
-        recevingPoint: data.recevingPoint,
-        shippingTypeCode: data.shippingType.value,
-        netWeight: data.netWeight,
-        landingDateTime: data.loadingDateTime,
-      };
-
-      httpRequest
-        .postRequest<IOutputResult<IRequestModel>>(APIURL_CREATE_REQUEST, body)
-        .then((result) => {
-          
-          alert('Success');
-        })
-        .finally(() => setIsLoading(false));
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
     }
   };
   // const authenticationStore = useSelector((state: RootStateType) => state.authentication);
@@ -266,10 +218,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
               <Controller
                 name="soldToParty"
                 control={control}
-<<<<<<< HEAD
-=======
-                // rules={{ required: true }}
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                 render={({ field }) => (
                   <>
                     <AsyncSelect
@@ -277,11 +225,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       isClearable
                       defaultOptions
                       className={classnames('react-select', {
-<<<<<<< HEAD
                         'is-invalid': errors.soldToParty?.value?.message || errors.soldToParty,
-=======
-                        'is-invalid': errors.soldToParty?.value?.message || errors.soldToParty?.message,
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                       })}
                       classNamePrefix="select"
                       loadOptions={CustomerOption}
@@ -289,11 +233,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       {...field}
                     />
                     <FormFeedback className="d-block">
-<<<<<<< HEAD
                       {errors.soldToParty?.value?.message || (errors.soldToParty && 'مشتری مورد نظر را انتخاب نمایید')}
-=======
-                      {errors.soldToParty?.value?.message || (errors.soldToParty?.message && 'مشتری مورد نظر را وارد نمایید')}
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                     </FormFeedback>
                   </>
                 )}
@@ -318,7 +258,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                 )}
               />
             </Col>
-<<<<<<< HEAD
             <Col lg="4" md="6" sm="12" className="mb-1">
               <Row>
                 <Col md="6" className="request-date">
@@ -348,30 +287,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                   />
                 </Col>
               </Row>
-=======
-            <Col lg="6" md="6" sm="12" className="mb-1" style={{ display: 'grid' }}>
-              <Label className="form-label">تاریخ سند فروش داخلی</Label>
-              <Controller
-                name="poDate"
-                control={control}
-                render={({ field: { onChange, name, value } }) => (
-                  <div >
-                    <DatePicker
-                      inputClass="form-control ltr"
-                      onChange={(date: any) => {
-                        const selectedDate = date.toDate();
-                        onChange(selectedDate.toISOString());
-                      }}
-                      value={value}
-                      format="YYYY/DD/MM"
-                      calendar={persian}
-                      locale={persian_fa}
-                      calendarPosition="bottom-right"
-                    />
-                  </div>
-                )}
-              />
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
             </Col>
           </Row>
         </CardBody>
@@ -384,29 +299,20 @@ const Request: FunctionComponent<IPageProps> = (props) => {
         <CardBody className="cardbody-request">
           <Col lg="4" md="6" sm="12">
             <Row className="mb-1">
-<<<<<<< HEAD
               <Col md="6" className="from-date">
                 <Label className="form-label">
                   <span style={{ color: 'red' }}>*</span> تاریخ شروع
                 </Label>{' '}
-=======
-              <Col>
-                <Label className="form-label">تاریخ شروع</Label>
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                 <Controller
                   name="validFrom"
                   control={control}
                   render={({ field: { onChange, name, value } }) => (
                     <div>
                       <DatePicker
-<<<<<<< HEAD
                         render={<InputIcon style={darkMode ? darkStyle : lighStyle} />}
                         weekDays={weekDays}
                         className={darkMode ? 'green custom-calendar' : 'green'}
                         inputClass={classnames('form-control react-select', {
-=======
-                        inputClass={classnames('form-control react-select ltr', {
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                           'is-invalid': errors.validFrom?.message,
                         })}
                         onChange={(date: any) => {
@@ -414,11 +320,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                           onChange(selectedDate.toISOString());
                         }}
                         value={value}
-<<<<<<< HEAD
                         format="YYYY/MM/DD"
-=======
-                        format="YYYY/DD/MM"
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                         calendar={persian}
                         locale={persian_fa}
                         calendarPosition="bottom-right"
@@ -428,31 +330,20 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                   )}
                 />
               </Col>
-<<<<<<< HEAD
               <Col md="6" className="from-date">
                 <Label className="form-label">
                   <span style={{ color: 'red' }}>*</span> تاریخ پایان
                 </Label>{' '}
-=======
-              <Col>
-                <Label className="form-label">تاریخ پایان</Label>
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                 <Controller
                   name="validTo"
                   control={control}
                   render={({ field: { onChange, name, value } }) => (
-<<<<<<< HEAD
                     <div>
                       <DatePicker
                         render={<InputIcon style={darkMode ? darkStyle : lighStyle} />}
                         weekDays={weekDays}
                         className={darkMode ? 'green custom-calendar' : 'green'}
                         inputClass={classnames('form-control react-select', {
-=======
-                    <div >
-                      <DatePicker
-                        inputClass={classnames('form-control react-select ltr', {
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                           'is-invalid': errors.validTo?.message,
                         })}
                         onChange={(date: any) => {
@@ -460,11 +351,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                           onChange(selectedDate.toISOString());
                         }}
                         value={value}
-<<<<<<< HEAD
                         format="YYYY/MM/DD"
-=======
-                        format="YYYY/DD/MM"
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                         calendar={persian}
                         locale={persian_fa}
                         calendarPosition="bottom-right"
@@ -502,20 +389,12 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       classNamePrefix="select"
                       loadOptions={RouteOption}
                       className={classnames('react-select', {
-<<<<<<< HEAD
                         'is-invalid': errors.route?.value?.message || errors.route,
-=======
-                        'is-invalid': errors.route?.value?.message || errors.route?.message,
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                       })}
                       cacheOptions
                     />
                     <FormFeedback className="d-block">
-<<<<<<< HEAD
                       {errors.route?.value?.message || (errors.route && 'نوع مسیر را انتخاب کنید')}
-=======
-                      {errors.route?.value?.message || (errors.route?.message && 'نوع مسیر را وارد کنید')}
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                     </FormFeedback>
                   </>
                 )}
@@ -539,20 +418,12 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       loadOptions={MaterialOption}
                       cacheOptions
                       className={classnames('react-select', {
-<<<<<<< HEAD
                         'is-invalid': errors.material?.value?.message || errors.material,
                       })}
                     />
                     <FormFeedback className="d-block">
                       {errors.material?.value?.message || (errors.material && 'نوع سرویس را انتخاب نمایید')}
                     </FormFeedback>
-=======
-                        'is-invalid': errors.material?.value?.message || errors.material?.message,
-                      })}
-                      onInputChange={selectMaterial}
-                    />
-                    <FormFeedback className="d-block">{errors.material?.value?.message || errors.material?.message}</FormFeedback>
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                   </>
                 )}
               />
@@ -574,22 +445,14 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       isClearable
                       defaultOptions
                       className={classnames('react-select', {
-<<<<<<< HEAD
                         'is-invalid': errors.shippingType?.value?.message || errors.shippingType,
-=======
-                        'is-invalid': errors.shippingType?.value?.message || errors.shippingType?.message,
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                       })}
                       classNamePrefix="select"
                       loadOptions={ShippingOption}
                       cacheOptions
                     />
                     <FormFeedback className="d-block">
-<<<<<<< HEAD
                       {errors.shippingType?.value?.message || (errors.shippingType && 'نوع حمل را انتخاب نمایید')}
-=======
-                      {errors.shippingType?.value?.message || (errors.shippingType?.message && 'نوع حمل را وارد نمایید')}
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                     </FormFeedback>
                   </>
                 )}
@@ -632,16 +495,11 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                 name="loadingDateTime"
                 control={control}
                 render={({ field: { onChange, name, value } }) => (
-<<<<<<< HEAD
                   <div>
                     <DatePicker
                       render={<InputIcon style={darkMode ? darkStyle : lighStyle} />}
                       weekDays={weekDays}
                       className={darkMode ? 'green custom-calendar' : 'green'}
-=======
-                  <>
-                    <DatePicker
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                       inputClass={classnames('form-control react-select', {
                         'is-invalid': errors.loadingDateTime?.message,
                       })}
@@ -650,18 +508,13 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                         onChange(selectedDate.toISOString());
                       }}
                       value={value}
-<<<<<<< HEAD
                       format="HH:mm:ss YYYY/MM/DD"
-=======
-                      format="HH:mm:ss YYYY/DD/MM"
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
                       plugins={[<TimePicker position="bottom" />]}
                       calendar={persian}
                       locale={persian_fa}
                       calendarPosition="bottom-right"
                     />
                     <FormFeedback className="d-block">{errors.loadingDateTime?.message}</FormFeedback>
-<<<<<<< HEAD
                   </div>
                 )}
               />
@@ -669,32 +522,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
           </Row>
           <Row>
             <Col lg="4" md="6" sm="12" className="mb-1">
-=======
-                  </>
-                )}
-              />
-            </Col>
-            <Col lg="6" md="6" sm="12" className="mb-1">
-              <Label className="form-label">وزن</Label>
-              <Controller
-                name="netWeight"
-                control={control}
-                render={({ field }) => (
-                  <>
-                    <Input
-                      type="number"
-                      invalid={errors.netWeight && true}
-                      placeholder="وزن بار را وارد نمایید"
-                      autoComplete="off"
-                      {...field}
-                    />
-                    <FormFeedback className="d-block">{errors.netWeight?.message}</FormFeedback>
-                  </>
-                )}
-              />
-            </Col>
-            <Col lg="6" md="6" sm="12" className="mb-1">
->>>>>>> 59a0e3fc7cdf7d9579a8b419ebad6eb2cf78c492
               <Label className="form-label">محل بارگیری</Label>
               <Controller
                 name="receivingPoint"

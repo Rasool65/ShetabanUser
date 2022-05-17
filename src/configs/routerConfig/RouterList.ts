@@ -1,3 +1,4 @@
+import { ShipmentOrderDetail } from './../../pages/shipment-order/ShipmentOrderDetail';
 import { ProfileEdit } from './../../pages/profile/ProfileEdit';
 import {
   URL_DASHBOARD,
@@ -11,6 +12,7 @@ import {
   URL_SHIPMENT_ORDER,
   URL_ADD_REQUEST,
   URL_TRACK_CODE,
+  URL_SHIPMENT_ORDER_DETEAIL,
 } from './../urls';
 import IRoute from './IRoute';
 import RouteType from './RouteType';
@@ -96,6 +98,14 @@ const routes: IRoute[] = [
     type: RouteType.private,
     props: {
       title: 'لیست درخواست ها',
+    },
+  },
+  {
+    path: URL_SHIPMENT_ORDER_DETEAIL,
+    component: ShipmentOrderDetail,
+    type: RouteType.private,
+    props: {
+      title: 'جزئیات درخواست',
     },
   },
   {

@@ -7,9 +7,12 @@ export const usePersianDate = () => {
   const convertToPersianDate = (date: any) => {
     return moment.from(date, 'en').locale('fa').format('YYYY/MM/DD');
   };
+  const convertToPersianDateTime = (date: any) => {
+    return moment.from(date, 'en').locale('fa').format('YYYY/MM/DD hh:mm');
+  };
   const convertToGregorianDate = (date: any) => {
     return moment.from(date, 'fa').locale('en').format('YYYY/MM/DD');
   };
 
-  return { getCurrentDate, convertToPersianDate, convertToGregorianDate };
+  return { getCurrentDate, convertToPersianDate, convertToGregorianDate, convertToPersianDateTime };
 };

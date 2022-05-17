@@ -1,0 +1,53 @@
+
+.rdt_TableHead {
+    font-size: 13px  !important;
+    font-weight: bold !important;
+    background-color: #f7f7f7 !important; 
+}
+.dark-layout .rdt_TableHead {
+    background-color: #1d2230 !important;
+    color: white;
+}
+
+.dark-layout .rdt_TableRow {
+    background-color: #283046 !important;
+    color: white;
+}
+
+.rdt_TableRow:hover {
+    background-color: #dff1d4 !important;
+}
+.dark-layout .rdt_TableRow:hover {
+    background-color: #2c3756 !important;
+    color: white;
+}
+
+.custom-pagination {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    position: relative;
+    // border-top: 0;
+}
+.dark-layout .custom-pagination{
+    border: 1px solid #5c5c5c;
+}
+.custom-pagination select{
+    position: absolute;
+    top:10px;
+    right:10px;
+    width: 80px;
+}
+
+.custom-pagination button{
+    position: absolute;
+    top:15px;
+    left:7px;
+}
+
+
+.dark-layout .fwKvpK{
+    color: rgb(255, 255, 255) !important;
+    background-color: #262d40 !important;
+}

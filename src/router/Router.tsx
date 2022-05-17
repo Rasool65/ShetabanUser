@@ -9,6 +9,7 @@ import { useLayout } from '@src/hooks/useLayout';
 import { useRouterTransition } from '@src/hooks/useRouterTransition';
 import { URL_DASHBOARD, URL_LOGIN, URL_MAIN } from '@src/configs/urls';
 import LandingLayout from '@src/layouts/LandingLayout';
+import NotFound from '@src/pages/errors/NotFound';
 const LazyVerticalLayout = lazy(() => import('@src/layouts/VerticalLayout'));
 
 const Routers: FunctionComponent = () => {
@@ -58,6 +59,7 @@ const Routers: FunctionComponent = () => {
             />
           );
         })}
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
   );

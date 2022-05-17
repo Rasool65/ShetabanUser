@@ -8,5 +8,6 @@ export const URL_PROFILE_EDIT = '/profile/edit';
 export const URL_PASSWORD_EDIT = '/profile/change-password';
 export const URL_TICKET = '/ticket';
 export const URL_SHIPMENT_ORDER = '/shipment-order';
+export const URL_SHIPMENT_ORDER_DETEAIL = '/shipment-order/:id';
 export const URL_ADD_REQUEST = '/request';
 export const URL_TRACK_CODE = '/request/track-code';

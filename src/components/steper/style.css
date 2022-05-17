@@ -1,0 +1,40 @@
+.bs-stepper-circle
+{
+    padding: 0.5em 0;
+    border-radius: 4em;
+    width: 2.2em;
+    height: 2.2em;
+    line-height: 1.2em;
+}
+.active .bs-stepper-circle{
+    background-color: #11a551;
+}
+.bs-stepper .line, .bs-stepper-line{
+    min-height: 4px;
+}
+
+.line.active {
+    min-height: 4px;
+    background: linear-gradient(45deg,  #6c757d,#11a551);
+}
+.not-set .bs-stepper-circle{
+    background-color: transparent;
+    border: solid 3px #c1c1c1;
+}
+.not-set .bs-stepper-label{
+    color: #c1c1c1;
+}
+.step button span{
+    display: block;
+}
+.not-set .bs-stepper-icon{
+   color: #c1c1c1;
+}
+.active .bs-stepper-icon{
+    color: #11a551;
+}
+.bs-stepper-icon{
+    width: 100%;
+    margin-bottom: 8px;
+}
+.bs-stepper-label{width: 100%;}

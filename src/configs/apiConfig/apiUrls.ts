@@ -21,9 +21,11 @@ export const APIURL_CREATE_CONVERSATION = '/user/conversation/createConversation
 export const APIURL_NEW_MESSAGE_COUNT = '/user/conversation/getusermessagescount';
 
 //requests
+export const APIURL_GET_SHIPMENT_ORDER = 'user/shipmentorder/getpaged';
 export const APIURL_GET_CUSTOMERS = 'user/customers/getlist';
 export const APIURL_GET_SHIPPINGS = 'user/shippingtypes/getlist';
 export const APIURL_GET_MATERIALS = 'user/materials/getlist';
+
 export const APIURL_GET_ROUTES = 'user/routes/getlist';
 
 export const APIURL_CREATE_REQUEST = 'user/shipmentorder/create';

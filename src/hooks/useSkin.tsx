@@ -22,6 +22,7 @@ export const useSkin = () => {
     };
 
     element.classList.remove(...element.classList);
+    element.classList.add("user-panel");
 
     if (store.skin !== 'light') {
       element.classList.add(classNames[store.skin]);

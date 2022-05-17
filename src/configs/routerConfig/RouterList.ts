@@ -8,6 +8,7 @@ import {
   URL_MAIN,
   URL_LOGIN,
   URL_TICKET,
+  URL_SHIPMENT_ORDER,
   URL_ADD_REQUEST,
   URL_TRACK_CODE,
 } from './../urls';
@@ -19,8 +20,8 @@ import Dashboard from '@src/pages/dashboard/Dashboard';
 import LoginLayout from '@src/pages/authentication/LoginLayout';
 import History from '@src/pages/aboutUs/History';
 import Profile from '@src/pages/profile/Profile';
-
 import AppChat from '@src/pages/chat';
+import { ShipmentOrderList } from '@src/pages/shipment-order/ShipmentOrderList';
 import Request from '@src/pages/requisition';
 import TrackCode from '@src/pages/requisition/trackCode';
 
@@ -87,6 +88,14 @@ const routes: IRoute[] = [
     type: RouteType.private,
     props: {
       title: 'ویرایش پروفایل',
+    },
+  },
+  {
+    path: URL_SHIPMENT_ORDER,
+    component: ShipmentOrderList,
+    type: RouteType.private,
+    props: {
+      title: 'لیست درخواست ها',
     },
   },
   {

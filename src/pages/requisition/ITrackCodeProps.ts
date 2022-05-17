@@ -1,5 +1,5 @@
 export interface ITrackCodeProps {
   id?: string;
-  inquringNumber?: string;
+  inquiryNumber?: string;
   orderNumber?: string;
 }

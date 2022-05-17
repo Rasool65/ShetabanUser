@@ -307,7 +307,7 @@ pre[class*='language-'] {
 }
 
 // Perfect scrollbar RTL fix
-body .ps__rail-y {
+.user-panel .ps__rail-y {
   right: auto !important;
   left: 1px !important;
 }

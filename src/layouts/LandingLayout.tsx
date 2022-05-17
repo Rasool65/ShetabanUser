@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // ** Styles
 import '@src/scss/theme/main.scss';
 import '../assets/scss/style-rtl.scss';
-import '../scss/base/core/menu/menu-types/vertical-menu.scss';
-import '../scss/base/core/menu/menu-types/vertical-overlay-menu.scss';
+// import '../scss/base/core/menu/menu-types/vertical-menu.scss';
+// import '../scss/base/core/menu/menu-types/vertical-overlay-menu.scss';
 import { RootStateType } from '@src/redux/Store';
 
 import ThemeNavbar from './components/landing/navbar';
@@ -73,6 +73,8 @@ const LandingLayout = (props: any) => {
     httpRequest.getRequest<IOutputResult<IGeneralInformationState>>(APIURL_GET_GENERAL_INFO).then((result) => {
       dispatch(loadGeneralInformation(result));
     });
+
+    window.document.body.classList.remove('user-panel');
 
     return () => setIsMounted(false);
   }, []);

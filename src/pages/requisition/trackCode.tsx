@@ -14,7 +14,7 @@ const TrackCode: FunctionComponent<ITrackCodeProps> = (props) => {
   return (
     <>
       {inquiryNumber ? (
-        <Permanently />
+        <Permanently inquiryNumber={inquiryNumber} />
       ) : orderNumber && id ? (
         <RetryPermanently orderNumber={orderNumber} id={id} />
       ) : (

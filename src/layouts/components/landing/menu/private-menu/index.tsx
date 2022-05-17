@@ -28,12 +28,6 @@ export const PrivateMenu: FunctionComponent = (props: any) => {
   return (
     <>
       <Nav pills className="navbar-nav ml-auto menu">
-        <NavItem>
-          <Link to={URL_DASHBOARD}>داشبورد </Link>
-        </NavItem>
-        <NavItem>
-          <a href="#">تنظیمات</a>
-        </NavItem>
         <Dropdown nav isOpen={userDropdownOpen} toggle={() => handleUserDropdownToggle()}>
           <DropdownToggle caret nav>
             {userFullName}

@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { ITrackCodeProps } from './ITrackCodeProps';
 
-const Permanently: FunctionComponent<ITrackCodeProps> = (props) => {
+const Permanently: FunctionComponent<ITrackCodeProps> = ({ inquiryNumber }) => {
   return (
     <>
       <Card>
@@ -13,6 +13,10 @@ const Permanently: FunctionComponent<ITrackCodeProps> = (props) => {
             </div>
             <div style={{ marginRight: '20px' }}>
               <p>درخواست ثبت قطعی شما با موفقیت انجام شد.</p>
+            </div>
+            <div style={{ marginRight: '20px' }}>
+              <i>شماره سند قطعی : </i>
+              <i>{inquiryNumber}</i>
             </div>
             <br />
           </div>

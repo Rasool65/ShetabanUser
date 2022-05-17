@@ -1,32 +1,53 @@
-@import './base/bootstrap.scss';
-@import './base/bootstrap-extended.scss';
-@import './base/colors.scss';
-@import './base/components.scss';
-
+.user-panel {
+  @import './base/bootstrap.scss';
+  @import './base/bootstrap-extended.scss';
+  @import './base/colors.scss';
+  @import './base/components.scss';
+}
 // Themes
 @import './base/themes/dark-layout.scss';
-@import './base/themes/bordered-layout.scss';
-@import './base/themes/semi-dark-layout.scss';
-@import './base/custom-rtl.scss';
 
-// React Specific
+html {
+  font-size: $base-font-size;
+  height: 100%;
+  letter-spacing: 0.01rem;
+}
+
+.user-panel {
+  height: 100%;
+  background-color: $body-bg;
+  direction: $body-direction;
+  // paragraph line-height
+  p {
+    line-height: 1.5rem;
+  }
+  @import './base/themes/bordered-layout.scss';
+  @import './base/themes/semi-dark-layout.scss';
+  @import './base/custom-rtl.scss';
+}
+
 @import 'react/index';
 
-.hide {
-  display: none;
-}
+.user-panel {
+  // React Specific
 
-.simple-login {
-  display: none !important;
-}
+  .hide {
+    display: none;
+  }
 
-.navbar-header {
-  background: #e2f2ff;
-  padding-bottom: 5px;
-  display: table;
-  border-bottom: solid 1px #e3e3e3;
-}
-.dark-layout .navbar-header {
-  background: #4c556e;
-  border-bottom: solid 1px #5c5c5c;
+  .simple-login {
+    display: none !important;
+  }
+
+  .navbar-header {
+    background: #e2f2ff;
+    padding-bottom: 5px;
+    display: table;
+    border-bottom: solid 1px #e3e3e3;
+  }
+
+  &.dark-layout .navbar-header {
+    background: #4c556e;
+    border-bottom: solid 1px #5c5c5c;
+  }
 }

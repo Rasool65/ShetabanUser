@@ -13,6 +13,7 @@ import { RootStateType } from '@src/redux/Store';
 
 const Home: FunctionComponent<IPageProps> = (props) => {
   const generalInformationStore = useSelector((state: RootStateType) => state.generalInformation);
+  const authenticationStore = useSelector((state: RootStateType) => state.authentication);
 
   useEffect(() => {
     document.title = props.title;
@@ -36,8 +37,9 @@ const Home: FunctionComponent<IPageProps> = (props) => {
                     پاسخ‌گویی به سوالات شما آماده هستند.
                   </p>
                   <div className="action-btns mt-3">
-                    <Link to={URL_LOGIN} className="btn btn-brand-03 btn-rounded mr-3">
-                      وارد حساب کاربری خود شوید <i className="fas fa-user-alt pl-2"></i>
+                    <Link to={authenticationStore.isAuthenticate ? URL_DASHBOARD : URL_LOGIN} className="btn btn-brand-03 btn-rounded mr-3">
+                      {authenticationStore.isAuthenticate ? 'پنل کاربری' : 'وارد حساب کاربری خود شوید'}
+                      <i className="fas fa-user-alt pl-2"></i>
                     </Link>
                   </div>
                 </div>

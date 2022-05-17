@@ -8,15 +8,12 @@ import LayoutWrapper from '@src/layouts/components/layout-wrapper';
 import { useLayout } from '@src/hooks/useLayout';
 import { useRouterTransition } from '@src/hooks/useRouterTransition';
 import { URL_DASHBOARD, URL_LOGIN, URL_MAIN } from '@src/configs/urls';
-import { useSelector } from 'react-redux';
-import { RootStateType } from '@src/redux/Store';
 import LandingLayout from '@src/layouts/LandingLayout';
 const LazyVerticalLayout = lazy(() => import('@src/layouts/VerticalLayout'));
 
 const Routers: FunctionComponent = () => {
   const { layout, setLayout } = useLayout();
   const { transition, setTransition } = useRouterTransition();
-  const authenticationStore = useSelector((state: RootStateType) => state.authentication);
 
   return (
     <BrowserRouter>
@@ -48,9 +45,7 @@ const Routers: FunctionComponent = () => {
               key={index}
               path={route.path}
               element={
-                authenticationStore.isAuthenticate && route.path == URL_MAIN ? (
-                  <Navigate to={URL_DASHBOARD} />
-                ) : route.path == URL_LOGIN ? (
+                route.path == URL_LOGIN ? (
                   <Fragment>
                     <route.component name={route.name} {...route.props} />
                   </Fragment>

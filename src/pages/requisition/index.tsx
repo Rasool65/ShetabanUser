@@ -66,7 +66,6 @@ const Request: FunctionComponent<IPageProps> = (props) => {
 
   const onSubmit = (data: IRequestModel) => {
     if (data && !isLoading) {
-      debugger;
       setIsLoading(true);
       const body = {
         customerCode: data.soldToParty.value,
@@ -83,7 +82,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
         description: data.description,
         loadingDateTime: data.loadingDateTime,
       };
-      submitType
+      !submitType
         ? httpRequest
             .postRequest<IOutputResult<IRequestModel>>(APIURL_CREATE_PERMANENT_REQUEST, body)
             .then((result) => {
@@ -124,7 +123,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
   const CustomerListData = (data: CustomerModel[]) => {
     CustomerSelectData = [];
     data.forEach((d) => {
-      CustomerSelectData.push({ value: d.customerCode, label: d.customerName });
+      CustomerSelectData.push({ value: d.customerCode, label: d.portalDesc });
     });
   };
   const CustomerOption = (inputValue: string) => {
@@ -144,7 +143,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
   const ShippingListData = (data: ShippingModel[]) => {
     ShippingSelectData = [];
     data.forEach((d) => {
-      ShippingSelectData.push({ value: d.shippingTypeCode, label: d.description });
+      ShippingSelectData.push({ value: d.shippingTypeCode, label: d.portalDesc });
     });
   };
   const ShippingOption = (inputValue: string) => {
@@ -164,7 +163,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
   const MaterialListData = (data: MaterialModel[]) => {
     MaterialSelectData = [];
     data.forEach((d) => {
-      MaterialSelectData.push({ value: d.materialNumber, label: d.description });
+      MaterialSelectData.push({ value: d.materialNumber, label: d.portalDesc });
     });
   };
   const MaterialOption = (inputValue: string) => {
@@ -184,7 +183,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
   const RouteListData = (data: RouteModel[]) => {
     RouteSelectData = [];
     data.forEach((d) => {
-      RouteSelectData.push({ value: d.routeCode, label: d.description });
+      RouteSelectData.push({ value: d.routeCode, label: d.portalDesc });
     });
   };
   const RouteOption = (inputValue: string) => {
@@ -227,6 +226,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       className={classnames('react-select', {
                         'is-invalid': errors.soldToParty?.value?.message || errors.soldToParty,
                       })}
+                      noOptionsMessage={() => 'لیست خالی است'}
                       classNamePrefix="select"
                       loadOptions={CustomerOption}
                       cacheOptions
@@ -391,6 +391,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       className={classnames('react-select', {
                         'is-invalid': errors.route?.value?.message || errors.route,
                       })}
+                      noOptionsMessage={() => 'لیست خالی است'}
                       cacheOptions
                     />
                     <FormFeedback className="d-block">
@@ -420,6 +421,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       className={classnames('react-select', {
                         'is-invalid': errors.material?.value?.message || errors.material,
                       })}
+                      noOptionsMessage={() => 'لیست خالی است'}
                     />
                     <FormFeedback className="d-block">
                       {errors.material?.value?.message || (errors.material && 'نوع سرویس را انتخاب نمایید')}
@@ -449,6 +451,7 @@ const Request: FunctionComponent<IPageProps> = (props) => {
                       })}
                       classNamePrefix="select"
                       loadOptions={ShippingOption}
+                      noOptionsMessage={() => 'لیست خالی است'}
                       cacheOptions
                     />
                     <FormFeedback className="d-block">
@@ -585,23 +588,33 @@ const Request: FunctionComponent<IPageProps> = (props) => {
         </CardBody>
       </Card>
 
-      <Button
-        disabled={isLoading}
-        style={{ marginBottom: '50px' }}
-        onClick={() => setSubmitType(false)}
-        type="submit"
-        color="primary"
-      >
-        {isLoading ? <Spinner style={{ width: '1rem', height: '1rem' }} /> : 'ثبت موقت درخواست'}
-      </Button>
-      <Button
-        disabled={isLoading}
-        style={{ marginBottom: '50px', marginRight: '50px' }}
-        onClick={() => setSubmitType(true)}
-        type="submit"
-        color="primary"
-      >
-        {isLoading ? <Spinner style={{ width: '1rem', height: '1rem' }} /> : 'ثبت نهایی درخواست'}
+      <Card className="card-request">
+        <CardHeader className="card-header">
+          <CardTitle tag="h4">وضعیت ثبت</CardTitle>
+        </CardHeader>
+        <hr />
+        <CardBody className="cardbody-request">
+          <Row>
+            <div className="form-check form-check-inline" style={{ paddingRight: '15px', marginBottom: '5px' }}>
+              <Input
+                type="checkbox"
+                defaultChecked={submitType}
+                id="basic-cb-checked"
+                onChange={() => {
+                  setSubmitType(!submitType);
+                }}
+                style={{ marginRight: '0' }}
+              />
+              <Label for="basic-cb-checked" className="form-check-label" style={{ marginRight: '5px' }}>
+                انجام ثبت به صورت موقت
+              </Label>
+            </div>
+          </Row>
+        </CardBody>
+      </Card>
+
+      <Button disabled={isLoading} style={{ marginBottom: '50px' }} type="submit" color="primary">
+        {isLoading ? <Spinner style={{ width: '1rem', height: '1rem' }} /> : 'ثبت درخواست'}
       </Button>
     </Form>
   );

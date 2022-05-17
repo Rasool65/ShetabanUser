@@ -30,7 +30,7 @@ import { useNavbarColor } from '@src/hooks/useNavbarColor';
 
 // ** Styles
 import '../scss/base/core/menu/menu-types/vertical-menu.scss';
-import '../scss/base/core/menu/menu-types/vertical-overlay-menu.scss';
+// import '../scss/base/core/menu/menu-types/vertical-overlay-menu.scss';
 import { RootStateType } from '@src/redux/Store';
 import Customizer from '../components/customizer';
 import ScrollTop from '../components/scrolltop';
